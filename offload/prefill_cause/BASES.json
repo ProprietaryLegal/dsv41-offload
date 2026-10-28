@@ -1,0 +1,5 @@
+{
+  "vllm/models/deepseek_v41/nvidia/model.py": "bc3aa8b06ff40c65e93f31e11c3cad38fcb4fb6425946e61829f041bac283d3f",
+  "vllm_exl3_moe/tf_prompt.py": "8d66ae29656575b1ab38a6b7a8fa03d9bc4cc2b10565efdc966af07b30268456",
+  "vllm_exl3_moe/tf_experts.py": "bde1d0b48b87394aeff364ac51d6bab209d21c422690e557778fa81c5922024d"
+}

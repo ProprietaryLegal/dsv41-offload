@@ -1,0 +1,6 @@
+# Unified-diff blank context lines contain a mandatory space; preserve reproducible patch bytes.
+patches/*.patch whitespace=-blank-at-eol
+# These three byte-pinned copies retain the existing proxy source's extra newline at EOF.
+overlay/offload/dspark/spark/remote_dspark/config.py whitespace=-blank-at-eof
+overlay/offload/dspark/spark/remote_dspark/hostflag.py whitespace=-blank-at-eof
+overlay/offload/dspark/spark/remote_dspark/round.py whitespace=-blank-at-eof

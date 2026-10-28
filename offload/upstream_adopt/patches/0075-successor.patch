@@ -1,0 +1,161 @@
+--- a/vllm/v1/core/sched/scheduler.py
++++ b/vllm/v1/core/sched/scheduler.py
+@@ -107,8 +107,8 @@
+                              has_encoder_inputs: bool, enabled: bool | None = None) -> int:
+     if enabled is None:
+         enabled = _DSV41_REPLAY_SKIP
+-    if enabled and window > 0 and not has_encoder_inputs and remaining > window and 0 < num_new_tokens <= window:
+-        return 0
++    # Arithmetic alone cannot reserve a future turn. Small chunks are safe when
++    # no skipped predecessor exists; schedule() owns the positive reservations.
+     return num_new_tokens
+ 
+ 
+@@ -676,6 +676,38 @@
+                 long_prefill_token_threshold, input_budget // num_eligible_reqs
+             )
+ 
++        # UP2: reserve floors BEFORE any predecessor can become skippable.
++        # At most max_num_active_reqs successors can be live. Reject an unsupported
++        # capacity/configuration before executing any skip, rather than spin at 0.
++        replay_on = _DSV41_REPLAY_SKIP and self.prefix_replay_tokens > 0
++        replay_floors: dict[str, int] = {}
++        if replay_on:
++            window = self.prefix_replay_tokens
++            if (self.max_num_scheduled_tokens < self.max_num_active_reqs * (window + 1)
++                or input_budget < self.max_num_active_reqs * (window + 1 + draft_slots)
++                or self.num_prefill_lookahead > 1 or self.need_mamba_block_aligned_split):
++                raise RuntimeError("0075 successor reservation unavailable for configured capacity/alignment")
++            for r in list(self.running):
++                expected = getattr(r, "_dsv41_replay_end", None)
++                if expected is not None and r.num_computed_tokens != expected:
++                    # KV loss/backtracking invalidated the promised successor.
++                    # Use the installed preempt/prefix-hit replay route: it sends
++                    # replay_start with a resumed request and rebuilds REAL rows.
++                    self.running.remove(r)
++                    self._preempt_request(r, scheduled_timestamp)
++                    preempted_reqs.append(r)
++                    continue
++                demand = r.num_tokens_with_spec + r.num_output_placeholders - r.num_computed_tokens
++                if (demand > 0 and not r.has_encoder_inputs
++                    and (expected is not None or not (defer_prefills and r.is_prefill_chunk
++                                                     and r.priority >= _DSV41_THROTTLE_MIN_PRIO))):
++                    # A decode near the context cap cannot owe unavailable rows.
++                    floor = min(demand, window + 1,
++                                self.max_model_len - r.num_computed_tokens
++                                - self.num_sampled_tokens_per_step)
++                    if floor > 0:
++                        replay_floors[r.request_id] = floor
++
+         # First, schedule the RUNNING requests.
+         req_index = 0
+         while req_index < len(self.running) and token_budget > 0:
+@@ -705,7 +732,9 @@
+                 req_index += 1
+                 continue
+ 
+-            if defer_prefills and request.is_prefill_chunk and request.priority >= _DSV41_THROTTLE_MIN_PRIO:
++            if (defer_prefills and request.is_prefill_chunk
++                and request.priority >= _DSV41_THROTTLE_MIN_PRIO
++                and not (replay_on and getattr(request, "_dsv41_replay_end", None) is not None)):
+                 # DP prefill balancing: defer this in-progress prefill chunk to a
+                 # cadence-aligned step; decodes still run to fill this step.
+                 req_index += 1
+@@ -730,8 +759,13 @@
+             if (0 < long_prefill_token_threshold < num_new_tokens
+                     and request.priority >= _DSV41_THROTTLE_MIN_PRIO):
+                 num_new_tokens = long_prefill_token_threshold
++            replay_floor = replay_floors.pop(request.request_id, 0)
++            # Earlier work may use extras, but cannot consume a later admitted
++            # request's floor (including decode). Request/priority order stays.
++            held = sum(replay_floors.values())
++            held_slots = len(replay_floors) * draft_slots
+             num_new_tokens = min(
+-                num_new_tokens, token_budget, input_budget - draft_slots
++                num_new_tokens, token_budget - held, input_budget - draft_slots - held - held_slots
+             )
+ 
+             # Make sure the input position does not exceed the max model len.
+@@ -772,6 +806,13 @@
+             num_new_tokens = self._reserve_prefill_lookahead(
+                 request, request.num_computed_tokens, num_new_tokens
+             )
++            if replay_floor:
++                num_new_tokens = max(num_new_tokens, replay_floor)
++                if (num_new_tokens > token_budget - held
++                    or num_new_tokens + draft_slots > input_budget - held - held_slots
++                    or num_new_tokens > self.max_model_len - request.num_computed_tokens
++                                        - self.num_sampled_tokens_per_step):
++                    raise RuntimeError("0075 admitted successor reservation invalidated")
+             num_new_tokens = _dsv41_replay_min_chunk(
+                 num_new_tokens, request.num_tokens - request.num_computed_tokens,
+                 self.prefix_replay_tokens, request.has_encoder_inputs,
+@@ -1109,6 +1150,14 @@
+                     if self._ec_transfer_pending(request, num_computed_tokens):
+                         skip_request(request_queue)
+                         continue
++
++                if (replay_on and not load_kv_async
++                    and not did_prefix_cache_lookup
++                    and getattr(request, "_dsv41_replay_end", None) is not None):
++                    # Includes async restore completion and explicit waiting-path
++                    # resumption. A second bounded replay is safe; missing history
++                    # must never be certified merely from a computed-token count.
++                    num_computed_tokens -= self._mark_prefix_replay(request, num_computed_tokens)
+ 
+                 encoder_inputs_to_schedule = None
+                 external_load_encoder_input = []
+@@ -1665,6 +1714,15 @@
+         num_scheduled_tokens = scheduler_output.num_scheduled_tokens
+         for req_id, num_scheduled_token in num_scheduled_tokens.items():
+             request = self.requests[req_id]
++            if _DSV41_REPLAY_SKIP and self.prefix_replay_tokens > 0:
++                end = request.num_computed_tokens + num_scheduled_token
++                # Conservative for logprobs/MM: an unnecessary obligation costs
++                # scheduling freedom, never invents taps. Store on the Request,
++                # so cancellation/slot reuse cannot inherit another owner's debt.
++                setattr(request, "_dsv41_replay_end",
++                        end if (not request.has_encoder_inputs
++                                and num_scheduled_token > self.prefix_replay_tokens
++                                and request.num_tokens - end > self.prefix_replay_tokens) else None)
+             request.num_computed_tokens += num_scheduled_token
+             request.num_in_flight_tokens += num_scheduled_token
+             if self.defer_block_free:
+--- a/vllm/models/deepseek_v41/replay_skip.py
++++ b/vllm/models/deepseek_v41/replay_skip.py
+@@ -15,7 +15,7 @@
+   - trims (query_len > window),
+   - is not its last and leaves more than a window (remaining_after > window), and
+   - is text only and asks no prompt logprobs (those requests keep every row anyway),
+-and the scheduler guarantees (min_chunk below) that a chunk which leaves more than a window always trims, so the chunk
++and the scheduler reserves a positive successor floor before admitting a skippable predecessor, so the chunk
+ after a skipped one never reads the skipped window. Final outputs, the final chunk's window KV and everything the decode
+ reads stay what they are without the patch; an intermediate chunk saves layers 20-39 on 127 of its 128 replay rows
+ (MoE streaming of ~86 % of 20 layers' experts, attention, 5 long-context indexers: ~0.1 s of ~1.9 s per 4096-token chunk
+@@ -71,11 +71,10 @@
+ def min_chunk(
+     num_new_tokens: int, remaining: int, window: int, enabled: bool = REPLAY_SKIP, has_encoder_inputs: bool = False
+ ) -> int:
+-    """Scheduler side: a prefill chunk that leaves more than a window must trim (more than ``window`` rows); otherwise
+-    the request waits a step (0). The final chunk (num_new_tokens == remaining) is never touched, nor are decodes
+-    (remaining <= window). Requests with encoder inputs keep vLLM's chunking (their worker side never skips)."""
+-    if not enabled or window <= 0 or has_encoder_inputs or num_new_tokens <= 0:
+-        return num_new_tokens
+-    if remaining > window and num_new_tokens <= window:
+-        return 0
++    """Compatibility arithmetic only; scheduler.schedule owns successor reservations.
++
++    Never return a synthetic zero. A small proposal without a skipped predecessor
++    can run normally; an outstanding obligation gets its reserved floor on the
++    running path or a genuine prefix suffix replay on the waiting path.
++    """
+     return num_new_tokens
+--- a/vllm/v1/core/sched/scheduler.py
++++ b/vllm/v1/core/sched/scheduler.py
+@@ -1121,3 +1121,5 @@
+                 elif (defer_prefills and num_computed_tokens < request.num_tokens - 1
+-                      and request.priority >= _DSV41_THROTTLE_MIN_PRIO):
++                      and request.priority >= _DSV41_THROTTLE_MIN_PRIO
++                      and not (replay_on and getattr(request, "_dsv41_replay_end", None)
++                               is not None)):
+                     # DP prefill balancing: defer this step's local prefill

@@ -1,0 +1,13 @@
+vllm/models/deepseek_v41/attention.py
+vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py
+vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py
+vllm/models/deepseek_v41/nvidia/dspark.py
+vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py
+vllm/models/deepseek_v41/nvidia/model.py
+vllm/v1/core/kv_cache_utils.py
+vllm/v1/kv_cache_interface.py
+vllm/v1/worker/utils.py
+vllm/v1/worker/gpu/model_runner.py
+vllm/v1/worker/gpu/dsv41_memprobe.py
+vllm_exl3_moe/tf_prompt.py
+vllm_exl3_moe/tf_experts.py

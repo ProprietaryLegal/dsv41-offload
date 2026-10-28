@@ -1,0 +1,24 @@
+# DSV41-OFFLOAD lane O2: the DSpark drafter worker on x86host's RTX 3090 GPU-c4e7a371 (systemd --user unit).
+# Installed (not enabled) by start.sh into ~/.config/systemd/user/. Listens only on the direct link to Spark A.
+[Unit]
+Description=DSV41-OFFLOAD DSpark drafter worker (RTX 3090 GPU-c4e7a371, ofl 10.202.28.1:18620)
+After=network-online.target
+
+[Service]
+Type=simple
+Environment=CUDA_VISIBLE_DEVICES=GPU-c4e7a371-d8a8-ebf0-918c-da3e38c87a93
+# O1 transport pinned into o2/lib by run/pin_ofl.sh (O1 rebuilds cannot touch a running worker)
+Environment=OFL_PY_DIR=%h/dsv41-offload/o2/lib
+Environment=OFL_LIB=%h/dsv41-offload/o2/lib/libofl.so
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=%h/dsv41-offload/o2/repo/offload/dspark
+ExecStart=%h/dsv41-offload/o2/venv/bin/python -m worker.server --root /opt/dsv41/x86host-data/dspark --ofl 10.202.28.1:18620 --status-file %h/dsv41-offload/o2/run/worker.status.json
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+MemoryMax=48G
+StandardOutput=append:%h/dsv41-offload/o2/logs/worker.log
+StandardError=append:%h/dsv41-offload/o2/logs/worker.log
+
+[Install]
+WantedBy=default.target
