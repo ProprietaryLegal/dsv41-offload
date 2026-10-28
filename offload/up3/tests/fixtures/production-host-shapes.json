@@ -1,0 +1,78 @@
+{
+  "sparkhead": {
+    "rank": 0,
+    "inspect": {
+      "Id": "217206b4abfc2ad409c8b828e5ed5fdbc7d974deb557c5b4d28818dd25097393",
+      "State": {
+        "Running": true,
+        "Paused": false,
+        "Status": "running"
+      },
+      "Config": {
+        "Cmd": [
+          "/serve.sh"
+        ],
+        "Entrypoint": [
+          "/bin/bash"
+        ],
+        "Env": [
+          "EXL3_RDMA_DEVICES=rocep1s0f1"
+        ]
+      },
+      "serve_mount": {
+        "Destination": "/serve.sh",
+        "Mode": "ro",
+        "Propagation": "rprivate",
+        "RW": false,
+        "Source": "/home/rank0user/dsv41-deploy/run/dsv41-serve.sh",
+        "Type": "bind"
+      }
+    },
+    "sysfs": {
+      "/sys/class/infiniband/rocep1s0f1/ports/1/gids/3": "0000:0000:0000:0000:0000:ffff:0aca:1a02",
+      "/sys/class/infiniband/rocep1s0f1/ports/1/gid_attrs/types/3": "RoCE v2",
+      "/sys/class/infiniband/rocep1s0f1/ports/1/gid_attrs/ndevs/3": "enp1s0f1np1",
+      "/sys/class/infiniband/roceP2p1s0f1/ports/1/gids/3": "0000:0000:0000:0000:0000:ffff:0aca:1b02",
+      "/sys/class/infiniband/roceP2p1s0f1/ports/1/gid_attrs/types/3": "RoCE v2",
+      "/sys/class/infiniband/roceP2p1s0f1/ports/1/gid_attrs/ndevs/3": "enP2p1s0f1np1"
+    }
+  },
+  "sparkworker-wired": {
+    "rank": 1,
+    "inspect": {
+      "Id": "469c860c177f68a78a0024af8d3b651d10ed2bc8b44e69cd9f0a9cb34145a400",
+      "State": {
+        "Running": true,
+        "Paused": false,
+        "Status": "running"
+      },
+      "Config": {
+        "Cmd": [
+          "/serve.sh"
+        ],
+        "Entrypoint": [
+          "/bin/bash"
+        ],
+        "Env": [
+          "EXL3_RDMA_DEVICES=rocep1s0f1"
+        ]
+      },
+      "serve_mount": {
+        "Destination": "/serve.sh",
+        "Mode": "ro",
+        "Propagation": "rprivate",
+        "RW": false,
+        "Source": "/home/rank1user/dsv41-deploy/run/dsv41-serve.sh",
+        "Type": "bind"
+      }
+    },
+    "sysfs": {
+      "/sys/class/infiniband/rocep1s0f1/ports/1/gids/3": "0000:0000:0000:0000:0000:ffff:0aca:1a01",
+      "/sys/class/infiniband/rocep1s0f1/ports/1/gid_attrs/types/3": "RoCE v2",
+      "/sys/class/infiniband/rocep1s0f1/ports/1/gid_attrs/ndevs/3": "enp1s0f1np1",
+      "/sys/class/infiniband/roceP2p1s0f1/ports/1/gids/3": "0000:0000:0000:0000:0000:ffff:0aca:1b01",
+      "/sys/class/infiniband/roceP2p1s0f1/ports/1/gid_attrs/types/3": "RoCE v2",
+      "/sys/class/infiniband/roceP2p1s0f1/ports/1/gid_attrs/ndevs/3": "enP2p1s0f1np1"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+ "default": "OFF: nothing changes unless an arm mounts these files (offload/upfix/configs.py)",
+ "donor": {
+  "patch_commit": "f1b6207c5c774f3bdefa686ae6150f4042a4fd06",
+  "repo": "github.com/HeNryous/deepseek-v41-1017-dgx-spark",
+  "tip": "382071728ce69700b28e7a5ea197ab0a48b2232c"
+ },
+ "files": [
+  {
+   "base": "image:vllm/distributed/device_communicators/shm_broadcast.py",
+   "base_sha256": "961bd69aac4b24872164044aa55f9851177f782d1f922ca99f16bc16fbc4e25b",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/device_communicators/shm_broadcast.py",
+   "overlay": "offload/upfix/overlay/vllm/distributed/device_communicators/shm_broadcast.py",
+   "overlay_sha256": "bcd86fd49e3fd4072d78533193d7d13afd088e8e1c239896ebf1311e6e8e6a1b",
+   "path": "vllm/distributed/device_communicators/shm_broadcast.py",
+   "upstream": [
+    "#63165",
+    "#61000"
+   ],
+   "variant": "image"
+  },
+  {
+   "base": "image:vllm/v1/core/sched/scheduler.py",
+   "base_sha256": "54beb2a2060941c2747e5906d694e4495e333adf50cd990b56a54622cd1bdf97",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/sched/scheduler.py",
+   "overlay": "offload/upfix/overlay/vllm/v1/core/sched/scheduler.py",
+   "overlay_sha256": "1fb40272c3e7a8ed886d24ddfe2af7b34722e070f347c14ffacec757765d5b1d",
+   "path": "vllm/v1/core/sched/scheduler.py",
+   "upstream": [
+    "#59880",
+    "#59096"
+   ],
+   "variant": "image"
+  },
+  {
+   "base": "image:vllm/v1/kv_offload/tiering/async_lookup.py",
+   "base_sha256": "dab14b4bff7b9db7149b3561d785f57b7e136e0276f4e3d18ac08206a8ba9b43",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/async_lookup.py",
+   "overlay": "offload/upfix/overlay/vllm/v1/kv_offload/tiering/async_lookup.py",
+   "overlay_sha256": "7c04c46385a2b0f7796f2e4c194a3107a91e22e160193e4f2d961fa44e236750",
+   "path": "vllm/v1/kv_offload/tiering/async_lookup.py",
+   "upstream": [
+    "#59096"
+   ],
+   "variant": "image"
+  },
+  {
+   "base": "image:vllm/v1/worker/gpu/block_table.py",
+   "base_sha256": "808770c3ee8032d70f6544bd3fd136b5c024fdc9b6ed5f1d8a203a377eac4d81",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/block_table.py",
+   "overlay": "offload/upfix/overlay/vllm/v1/worker/gpu/block_table.py",
+   "overlay_sha256": "9de6fa6d9ce0964b879abc7f2a6f00715b5c8d5947fdd16f5ea7cafd2528c742",
+   "path": "vllm/v1/worker/gpu/block_table.py",
+   "upstream": [
+    "#61174",
+    "#59504"
+   ],
+   "variant": "image"
+  },
+  {
+   "base": "offload/upstream_adopt/overlay/vllm/v1/core/sched/scheduler.py",
+   "base_sha256": "bff8b59438a839f1e4023166d9c2462b2468bc9c56a623f696b0be24f1a4e616",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/sched/scheduler.py",
+   "overlay": "offload/upfix/overlay-0075/vllm/v1/core/sched/scheduler.py",
+   "overlay_sha256": "079986917de3505a29e13bba3837a8b756bac3928598de01258018a4cc1d4e71",
+   "path": "vllm/v1/core/sched/scheduler.py",
+   "upstream": [
+    "#59880",
+    "#59096"
+   ],
+   "variant": "0075"
+  }
+ ],
+ "patch": "offload/upfix/patches/0091-dsv41-upstream-fixes.patch",
+ "patch_sha256": "25627e5094f006895a199b4f32b9f381669d79766a66e7163533b313ed16dbf6",
+ "schema": "dsv41-upfix-0091-v1",
+ "switch_when_mounted": {
+  "VLLM_DSV41_SPEC_RESERVE_PER_GROUP": "'1' default (#59880 on); '0' restores the old count"
+ },
+ "vllm_base": "6e517b15"
+}

@@ -1,0 +1,28 @@
+# DSV41-OFFLOAD configuration D: the DSpark drafter worker on x86host's RTX 3090 GPU-c4e7a371, production paths
+# (systemd --user). Code: ~/dsv41-offload/prod/dspark-worker/current -> <commit> (git archive of offload/dspark +
+# offload/transport); ofl transport pinned in ~/dsv41-offload/prod/dspark-worker/lib (sha256 9f11b6e8…, x86-64 build).
+# --max-model-len 1048576 sizes the RoPE table for the model's full context; shorter engine sessions are accepted.
+# Listens only on the direct link to Spark A. Install: cp to ~/.config/systemd/user/dsv41-dspark-worker.service,
+# systemctl --user daemon-reload && systemctl --user enable --now dsv41-dspark-worker. Upgrade: new <commit> dir,
+# flip `current`, systemctl --user restart dsv41-dspark-worker (the engine reconnects; target-only rounds meanwhile).
+[Unit]
+Description=DSV41-OFFLOAD DSpark drafter worker (RTX 3090 GPU-c4e7a371, ofl 10.202.28.1:18620)
+After=network-online.target
+
+[Service]
+Type=simple
+Environment=CUDA_VISIBLE_DEVICES=GPU-c4e7a371-d8a8-ebf0-918c-da3e38c87a93
+Environment=OFL_PY_DIR=%h/dsv41-offload/prod/dspark-worker/lib
+Environment=OFL_LIB=%h/dsv41-offload/prod/dspark-worker/lib/libofl.so
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=%h/dsv41-offload/prod/dspark-worker/current/offload/dspark
+ExecStart=%h/dsv41-offload/o2/venv/bin/python -m worker.server --root /opt/dsv41/x86host-data/dspark --ofl 10.202.28.1:18620 --max-model-len 1048576 --status-file %h/dsv41-offload/prod/run/dspark-worker.status.json
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+MemoryMax=48G
+StandardOutput=append:%h/dsv41-offload/prod/logs/dspark-worker.log
+StandardError=append:%h/dsv41-offload/prod/logs/dspark-worker.log
+
+[Install]
+WantedBy=default.target

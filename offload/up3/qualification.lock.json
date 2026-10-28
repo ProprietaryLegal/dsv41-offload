@@ -1,0 +1,112 @@
+{
+  "schema": "up3-qualification-lock-v1",
+  "production": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "files": {
+    "offload/up3/engine_common.py": "da6e41106993bbb3a8dd5f4a9513f03208386089b8c3fc0c19724c3ce347a598",
+    "offload/up3/engine_split.py": "d99a41175da8dbeaa127db436b73a5976bd124071910136850dd5b78f4259157",
+    "offload/up3/engine_vor.py": "7a5f5f9c87435486579fa89e1b7516c11f96c3d8e64efeeea913e6c5b60cd442",
+    "offload/up3/engine_k5.py": "70d4bc0dcf943c8f9fac83a28c98e347790a66d7b3b76d6c4dfb37024d2b9134",
+    "offload/up3/engine_ring.py": "6d64c593b0ca9458539af88d62a31651631f056b54a1c38ba813d68e59189816",
+    "offload/up3/engine_affinity.py": "199e3fae3cb0b512ccf3e3dabae06af888e839edcdec436f1451d520dcca6f97",
+    "offload/up3/bootstrap.py": "a7b90469c741e78d11fb63e5b654d998e520295cbca54134f48e0ef2585f93e7",
+    "offload/up3/qualify.py": "31bdb7208a0663dfa50cad983ada1aaaf0ad6e9dea8ae2fdba606687bdde6ec5",
+    "offload/up3/qualification_lock.py": "67b054e0263518f100353c7cf881e4a07c92a4ac58af24871d8bbfa49f99d1f4",
+    "offload/up3/stock_smoe.py.txt": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+    "offload/up3/build.py": "9d996a645c8ec23fdedc0c5ce592f960c31f38a29aa6cc0d0003c0a672fd9713",
+    "offload/up3/gates.py": "75d36a2f3a3af391e9a3d7c9647f1c13eb5477b13defd21e83a57e6b224c083c",
+    "offload/up3/inputs.json": "bc075fa8fbf3de1b983946662e44cd681236ed513167b4e782406911ee636191",
+    "offload/up3/manifests/control.json": "82f77f87d27126d5b93e561ffcc2ddb562c09f5a4a282a6ee44c23bb71f84e8e",
+    "offload/up3/manifests/split.json": "03e796742e29146d59761ec287b74a5517b11415c0b9161b8952777bac690a1a",
+    "offload/up3/manifests/cpu-pin.json": "e245be7a8237beb627e8f97737258691bf04e35bd680e082926e09f775e447df",
+    "offload/up3/manifests/vor.json": "391f113f947707e296810f7ad445226500f6916e702e66ff7069c572b5a14ff2",
+    "offload/up3/manifests/k5.json": "1d1274a7e17c383717374a64dd88539b00bfd6f16e7932ccf744d66bb2729a61",
+    "offload/up3/manifests/dual-ring.json": "fb06ed7e8ea0acd937480cd7a27be5dbc09ab02e6edac7fa0bf6051422ddc0c0",
+    "offload/up3/manifests/fixed2.json": "891d0f6c30be82ea250e3dc15fc5890b013be17d3de14d53b2d3f04bc1a2dc13",
+    "offload/up3/manifests/defer.json": "5a0a9e1cbfd3e444a1dc56312ab24eaa8e2db4a4e64ab89e123978b8922945f2",
+    "offload/up3/manifests/ring-defer.json": "7f1dbd1b19a142e3c2b0a56320b9b790a71c1f6e9c1b0b04c16a0f009a7a78a5"
+  },
+  "engine": {
+    "split": {
+      "vllm_exl3_moe.forward": "c06ba9b66e6349fc4c0bad93a74e62c22d489f1a9d54596a5d10fd0fcb7c8966",
+      "vllm_exl3_moe.smoe": "954976235fb0064204112b4b5388a6b04a1f0ebf092bf6ce6666584ac99b1497",
+      "vllm_exl3_moe.rdma": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+      "vllm.v1.attention.backends.mla.sparse_swa": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "vllm.models.deepseek_v41.nvidia.model_state": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7"
+    },
+    "cpu-pin": {
+      "vllm_exl3_moe.forward": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "vllm_exl3_moe.smoe": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "vllm_exl3_moe.rdma": "ab16d11c47ce92e5de2cd7a66045be2e4b2f2613668a56dd1b3493aa9c88c008",
+      "vllm.v1.attention.backends.mla.sparse_swa": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "vllm.models.deepseek_v41.nvidia.model_state": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7",
+      "vllm_exl3_moe.up3_rdma_pin": "4c6d138df4b0ab135b02ec7c26578b558432e570d75f241f4b84aecd720db73f"
+    },
+    "vor": {
+      "vllm_exl3_moe.forward": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "vllm_exl3_moe.smoe": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "vllm_exl3_moe.rdma": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+      "vllm.v1.attention.backends.mla.sparse_swa": "1995997b763d57fcbb4b1028dc6f5831dd26294d6911a4c485801856f2321173",
+      "vllm.models.deepseek_v41.nvidia.model_state": "81e1d3e3ce03cb5e855c14caf8a436a6090b6ab6503bba84f50ff524177655d8",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7",
+      "vllm.models.deepseek_v41.common.ops.swa_fused": "3deeeb8cd82b49acaa405bff7a1827c97984ea12e75c71af5986cdc46f1bc5be"
+    },
+    "k5": {
+      "vllm_exl3_moe.forward": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "vllm_exl3_moe.smoe": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "vllm_exl3_moe.rdma": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+      "vllm.v1.attention.backends.mla.sparse_swa": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "vllm.models.deepseek_v41.nvidia.model_state": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7"
+    },
+    "dual-ring": {
+      "vllm_exl3_moe.forward": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "vllm_exl3_moe.smoe": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "vllm_exl3_moe.rdma": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+      "vllm.v1.attention.backends.mla.sparse_swa": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "vllm.models.deepseek_v41.nvidia.model_state": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7"
+    },
+    "fixed2": {
+      "vllm_exl3_moe.forward": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "vllm_exl3_moe.smoe": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "vllm_exl3_moe.rdma": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+      "vllm.v1.attention.backends.mla.sparse_swa": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "vllm.models.deepseek_v41.nvidia.model_state": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7"
+    },
+    "defer": {
+      "vllm_exl3_moe.forward": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "vllm_exl3_moe.smoe": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "vllm_exl3_moe.rdma": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+      "vllm.v1.attention.backends.mla.sparse_swa": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "vllm.models.deepseek_v41.nvidia.model_state": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7"
+    },
+    "ring-defer": {
+      "vllm_exl3_moe.forward": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "vllm_exl3_moe.smoe": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "vllm_exl3_moe.rdma": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+      "vllm.v1.attention.backends.mla.sparse_swa": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "vllm.models.deepseek_v41.nvidia.model_state": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "vllm.v1.worker.gpu.model_runner": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "vllm.v1.worker.gpu.spec_decode.remote_dspark.speculator": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3",
+      "vllm.models.deepseek_v41.common.engram": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7"
+    }
+  }
+}

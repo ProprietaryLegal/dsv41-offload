@@ -1,0 +1,1871 @@
+{
+  "status": "ESTIMATED screening only; not a qualified recalibration",
+  "measured_worker_source": "offload/results/n2-pair-w5/summary.json: k2-tp2 draft_p50_us B1..4 k5_n5",
+  "measured_worker_ms": [
+    2.0275,
+    2.5122,
+    2.8961,
+    3.7219
+  ],
+  "estimated_assumptions": {
+    "nominal_anchor_caps": [
+      5,
+      5,
+      4,
+      4
+    ],
+    "central_overlap_fraction": 0.75,
+    "overlap_sensitivity": [
+      0,
+      1
+    ],
+    "central_fixed_overhead_ms": 0.3,
+    "overhead_sensitivity_ms": [
+      0,
+      0.6
+    ],
+    "central_row_slope_scale": 0.5,
+    "row_slope_scale_sensitivity": [
+      0,
+      1
+    ]
+  },
+  "cells": [
+    {
+      "suite": "W4-E1p",
+      "context": 0,
+      "batch": 1,
+      "runs": 3,
+      "request_rounds": 2308.0,
+      "prefix_survival_MEASURED": [
+        0.5558925476603119,
+        0.2785961871750433,
+        0.07279029462738301,
+        0.026429809358752165,
+        0.015164644714038129
+      ],
+      "step_p50_median_MEASURED": 37.142,
+      "step_p50_min_MEASURED": 36.935,
+      "step_p50_max_MEASURED": 37.417,
+      "per_run_survival_MEASURED": [
+        [
+          0.5606860158311345,
+          0.2928759894459103,
+          0.08179419525065963,
+          0.027704485488126648,
+          0.014511873350923483
+        ],
+        [
+          0.5670650730411687,
+          0.28950863213811423,
+          0.0849933598937583,
+          0.03054448871181939,
+          0.0199203187250996
+        ],
+        [
+          0.5407779171894604,
+          0.2547051442910916,
+          0.05269761606022585,
+          0.02132998745294856,
+          0.011292346298619825
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W4-E1p-short.jsonl",
+          "sha256": "598766fecc58668cf8de4b9a583e4a013230f4510f77e60f3dd249d14984f020"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.5558925476603118,
+          "aggregate_tps_ESTIMATED": 49.817256264738454,
+          "sensitivity_min_ESTIMATED": 39.2678689698844,
+          "sensitivity_max_ESTIMATED": 64.46671938050213,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -5.057329384553444,
+          "gain_sensitivity_min_ESTIMATED": -21.33333333333335,
+          "gain_sensitivity_max_ESTIMATED": 21.756090807081986
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.8344887348353551,
+          "aggregate_tps_ESTIMATED": 56.407623603571594,
+          "sensitivity_min_ESTIMATED": 45.759218644873435,
+          "sensitivity_max_ESTIMATED": 69.0480911249588,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 7.5027175228977505,
+          "gain_sensitivity_min_ESTIMATED": -6.799999999999995,
+          "gain_sensitivity_max_ESTIMATED": 28.269353352247627
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9072790294627382,
+          "aggregate_tps_ESTIMATED": 55.797759916410335,
+          "sensitivity_min_ESTIMATED": 47.10225650866427,
+          "sensitivity_max_ESTIMATED": 64.27300817488808,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 6.3404277560191735,
+          "gain_sensitivity_min_ESTIMATED": -2.533333333333332,
+          "gain_sensitivity_max_ESTIMATED": 17.522972404295434
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9337088388214905,
+          "aggregate_tps_ESTIMATED": 53.592063600174335,
+          "sensitivity_min_ESTIMATED": 47.645867072579605,
+          "sensitivity_max_ESTIMATED": 57.98942322709236,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.136769936784244,
+          "gain_sensitivity_min_ESTIMATED": -1.0000000000000009,
+          "gain_sensitivity_max_ESTIMATED": 5.595976376510192
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9488734835355286,
+          "aggregate_tps_ESTIMATED": 52.47088157706985,
+          "sensitivity_min_ESTIMATED": 47.93366090053479,
+          "sensitivity_max_ESTIMATED": 55.13798107457721,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W4-E1p",
+      "context": 32000,
+      "batch": 1,
+      "runs": 3,
+      "request_rounds": 1770.0,
+      "prefix_survival_MEASURED": [
+        0.7084745762711865,
+        0.4598870056497175,
+        0.2271186440677966,
+        0.09096045197740113,
+        0.05706214689265537
+      ],
+      "step_p50_median_MEASURED": 39.576,
+      "step_p50_min_MEASURED": 39.463,
+      "step_p50_max_MEASURED": 40.175,
+      "per_run_survival_MEASURED": [
+        [
+          0.7048903878583473,
+          0.45531197301854975,
+          0.2209106239460371,
+          0.0893760539629005,
+          0.06070826306913996
+        ],
+        [
+          0.6852459016393443,
+          0.44098360655737706,
+          0.19836065573770492,
+          0.08032786885245902,
+          0.05245901639344262
+        ],
+        [
+          0.7372134038800705,
+          0.48500881834215165,
+          0.26455026455026454,
+          0.10405643738977072,
+          0.0582010582010582
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W4-E1p-c32.jsonl",
+          "sha256": "5aceafb928f29df9884a863eb7c536690a80e54ca43e1fae3ee62a64d3b1e3d4"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.7084745762711866,
+          "aggregate_tps_ESTIMATED": 50.747774498639174,
+          "sensitivity_min_ESTIMATED": 40.129082532748214,
+          "sensitivity_max_ESTIMATED": 64.73413743154313,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -21.038266443849064,
+          "gain_sensitivity_min_ESTIMATED": -34.420772303595214,
+          "gain_sensitivity_max_ESTIMATED": -1.215230081749341
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.168361581920904,
+          "aggregate_tps_ESTIMATED": 62.031170097291,
+          "sensitivity_min_ESTIMATED": 50.629786035967356,
+          "sensitivity_max_ESTIMATED": 75.54435610476303,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -3.4817039015195728,
+          "gain_sensitivity_min_ESTIMATED": -16.111850865512658,
+          "gain_sensitivity_max_ESTIMATED": 13.7028100193886
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.3954802259887007,
+          "aggregate_tps_ESTIMATED": 65.42167975717447,
+          "sensitivity_min_ESTIMATED": 55.35315080879083,
+          "sensitivity_max_ESTIMATED": 75.96416762132007,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 1.7938086313591617,
+          "gain_sensitivity_min_ESTIMATED": -6.125166444740371,
+          "gain_sensitivity_max_ESTIMATED": 11.703207698327422
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.486440677966102,
+          "aggregate_tps_ESTIMATED": 64.55604626560655,
+          "sensitivity_min_ESTIMATED": 57.26591836142184,
+          "sensitivity_max_ESTIMATED": 70.9114314712427,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.44691368288609645,
+          "gain_sensitivity_min_ESTIMATED": -2.398401065956035,
+          "gain_sensitivity_max_ESTIMATED": 3.543851071338766
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.543502824858757,
+          "aggregate_tps_ESTIMATED": 64.26882011468457,
+          "sensitivity_min_ESTIMATED": 58.51507268150738,
+          "sensitivity_max_ESTIMATED": 68.52807885848144,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W4-E1p",
+      "context": 32000,
+      "batch": 3,
+      "runs": 1,
+      "request_rounds": 1680.0,
+      "prefix_survival_MEASURED": [
+        0.743452380952381,
+        0.5136904761904761,
+        0.2833333333333333,
+        0.13690476190476192,
+        0.0011904761904761906
+      ],
+      "step_p50_median_MEASURED": 72.97,
+      "step_p50_min_MEASURED": 72.97,
+      "step_p50_max_MEASURED": 72.97,
+      "per_run_survival_MEASURED": [
+        [
+          0.743452380952381,
+          0.5136904761904761,
+          0.2833333333333333,
+          0.13690476190476192,
+          0.0011904761904761906
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W4-E1p-c32x3.jsonl",
+          "sha256": "6e38b6adf06c7a4f0ab0436adc358c0a8d7f9f0757dd642b1bd55a8b2bc631fc"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.743452380952381,
+          "aggregate_tps_ESTIMATED": 89.53024893627428,
+          "sensitivity_min_ESTIMATED": 69.32944438308654,
+          "sensitivity_max_ESTIMATED": 122.07347698020978,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -18.664018045069742,
+          "gain_sensitivity_min_ESTIMATED": -34.88216985326812,
+          "gain_sensitivity_max_ESTIMATED": 9.344361513328137
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.257142857142857,
+          "aggregate_tps_ESTIMATED": 108.70811641400823,
+          "sensitivity_min_ESTIMATED": 89.7566586209164,
+          "sensitivity_max_ESTIMATED": 133.8598014850672,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -1.2414072332392,
+          "gain_sensitivity_min_ESTIMATED": -15.6958648288128,
+          "gain_sensitivity_max_ESTIMATED": 19.90167633267632
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.5404761904761903,
+          "aggregate_tps_ESTIMATED": 113.29609887659538,
+          "sensitivity_min_ESTIMATED": 101.02358095835208,
+          "sensitivity_max_ESTIMATED": 125.87836881689611,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.9266595734569245,
+          "gain_sensitivity_min_ESTIMATED": -5.113383726100507,
+          "gain_sensitivity_max_ESTIMATED": 12.752501256715544
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.677380952380952,
+          "aggregate_tps_ESTIMATED": 110.07459034045303,
+          "sensitivity_min_ESTIMATED": 106.46768208778532,
+          "sensitivity_max_ESTIMATED": 111.64130942895494,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.678571428571429,
+          "aggregate_tps_ESTIMATED": 105.52481005534192,
+          "sensitivity_min_ESTIMATED": 98.23362409467349,
+          "sensitivity_max_ESTIMATED": 111.690949851111,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -4.133361088184806,
+          "gain_sensitivity_min_ESTIMATED": -8.081132752949472,
+          "gain_sensitivity_max_ESTIMATED": 0.04446420631392112
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W4-E1p",
+      "context": 150000,
+      "batch": 1,
+      "runs": 2,
+      "request_rounds": 1367.0,
+      "prefix_survival_MEASURED": [
+        0.6569129480614484,
+        0.36430138990490124,
+        0.11485003657644477,
+        0.03511338697878566,
+        0.021945866861741038
+      ],
+      "step_p50_median_MEASURED": 39.697,
+      "step_p50_min_MEASURED": 39.599,
+      "step_p50_max_MEASURED": 39.795,
+      "per_run_survival_MEASURED": [
+        [
+          0.6588921282798834,
+          0.36588921282798836,
+          0.11078717201166181,
+          0.029154518950437316,
+          0.02040816326530612
+        ],
+        [
+          0.6549192364170338,
+          0.36270190895741555,
+          0.11894273127753303,
+          0.041116005873715125,
+          0.023494860499265784
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W4-E1p-c150.jsonl",
+          "sha256": "f4312374bd081d33c64171c0ebb96d56ad195244d50fa6284bf600b29fe6373c"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.6569129480614484,
+          "aggregate_tps_ESTIMATED": 49.03995465893534,
+          "sensitivity_min_ESTIMATED": 39.76677597457767,
+          "sensitivity_max_ESTIMATED": 61.50394632532229,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -11.234412191764543,
+          "gain_sensitivity_min_ESTIMATED": -24.816544362908623,
+          "gain_sensitivity_max_ESTIMATED": 9.186522939146258
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.0212143379663496,
+          "aggregate_tps_ESTIMATED": 57.62221221787352,
+          "sensitivity_min_ESTIMATED": 48.48229830440969,
+          "sensitivity_max_ESTIMATED": 68.51559206344288,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 4.300046235839505,
+          "gain_sensitivity_min_ESTIMATED": -8.338892595063385,
+          "gain_sensitivity_max_ESTIMATED": 21.63413425463787
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1360643745427943,
+          "aggregate_tps_ESTIMATED": 58.14476888539603,
+          "sensitivity_min_ESTIMATED": 51.31650703598789,
+          "sensitivity_max_ESTIMATED": 64.99622025202152,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 5.245908646976494,
+          "gain_sensitivity_min_ESTIMATED": -2.9352901934623254,
+          "gain_sensitivity_max_ESTIMATED": 15.33252033498529
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.17117776152158,
+          "aggregate_tps_ESTIMATED": 56.19426356915857,
+          "sensitivity_min_ESTIMATED": 52.017073684943355,
+          "sensitivity_max_ESTIMATED": 59.38242963901594,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 1.7153639692121914,
+          "gain_sensitivity_min_ESTIMATED": -1.0673782521681274,
+          "gain_sensitivity_max_ESTIMATED": 4.793010038064649
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1931236283833213,
+          "aggregate_tps_ESTIMATED": 55.246583580203065,
+          "sensitivity_min_ESTIMATED": 52.50747033921218,
+          "sensitivity_max_ESTIMATED": 56.74282455588508,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W5-E1p",
+      "context": 0,
+      "batch": 1,
+      "runs": 3,
+      "request_rounds": 2267.0,
+      "prefix_survival_MEASURED": [
+        0.5756506396118218,
+        0.29422143802382,
+        0.07587119541243935,
+        0.026025584472871635,
+        0.012792236435818262
+      ],
+      "step_p50_median_MEASURED": 37.255,
+      "step_p50_min_MEASURED": 37.194,
+      "step_p50_max_MEASURED": 37.286,
+      "per_run_survival_MEASURED": [
+        [
+          0.5844327176781002,
+          0.28891820580474936,
+          0.07255936675461741,
+          0.021108179419525065,
+          0.010554089709762533
+        ],
+        [
+          0.5850340136054422,
+          0.31700680272108844,
+          0.09115646258503401,
+          0.031292517006802724,
+          0.017687074829931974
+        ],
+        [
+          0.5581395348837209,
+          0.2777777777777778,
+          0.06459948320413436,
+          0.025839793281653745,
+          0.0103359173126615
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W5-E1p-short.jsonl",
+          "sha256": "dfc633b621a1924a4534e410147b2cbeb709591de852b2cf5e30a07cba0b7155"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.5756506396118217,
+          "aggregate_tps_ESTIMATED": 50.268005730158606,
+          "sensitivity_min_ESTIMATED": 39.84336502788776,
+          "sensitivity_max_ESTIMATED": 64.51849834302719,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -5.6348247892310965,
+          "gain_sensitivity_min_ESTIMATED": -22.385076615589604,
+          "gain_sensitivity_max_ESTIMATED": 19.162356238292745
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.869872077635642,
+          "aggregate_tps_ESTIMATED": 57.2965245177154,
+          "sensitivity_min_ESTIMATED": 46.94645249140008,
+          "sensitivity_max_ESTIMATED": 70.06417130088474,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 7.559400786780923,
+          "gain_sensitivity_min_ESTIMATED": -6.862091938707538,
+          "gain_sensitivity_max_ESTIMATED": 27.06219254583595
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9457432730480813,
+          "aggregate_tps_ESTIMATED": 56.735479604842716,
+          "sensitivity_min_ESTIMATED": 48.59833329686806,
+          "sensitivity_max_ESTIMATED": 65.42124597944716,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 6.50618411873678,
+          "gain_sensitivity_min_ESTIMATED": -2.398401065956035,
+          "gain_sensitivity_max_ESTIMATED": 17.518612641465726
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9717688575209529,
+          "aggregate_tps_ESTIMATED": 54.47627731788791,
+          "sensitivity_min_ESTIMATED": 49.259085619055256,
+          "sensitivity_max_ESTIMATED": 59.07965129605613,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.265116335195194,
+          "gain_sensitivity_min_ESTIMATED": -0.8660892738174386,
+          "gain_sensitivity_max_ESTIMATED": 5.619980872572139
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.984561093956771,
+          "aggregate_tps_ESTIMATED": 53.26965760184595,
+          "sensitivity_min_ESTIMATED": 49.52338654793014,
+          "sensitivity_max_ESTIMATED": 56.12361160021021,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W5-E1p",
+      "context": 32000,
+      "batch": 1,
+      "runs": 3,
+      "request_rounds": 1726.0,
+      "prefix_survival_MEASURED": [
+        0.7149478563151797,
+        0.47334878331402086,
+        0.25028968713789107,
+        0.10081112398609501,
+        0.06720741599073002
+      ],
+      "step_p50_median_MEASURED": 40.384,
+      "step_p50_min_MEASURED": 40.352,
+      "step_p50_max_MEASURED": 40.484,
+      "per_run_survival_MEASURED": [
+        [
+          0.727112676056338,
+          0.4894366197183099,
+          0.2482394366197183,
+          0.10915492957746478,
+          0.06514084507042253
+        ],
+        [
+          0.6961602671118531,
+          0.44073455759599334,
+          0.2287145242070117,
+          0.08180300500834725,
+          0.05509181969949917
+        ],
+        [
+          0.7227191413237924,
+          0.4919499105545617,
+          0.27549194991055453,
+          0.11270125223613596,
+          0.08228980322003578
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W5-E1p-c32.jsonl",
+          "sha256": "f550e2cc5115c0daf4dcc4e20c2a3119c46c7e300a4cb82fa7db5a2457fb0906"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.7149478563151797,
+          "aggregate_tps_ESTIMATED": 49.746123348470725,
+          "sensitivity_min_ESTIMATED": 40.09396767166362,
+          "sensitivity_max_ESTIMATED": 62.294134870675535,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -22.928577670686558,
+          "gain_sensitivity_min_ESTIMATED": -35.84277148567623,
+          "gain_sensitivity_max_ESTIMATED": -3.3255934221716354
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1882966396292005,
+          "aggregate_tps_ESTIMATED": 61.18713341989711,
+          "sensitivity_min_ESTIMATED": 50.512085255639214,
+          "sensitivity_max_ESTIMATED": 73.14107088403853,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -5.203077476188723,
+          "gain_sensitivity_min_ESTIMATED": -17.52165223184544,
+          "gain_sensitivity_max_ESTIMATED": 11.425658608620214
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.4385863267670915,
+          "aggregate_tps_ESTIMATED": 65.16102839800908,
+          "sensitivity_min_ESTIMATED": 55.91845688065684,
+          "sensitivity_max_ESTIMATED": 74.05655746376881,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.9536583161656509,
+          "gain_sensitivity_min_ESTIMATED": -7.261825449700199,
+          "gain_sensitivity_max_ESTIMATED": 11.172471988672704
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.539397450753187,
+          "aggregate_tps_ESTIMATED": 64.57627532176754,
+          "sensitivity_min_ESTIMATED": 57.852122644349286,
+          "sensitivity_max_ESTIMATED": 69.5485253295759,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.04770327356509174,
+          "gain_sensitivity_min_ESTIMATED": -3.0646235842771707,
+          "gain_sensitivity_max_ESTIMATED": 3.3384707944514203
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.6066048667439166,
+          "aggregate_tps_ESTIMATED": 64.54548501247812,
+          "sensitivity_min_ESTIMATED": 59.15438734234624,
+          "sensitivity_max_ESTIMATED": 67.90096269123136,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W5-E1p",
+      "context": 32000,
+      "batch": 3,
+      "runs": 1,
+      "request_rounds": 1703.0,
+      "prefix_survival_MEASURED": [
+        0.7322372284204345,
+        0.4938344098649442,
+        0.278919553728714,
+        0.13329418672930124,
+        0.002935995302407516
+      ],
+      "step_p50_median_MEASURED": 73.33,
+      "step_p50_min_MEASURED": 73.33,
+      "step_p50_max_MEASURED": 73.33,
+      "per_run_survival_MEASURED": [
+        [
+          0.7322372284204345,
+          0.4938344098649442,
+          0.278919553728714,
+          0.13329418672930124,
+          0.002935995302407516
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W5-E1p-c32x3.jsonl",
+          "sha256": "0eeacd0d663465af1288ef9b70771f46be44021871ddf3fe7d507dc298dd4d7a"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.7322372284204346,
+          "aggregate_tps_ESTIMATED": 88.40952169549684,
+          "sensitivity_min_ESTIMATED": 68.55632494573932,
+          "sensitivity_max_ESTIMATED": 120.27761635424972,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -18.089853885598906,
+          "gain_sensitivity_min_ESTIMATED": -34.34231026040507,
+          "gain_sensitivity_max_ESTIMATED": 9.879322775817645
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.2260716382853785,
+          "aggregate_tps_ESTIMATED": 106.59560917567656,
+          "sensitivity_min_ESTIMATED": 88.10068741332128,
+          "sensitivity_max_ESTIMATED": 131.0842498324183,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -1.2407062577967753,
+          "gain_sensitivity_min_ESTIMATED": -15.62430447362565,
+          "gain_sensitivity_max_ESTIMATED": 19.751696406588295
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.5049911920140926,
+          "aggregate_tps_ESTIMATED": 111.1189350294585,
+          "sensitivity_min_ESTIMATED": 99.13941770119456,
+          "sensitivity_max_ESTIMATED": 123.38647523567728,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.9500898748012094,
+          "gain_sensitivity_min_ESTIMATED": -5.0523035833518914,
+          "gain_sensitivity_max_ESTIMATED": 12.719413217007848
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.6382853787433937,
+          "aggregate_tps_ESTIMATED": 107.93476252870833,
+          "sensitivity_min_ESTIMATED": 104.41476880718874,
+          "sensitivity_max_ESTIMATED": 109.46337610730208,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.6412213740458013,
+          "aggregate_tps_ESTIMATED": 103.56377103826173,
+          "sensitivity_min_ESTIMATED": 96.43943537377073,
+          "sensitivity_max_ESTIMATED": 109.58519157147668,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -4.049660543130407,
+          "gain_sensitivity_min_ESTIMATED": -7.982529752897472,
+          "gain_sensitivity_max_ESTIMATED": 0.11128421989763382
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W5-E1p",
+      "context": 32000,
+      "batch": 4,
+      "runs": 1,
+      "request_rounds": 2240.0,
+      "prefix_survival_MEASURED": [
+        0.728125,
+        0.5013392857142858,
+        0.2892857142857143,
+        0.1575892857142857,
+        0.0013392857142857143
+      ],
+      "step_p50_median_MEASURED": 87.667,
+      "step_p50_min_MEASURED": 87.667,
+      "step_p50_max_MEASURED": 87.667,
+      "per_run_survival_MEASURED": [
+        [
+          0.728125,
+          0.5013392857142858,
+          0.2892857142857143,
+          0.1575892857142857,
+          0.0013392857142857143
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W5-E1p-c32x4.jsonl",
+          "sha256": "603ece0fe0114704b729643f1aaa3c1f05effbe69aa209f17172d8082e82a365"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.728125,
+          "aggregate_tps_ESTIMATED": 101.25682980063574,
+          "sensitivity_min_ESTIMATED": 76.16372805059144,
+          "sensitivity_max_ESTIMATED": 145.10924128071898,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -17.079996681332666,
+          "gain_sensitivity_min_ESTIMATED": -35.42952460383654,
+          "gain_sensitivity_max_ESTIMATED": 17.16319590571247
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.2294642857142857,
+          "aggregate_tps_ESTIMATED": 121.45201551005957,
+          "sensitivity_min_ESTIMATED": 98.25927612623448,
+          "sensitivity_max_ESTIMATED": 153.87149493274737,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -0.5420024606602292,
+          "gain_sensitivity_min_ESTIMATED": -16.697247706422026,
+          "gain_sensitivity_max_ESTIMATED": 24.237959939673104
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.51875,
+          "aggregate_tps_ESTIMATED": 125.83211560318234,
+          "sensitivity_min_ESTIMATED": 111.00897795438826,
+          "sensitivity_max_ESTIMATED": 141.43025645902858,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 3.044895479685472,
+          "gain_sensitivity_min_ESTIMATED": -5.888240200166816,
+          "gain_sensitivity_max_ESTIMATED": 14.192732993815715
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.6763392857142856,
+          "aggregate_tps_ESTIMATED": 122.11387572127646,
+          "sensitivity_min_ESTIMATED": 117.95441737620659,
+          "sensitivity_max_ESTIMATED": 123.8522388869421,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.6776785714285714,
+          "aggregate_tps_ESTIMATED": 116.53861279025848,
+          "sensitivity_min_ESTIMATED": 107.92910393040081,
+          "sensitivity_max_ESTIMATED": 123.91421665452522,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -4.565626058535277,
+          "gain_sensitivity_min_ESTIMATED": -8.888595207466278,
+          "gain_sensitivity_max_ESTIMATED": 0.050041701417846696
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W5-E1p",
+      "context": 150000,
+      "batch": 1,
+      "runs": 2,
+      "request_rounds": 1356.0,
+      "prefix_survival_MEASURED": [
+        0.6349557522123894,
+        0.3812684365781711,
+        0.13421828908554573,
+        0.04056047197640118,
+        0.021386430678466076
+      ],
+      "step_p50_median_MEASURED": 39.672,
+      "step_p50_min_MEASURED": 39.395,
+      "step_p50_max_MEASURED": 39.949,
+      "per_run_survival_MEASURED": [
+        [
+          0.6515625,
+          0.425,
+          0.1734375,
+          0.065625,
+          0.0296875
+        ],
+        [
+          0.6201117318435754,
+          0.34217877094972066,
+          0.09916201117318436,
+          0.018156424581005588,
+          0.013966480446927373
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W5-E1p-c150.jsonl",
+          "sha256": "f052aa7a7c7c60487c0404d572784d8a9ed146f44d14c911abd9d4165e17cd44"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.6349557522123894,
+          "aggregate_tps_ESTIMATED": 48.425915295669384,
+          "sensitivity_min_ESTIMATED": 38.786839284374125,
+          "sensitivity_max_ESTIMATED": 61.69884891078474,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -13.163888395237267,
+          "gain_sensitivity_min_ESTIMATED": -29.58027981345771,
+          "gain_sensitivity_max_ESTIMATED": 11.555781091446837
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.0162241887905603,
+          "aggregate_tps_ESTIMATED": 57.520945703256885,
+          "sensitivity_min_ESTIMATED": 46.978887236677274,
+          "sensitivity_max_ESTIMATED": 70.75622377920224,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 3.1450872988701972,
+          "gain_sensitivity_min_ESTIMATED": -11.459027315123272,
+          "gain_sensitivity_max_ESTIMATED": 23.23895523736015
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.150442477876106,
+          "aggregate_tps_ESTIMATED": 58.576009966117525,
+          "sensitivity_min_ESTIMATED": 49.35290929632431,
+          "sensitivity_max_ESTIMATED": 68.87447626700337,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 5.037001525386775,
+          "gain_sensitivity_min_ESTIMATED": -4.0639573617588525,
+          "gain_sensitivity_max_ESTIMATED": 16.30923322698017
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1910029498525074,
+          "aggregate_tps_ESTIMATED": 56.74409380121484,
+          "sensitivity_min_ESTIMATED": 49.78758939175265,
+          "sensitivity_max_ESTIMATED": 63.49723217193095,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 1.7520563555371016,
+          "gain_sensitivity_min_ESTIMATED": -1.2658227848101555,
+          "gain_sensitivity_max_ESTIMATED": 5.107403290254431
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.212389380530974,
+          "aggregate_tps_ESTIMATED": 55.76702411098443,
+          "sensitivity_min_ESTIMATED": 50.12195869592828,
+          "sensitivity_max_ESTIMATED": 60.778089114202885,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W5-prod",
+      "context": 0,
+      "batch": 1,
+      "runs": 2,
+      "request_rounds": 1503.0,
+      "prefix_survival_MEASURED": [
+        0.5788423153692615,
+        0.30073186959414505,
+        0.08183632734530938,
+        0.02262142381902861,
+        0.011310711909514305
+      ],
+      "step_p50_median_MEASURED": 38.4765,
+      "step_p50_min_MEASURED": 38.44,
+      "step_p50_max_MEASURED": 38.513,
+      "per_run_survival_MEASURED": [
+        [
+          0.5816993464052288,
+          0.27712418300653596,
+          0.06928104575163399,
+          0.022222222222222223,
+          0.01045751633986928
+        ],
+        [
+          0.575880758807588,
+          0.3252032520325203,
+          0.0948509485094851,
+          0.023035230352303523,
+          0.012195121951219513
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W5-prod-short.jsonl",
+          "sha256": "d9b6b56efc230441a07ee97131fe6ea225b4e60bae37f58f7399be93921de8ac"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.5788423153692615,
+          "aggregate_tps_ESTIMATED": 48.480564855580475,
+          "sensitivity_min_ESTIMATED": 39.071141232844504,
+          "sensitivity_max_ESTIMATED": 61.27500434004906,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -6.514179131056663,
+          "gain_sensitivity_min_ESTIMATED": -22.414943295530353,
+          "gain_sensitivity_max_ESTIMATED": 17.604464782935025
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.8795741849634064,
+          "aggregate_tps_ESTIMATED": 55.515903444343216,
+          "sensitivity_min_ESTIMATED": 46.08620051908959,
+          "sensitivity_max_ESTIMATED": 66.95578633349125,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 7.05217276729031,
+          "gain_sensitivity_min_ESTIMATED": -6.404269513008664,
+          "gain_sensitivity_max_ESTIMATED": 25.65084857690023
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9614105123087158,
+          "aggregate_tps_ESTIMATED": 55.22533223455903,
+          "sensitivity_min_ESTIMATED": 47.8038999758489,
+          "sensitivity_max_ESTIMATED": 62.93718955005517,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 6.491859822330293,
+          "gain_sensitivity_min_ESTIMATED": -1.7344896597731863,
+          "gain_sensitivity_max_ESTIMATED": 16.689560710273742
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9840319361277445,
+          "aggregate_tps_ESTIMATED": 53.02558860737226,
+          "sensitivity_min_ESTIMATED": 48.35486017896038,
+          "sensitivity_max_ESTIMATED": 56.85138071352203,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.2500602620037835,
+          "gain_sensitivity_min_ESTIMATED": -0.6004002668445585,
+          "gain_sensitivity_max_ESTIMATED": 5.404452579152075
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.995342648037259,
+          "aggregate_tps_ESTIMATED": 51.85873580074224,
+          "sensitivity_min_ESTIMATED": 48.6141355686599,
+          "sensitivity_max_ESTIMATED": 53.972804853519776,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "W5-prod",
+      "context": 32000,
+      "batch": 1,
+      "runs": 1,
+      "request_rounds": 617.0,
+      "prefix_survival_MEASURED": [
+        0.6871961102106969,
+        0.4343598055105348,
+        0.21231766612641814,
+        0.06482982171799027,
+        0.03079416531604538
+      ],
+      "step_p50_median_MEASURED": 40.457,
+      "step_p50_min_MEASURED": 40.457,
+      "step_p50_max_MEASURED": 40.457,
+      "per_run_survival_MEASURED": [
+        [
+          0.6871961102106969,
+          0.4343598055105348,
+          0.21231766612641814,
+          0.06482982171799027,
+          0.03079416531604538
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "W5-prod-c32.jsonl",
+          "sha256": "2cc57b9ded76ef3661be881c8a099dd4a83bd7e184b0ff806d1659ffe4b393bd"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.687196110210697,
+          "aggregate_tps_ESTIMATED": 48.83770255624792,
+          "sensitivity_min_ESTIMATED": 39.90754235155586,
+          "sensitivity_max_ESTIMATED": 60.62481250841299,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -18.673434473630323,
+          "gain_sensitivity_min_ESTIMATED": -30.553702468312206,
+          "gain_sensitivity_max_ESTIMATED": -1.0584976560970127
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.121555915721232,
+          "aggregate_tps_ESTIMATED": 59.20015391135509,
+          "sensitivity_min_ESTIMATED": 50.181530199987144,
+          "sensitivity_max_ESTIMATED": 69.7647877383349,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -1.4174511854253002,
+          "gain_sensitivity_min_ESTIMATED": -12.675116744496318,
+          "gain_sensitivity_max_ESTIMATED": 13.85821454831666
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.3338735818476497,
+          "aggregate_tps_ESTIMATED": 62.241608177924896,
+          "sensitivity_min_ESTIMATED": 55.20351679754124,
+          "sensitivity_max_ESTIMATED": 69.19255656027512,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 3.6473044594735216,
+          "gain_sensitivity_min_ESTIMATED": -3.935957304869908,
+          "gain_sensitivity_max_ESTIMATED": 12.924316197086295
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.3987034035656403,
+          "aggregate_tps_ESTIMATED": 60.88543299148768,
+          "sensitivity_min_ESTIMATED": 56.73694781969517,
+          "sensitivity_max_ESTIMATED": 63.914079784323654,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 1.3889453559101428,
+          "gain_sensitivity_min_ESTIMATED": -1.2675116744496284,
+          "gain_sensitivity_max_ESTIMATED": 4.309684651173229
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.4294975688816853,
+          "aggregate_tps_ESTIMATED": 60.051352519506764,
+          "sensitivity_min_ESTIMATED": 57.46532755521827,
+          "sensitivity_max_ESTIMATED": 61.27338990436184,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "K1-R1",
+      "context": 0,
+      "batch": 1,
+      "runs": 3,
+      "request_rounds": 2229.0,
+      "prefix_survival_MEASURED": [
+        0.5903992821893226,
+        0.30372364288918796,
+        0.08568864961866307,
+        0.02736653207716465,
+        0.011215791834903545
+      ],
+      "step_p50_median_MEASURED": 38.628,
+      "step_p50_min_MEASURED": 38.245,
+      "step_p50_max_MEASURED": 39.311,
+      "per_run_survival_MEASURED": [
+        [
+          0.5699481865284974,
+          0.27461139896373055,
+          0.06994818652849741,
+          0.022020725388601035,
+          0.006476683937823834
+        ],
+        [
+          0.5823451910408433,
+          0.2845849802371542,
+          0.07378129117259552,
+          0.023715415019762844,
+          0.010540184453227932
+        ],
+        [
+          0.6217765042979942,
+          0.35673352435530087,
+          0.11604584527220631,
+          0.03724928366762178,
+          0.017191977077363897
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "R1-short.jsonl",
+          "sha256": "6cbc32a73e219b98eb2b51deda1288167c2d2d6ae07d8374524f2b9db739413f"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.5903992821893227,
+          "aggregate_tps_ESTIMATED": 48.60930625922498,
+          "sensitivity_min_ESTIMATED": 38.168883104630495,
+          "sensitivity_max_ESTIMATED": 63.30582368139722,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -6.971563703440486,
+          "gain_sensitivity_min_ESTIMATED": -24.53333333333334,
+          "gain_sensitivity_max_ESTIMATED": 18.08048012881507
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.8941229250785105,
+          "aggregate_tps_ESTIMATED": 55.696392762835515,
+          "sensitivity_min_ESTIMATED": 44.845288400159916,
+          "sensitivity_max_ESTIMATED": 70.16459529324362,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 6.591694570878515,
+          "gain_sensitivity_min_ESTIMATED": -7.933333333333337,
+          "gain_sensitivity_max_ESTIMATED": 26.041217279517713
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9798115746971736,
+          "aggregate_tps_ESTIMATED": 55.50666072381893,
+          "sensitivity_min_ESTIMATED": 46.54588220185138,
+          "sensitivity_max_ESTIMATED": 66.45559892682391,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 6.228585605468795,
+          "gain_sensitivity_min_ESTIMATED": -2.533333333333332,
+          "gain_sensitivity_max_ESTIMATED": 17.040694838287518
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.0071781067743384,
+          "aggregate_tps_ESTIMATED": 53.42786698185525,
+          "sensitivity_min_ESTIMATED": 47.08125432460609,
+          "sensitivity_max_ESTIMATED": 60.360088696473085,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.2501924523829375,
+          "gain_sensitivity_min_ESTIMATED": -0.7999999999999896,
+          "gain_sensitivity_max_ESTIMATED": 5.64924171370933
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.018393898609242,
+          "aggregate_tps_ESTIMATED": 52.25209429971114,
+          "sensitivity_min_ESTIMATED": 47.2387167136516,
+          "sensitivity_max_ESTIMATED": 57.40130240685096,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "K1-R1",
+      "context": 32000,
+      "batch": 1,
+      "runs": 2,
+      "request_rounds": 1199.0,
+      "prefix_survival_MEASURED": [
+        0.7147623019182652,
+        0.457047539616347,
+        0.213511259382819,
+        0.07422852376980818,
+        0.043369474562135114
+      ],
+      "step_p50_median_MEASURED": 40.9405,
+      "step_p50_min_MEASURED": 40.9,
+      "step_p50_max_MEASURED": 40.981,
+      "per_run_survival_MEASURED": [
+        [
+          0.7271186440677966,
+          0.4694915254237288,
+          0.21864406779661016,
+          0.08135593220338982,
+          0.04576271186440678
+        ],
+        [
+          0.7027914614121511,
+          0.44499178981937604,
+          0.20853858784893267,
+          0.06732348111658457,
+          0.041050903119868636
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "R1-c32.jsonl",
+          "sha256": "4935297483933f3ff5a87bde7c55be5a6825c24df06421cfd2c3593111224342"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.7147623019182652,
+          "aggregate_tps_ESTIMATED": 48.95055171688287,
+          "sensitivity_min_ESTIMATED": 39.783336763782934,
+          "sensitivity_max_ESTIMATED": 61.08693835816864,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -19.931089136438295,
+          "gain_sensitivity_min_ESTIMATED": -32.06666666666666,
+          "gain_sensitivity_max_ESTIMATED": -2.029762946461089
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1718098415346123,
+          "aggregate_tps_ESTIMATED": 59.7957032952358,
+          "sensitivity_min_ESTIMATED": 50.17994646772235,
+          "sensitivity_max_ESTIMATED": 71.19571095282976,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -2.1915653808876057,
+          "gain_sensitivity_min_ESTIMATED": -13.59999999999999,
+          "gain_sensitivity_max_ESTIMATED": 13.23946296513354
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.385321100917431,
+          "aggregate_tps_ESTIMATED": 62.80383620324722,
+          "sensitivity_min_ESTIMATED": 55.05215839539875,
+          "sensitivity_max_ESTIMATED": 70.67700824224111,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.7288679386461956,
+          "gain_sensitivity_min_ESTIMATED": -4.999999999999993,
+          "gain_sensitivity_max_ESTIMATED": 12.164757485535826
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.4595496246872393,
+          "aggregate_tps_ESTIMATED": 61.672988670835096,
+          "sensitivity_min_ESTIMATED": 56.62507720669586,
+          "sensitivity_max_ESTIMATED": 65.74676615347104,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.8791292309666909,
+          "gain_sensitivity_min_ESTIMATED": -1.8000000000000127,
+          "gain_sensitivity_max_ESTIMATED": 3.824353229760291
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.5029190992493744,
+          "aggregate_tps_ESTIMATED": 61.13552837042475,
+          "sensitivity_min_ESTIMATED": 57.58417404285264,
+          "sensitivity_max_ESTIMATED": 63.411691689184416,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "K1-R1",
+      "context": 32000,
+      "batch": 2,
+      "runs": 2,
+      "request_rounds": 2241.0,
+      "prefix_survival_MEASURED": [
+        0.7202141900937081,
+        0.49040606871932174,
+        0.2788933511825078,
+        0.11601963409192324,
+        0.07095046854082998
+      ],
+      "step_p50_median_MEASURED": 61.03875,
+      "step_p50_min_MEASURED": 60.55,
+      "step_p50_max_MEASURED": 61.5275,
+      "per_run_survival_MEASURED": [
+        [
+          0.7000871839581517,
+          0.4664341761115955,
+          0.26416739319965127,
+          0.11072362685265912,
+          0.07236268526591107
+        ],
+        [
+          0.7413162705667276,
+          0.5155393053016454,
+          0.2943327239488117,
+          0.12157221206581353,
+          0.06946983546617916
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "R1-c32.jsonl",
+          "sha256": "4935297483933f3ff5a87bde7c55be5a6825c24df06421cfd2c3593111224342"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.7202141900937082,
+          "aggregate_tps_ESTIMATED": 69.90076708952212,
+          "sensitivity_min_ESTIMATED": 53.36817313499655,
+          "sensitivity_max_ESTIMATED": 96.7883213981859,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -20.293640737388642,
+          "gain_sensitivity_min_ESTIMATED": -36.5,
+          "gain_sensitivity_max_ESTIMATED": 7.776596082042864
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.21062025881303,
+          "aggregate_tps_ESTIMATED": 85.35419325034022,
+          "sensitivity_min_ESTIMATED": 68.01021037972637,
+          "sensitivity_max_ESTIMATED": 109.71067612830083,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -2.6724272843958397,
+          "gain_sensitivity_min_ESTIMATED": -17.700000000000003,
+          "gain_sensitivity_max_ESTIMATED": 20.120206051023203
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.4895136099955377,
+          "aggregate_tps_ESTIMATED": 90.33273105778116,
+          "sensitivity_min_ESTIMATED": 76.30280343608737,
+          "sensitivity_max_ESTIMATED": 106.7846038019455,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 3.0044935793504868,
+          "gain_sensitivity_min_ESTIMATED": -7.004669779853268,
+          "gain_sensitivity_max_ESTIMATED": 16.08627836104082
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.605533244087461,
+          "aggregate_tps_ESTIMATED": 88.44496001994139,
+          "sensitivity_min_ESTIMATED": 79.77857676334101,
+          "sensitivity_max_ESTIMATED": 96.52099689097254,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.8519083816100226,
+          "gain_sensitivity_min_ESTIMATED": -2.768512341561058,
+          "gain_sensitivity_max_ESTIMATED": 4.928640588976507
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.6764837126282908,
+          "aggregate_tps_ESTIMATED": 87.6978546457223,
+          "sensitivity_min_ESTIMATED": 82.05014515831779,
+          "sensitivity_max_ESTIMATED": 91.98727473184547,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "K1-R1",
+      "context": 32000,
+      "batch": 3,
+      "runs": 2,
+      "request_rounds": 3321.0,
+      "prefix_survival_MEASURED": [
+        0.7425474254742548,
+        0.5097862089732008,
+        0.29659741041854865,
+        0.15356820234869015,
+        0.006925624811803674
+      ],
+      "step_p50_median_MEASURED": 75.20349999999999,
+      "step_p50_min_MEASURED": 74.857,
+      "step_p50_max_MEASURED": 75.55,
+      "per_run_survival_MEASURED": [
+        [
+          0.7425076452599388,
+          0.5168195718654435,
+          0.309480122324159,
+          0.1712538226299694,
+          0.011620795107033639
+        ],
+        [
+          0.7425860023724793,
+          0.5029655990510083,
+          0.28410438908659547,
+          0.13641755634638197,
+          0.002372479240806643
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "R1-c32.jsonl",
+          "sha256": "4935297483933f3ff5a87bde7c55be5a6825c24df06421cfd2c3593111224342"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.7425474254742548,
+          "aggregate_tps_ESTIMATED": 86.18863340817539,
+          "sensitivity_min_ESTIMATED": 67.00056279943614,
+          "sensitivity_max_ESTIMATED": 116.86586924114567,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -20.05317671297525,
+          "gain_sensitivity_min_ESTIMATED": -36.40625000000001,
+          "gain_sensitivity_max_ESTIMATED": 7.8809298941834305
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.2523336344474556,
+          "aggregate_tps_ESTIMATED": 104.72154956476894,
+          "sensitivity_min_ESTIMATED": 86.34293312848273,
+          "sensitivity_max_ESTIMATED": 129.17090466809148,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -2.8624206425362897,
+          "gain_sensitivity_min_ESTIMATED": -17.544642857142854,
+          "gain_sensitivity_max_ESTIMATED": 18.51289144533692
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.5489310448660043,
+          "aggregate_tps_ESTIMATED": 110.02025990918465,
+          "sensitivity_min_ESTIMATED": 97.26693338430499,
+          "sensitivity_max_ESTIMATED": 123.43512412068502,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.0525552980608985,
+          "gain_sensitivity_min_ESTIMATED": -6.25,
+          "gain_sensitivity_max_ESTIMATED": 12.208479514699654
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.7024992472146945,
+          "aggregate_tps_ESTIMATED": 107.80745233458661,
+          "sensitivity_min_ESTIMATED": 102.51227797478336,
+          "sensitivity_max_ESTIMATED": 111.33485392182193,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.7094248720264984,
+          "aggregate_tps_ESTIMATED": 103.69879650793212,
+          "sensitivity_min_ESTIMATED": 94.87012589216152,
+          "sensitivity_max_ESTIMATED": 111.80703298979395,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -3.8111055754318834,
+          "gain_sensitivity_min_ESTIMATED": -7.848938995364751,
+          "gain_sensitivity_max_ESTIMATED": 0.42410714285716633
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "K1-R1",
+      "context": 150000,
+      "batch": 1,
+      "runs": 2,
+      "request_rounds": 1396.0,
+      "prefix_survival_MEASURED": [
+        0.6131805157593123,
+        0.34025787965616044,
+        0.1174785100286533,
+        0.042263610315186245,
+        0.034383954154727794
+      ],
+      "step_p50_median_MEASURED": 40.474500000000006,
+      "step_p50_min_MEASURED": 40.429,
+      "step_p50_max_MEASURED": 40.52,
+      "per_run_survival_MEASURED": [
+        [
+          0.6149341142020498,
+          0.3557833089311859,
+          0.13323572474377746,
+          0.05124450951683748,
+          0.03953147877013177
+        ],
+        [
+          0.6115007012622721,
+          0.32538569424964936,
+          0.10238429172510519,
+          0.033660589060308554,
+          0.029453015427769985
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "R1-c150.jsonl",
+          "sha256": "2575f6a8743ee121cdcdf56cf3412d9fef4b5e10c250866e54d470f391305667"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.6131805157593124,
+          "aggregate_tps_ESTIMATED": 46.67159992938744,
+          "sensitivity_min_ESTIMATED": 38.06039002169363,
+          "sensitivity_max_ESTIMATED": 58.08671510548383,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -12.03944292216742,
+          "gain_sensitivity_min_ESTIMATED": -26.417611741160762,
+          "gain_sensitivity_max_ESTIMATED": 9.239113724692217
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.9534383954154728,
+          "aggregate_tps_ESTIMATED": 54.48237725851629,
+          "sensitivity_min_ESTIMATED": 45.7453425761174,
+          "sensitivity_max_ESTIMATED": 64.8643708474386,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 2.6812935882703615,
+          "gain_sensitivity_min_ESTIMATED": -10.206804536357572,
+          "gain_sensitivity_max_ESTIMATED": 20.14664923350693
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.0709169054441263,
+          "aggregate_tps_ESTIMATED": 55.2031056110071,
+          "sensitivity_min_ESTIMATED": 48.16345264712144,
+          "sensitivity_max_ESTIMATED": 62.42790767279551,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 4.039628581773824,
+          "gain_sensitivity_min_ESTIMATED": -4.136090727151409,
+          "gain_sensitivity_max_ESTIMATED": 14.036335331533433
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1131805157593124,
+          "aggregate_tps_ESTIMATED": 53.61429209451628,
+          "sensitivity_min_ESTIMATED": 48.95844773895838,
+          "sensitivity_max_ESTIMATED": 57.468680971914274,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 1.0452396554296417,
+          "gain_sensitivity_min_ESTIMATED": -1.8012008005336755,
+          "gain_sensitivity_max_ESTIMATED": 4.172884061364135
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.14756446991404,
+          "aggregate_tps_ESTIMATED": 53.05969116144832,
+          "sensitivity_min_ESTIMATED": 49.65406844431571,
+          "sensitivity_max_ESTIMATED": 55.39150502816247,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    },
+    {
+      "suite": "K1-R1",
+      "context": 300000,
+      "batch": 4,
+      "runs": 1,
+      "request_rounds": 2748.0,
+      "prefix_survival_MEASURED": [
+        0.6331877729257642,
+        0.36171761280931586,
+        0.14228529839883552,
+        0.04585152838427948,
+        0.0
+      ],
+      "step_p50_median_MEASURED": 104.4065,
+      "step_p50_min_MEASURED": 104.4065,
+      "step_p50_max_MEASURED": 104.4065,
+      "per_run_survival_MEASURED": [
+        [
+          0.6331877729257642,
+          0.36171761280931586,
+          0.14228529839883552,
+          0.04585152838427948,
+          0.0
+        ]
+      ],
+      "sources_MEASURED": [
+        {
+          "file": "R1-cap4.jsonl",
+          "sha256": "c46bb561b638bda24de926a2c9b667fc3538e1740398efa60d54fcb5aad96663"
+        }
+      ],
+      "candidates_ESTIMATED": [
+        {
+          "k": 1,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.6331877729257642,
+          "aggregate_tps_ESTIMATED": 76.8500184303913,
+          "sensitivity_min_ESTIMATED": 60.770950617912455,
+          "sensitivity_max_ESTIMATED": 101.47801284256147,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -8.113991071235716,
+          "gain_sensitivity_min_ESTIMATED": -25.187531255209215,
+          "gain_sensitivity_max_ESTIMATED": 19.902605753061863
+        },
+        {
+          "k": 2,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 1.99490538573508,
+          "aggregate_tps_ESTIMATED": 88.49873892122153,
+          "sensitivity_min_ESTIMATED": 74.23047042945545,
+          "sensitivity_max_ESTIMATED": 106.82792749601231,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 5.813844691075842,
+          "gain_sensitivity_min_ESTIMATED": -8.618103017169554,
+          "gain_sensitivity_max_ESTIMATED": 26.223863822043313
+        },
+        {
+          "k": 3,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1371906841339157,
+          "aggregate_tps_ESTIMATED": 88.30773487870817,
+          "sensitivity_min_ESTIMATED": 79.52490930904631,
+          "sensitivity_max_ESTIMATED": 97.17150481094895,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 5.585470000811976,
+          "gain_sensitivity_min_ESTIMATED": -2.100350058343081,
+          "gain_sensitivity_max_ESTIMATED": 14.814197730252609
+        },
+        {
+          "k": 4,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1830422125181954,
+          "aggregate_tps_ESTIMATED": 83.63625684294351,
+          "sensitivity_min_ESTIMATED": 81.23104562318558,
+          "sensitivity_max_ESTIMATED": 84.63370099858743,
+          "vs_nominal_cap_gain_percent_ESTIMATED": 0.0,
+          "gain_sensitivity_min_ESTIMATED": 0.0,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 5,
+          "status": "ESTIMATED censored-survival nominal-cap screen",
+          "tokens_per_request_round_ESTIMATED": 2.1830422125181954,
+          "aggregate_tps_ESTIMATED": 80.37229777372288,
+          "sensitivity_min_ESTIMATED": 75.29164580305073,
+          "sensitivity_max_ESTIMATED": 84.63370099858743,
+          "vs_nominal_cap_gain_percent_ESTIMATED": -3.902564739775316,
+          "gain_sensitivity_min_ESTIMATED": -7.594753619430728,
+          "gain_sensitivity_max_ESTIMATED": 0.0
+        },
+        {
+          "k": 6,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 7,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        },
+        {
+          "k": 8,
+          "status": "UNSUPPORTED trained block / HELLO maximum five"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+--- a/start.sh
++++ b/start.sh
+@@ -23,3 +23,9 @@
+ fi
+ mkdir -p logs; ts=$(date +%Y%m%dT%H%M%S)
+ HEAD=$HEAD WORKER=$WORKER RECIPE=$RECIPE MODEL_DIR=$MODEL_DIR bash ./serve.sh 2>&1 | tee logs/start-$ts.log
++# DSV41-OFFLOAD D-async (R3-PROMOTE): one warm-up request takes the first request's lazy module loads
++# (CUDA_MODULE_LOADING stays LAZY; EAGER costs ~18 min per start). The serve is up either way.
++if [[ "${OFFLOAD_DSPARK_ENV:-}" == *VLLM_DSPARK_REMOTE_ASYNC=1* ]]; then
++  offload/launch/warmup_serve.sh "$PORT" "$SERVED" 2>&1 | tee -a logs/start-$ts.log \
++    || echo "WARN: the warm-up request failed (the first real request pays the module loads)" | tee -a logs/start-$ts.log
++fi

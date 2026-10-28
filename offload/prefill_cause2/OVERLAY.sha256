@@ -1,0 +1,4 @@
+74fbc525593a57c643da12b2454f7b53e0cc5c13722c4406923519590ef7aa4a  vllm/models/deepseek_v41/nvidia/model.py
+553d90a4a11e4e010ac24ffd1b7c94bfe38b70d59129f04329a43add1e245758  vllm_exl3_moe/tf_prompt.py
+b7ef5b7b0238f0fa1296c23d82ec663f23f34457305cff7d35e3fee52dfab78f  vllm_exl3_moe/tf_experts.py
+8fb264d71dcf43919b4bab36566fc5b781ada08523aa224b537444998cc5796c  vllm/v1/worker/gpu/dsv41_moe_fence.py

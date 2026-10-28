@@ -1,0 +1,3 @@
+# jit_build output, receipts and the bit-compare receipt are per-window artifacts, never committed (offload/upfix/WINDOW.md).
+*
+!.gitignore

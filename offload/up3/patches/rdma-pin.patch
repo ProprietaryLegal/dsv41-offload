@@ -1,0 +1,27 @@
+--- a/vllm_exl3_moe/rdma.py
++++ b/vllm_exl3_moe/rdma.py
+@@ -102,7 +102,14 @@
+         bad = [f"rank {r}: {u}" for r, u in enumerate(ups) if u]
+         if bad:
+             raise RuntimeError("; ".join(bad))
+-        e.start(self.h)
++        # UP3 experiment only: ring_for is lazy; native start creates the
++        # proxy synchronously, then proxy_loop self-pins asynchronously.
++        from .up3_rdma_pin import start_with_receipt
++        try:
++            start_with_receipt(lambda: e.start(self.h), cpu)
++        except Exception:
++            e.stop(self.h)
++            raise
+         import atexit
+         atexit.register(e.stop, self.h)
+         logger.info("EXL3 RDMA all-reduce: rank %d of %d on %s, gid %d, proxy on cpu %d, up to %d KB "
+@@ -160,7 +167,7 @@
+         r = RdmaAllReduce(comm.cpu_group, comm.rank_in_group, comm.world_size)
+     except Exception as exc:  # noqa: BLE001
+         logger.warning("EXL3 RDMA all-reduce off for %s, NCCL stays: %s", name, exc)
+-        r = None
++        raise RuntimeError("UP3 CPU-pin refuses RDMA initialization/identity failure") from exc
+     _rings[name] = r
+     return r
+ 

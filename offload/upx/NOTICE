@@ -1,0 +1,13 @@
+offload/upx contains third-party code under the Apache License, Version 2.0
+(https://www.apache.org/licenses/LICENSE-2.0).
+
+patches/0085b-dsv41-idle-cache-release.patch
+  Unchanged copy of patches/0085b-dsv41-idle-cache-release.patch from github.com/HeNryous/deepseek-v41-1017-dgx-spark
+  (introduced in 49473699d0d60acec3cdd4fe83c332da2f51766e; read at tip 382071728ce69700b28e7a5ea197ab0a48b2232c),
+  Apache-2.0, Copyright 2026 HeNryous.
+
+overlay/vllm/v1/engine/core.py, overlay/vllm/v1/worker/gpu_worker.py, patches/0085b-v5.patch
+  vLLM source files (Copyright contributors to the vLLM project, Apache-2.0; SPDX headers kept) from the serving image
+  ghcr.io/henryous/deepseek-v41-1017-dgx-spark:v5 (vLLM 6e517b15), with the 0085b patch applied by build_0085b.py.
+  Modified: every changed region is marked "dsv41 patch 0085b"; two gpu_worker.py hunks are placed at the v5
+  positions equivalent to the donor's (build_0085b.WORKER_PORT). 0085b-v5.patch is the generated image-to-overlay diff.
