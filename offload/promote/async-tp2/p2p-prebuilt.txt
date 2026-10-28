@@ -1,0 +1,24 @@
+# The prebuilt p2p extension for the TP = 2 production worker (R3-PROMOTE, 2026-10-23). Written by
+# offload/dspark/worker/run/prod_tp2.sh build-p2p in a rehearsal tree (DSV41_PROD_REL=dsv41-offload/r3/prodtest),
+# CPU only (CUDA_VISIBLE_DEVICES empty). The file stays on x86host; nothing here is installed.
+
+source      offload/dspark/worker/p2p/p2p.cu  sha256 08e1903b0a43feffa5ee5fb465ea163bbe6725bc05290d05f2f837042a6844b9
+            (unchanged since 3f88ee7 "own peer state independently of Torch allocator", the S10 P-3 fix; the same
+            source window 4's E1p ran: x86host:~/dsv41-offload/e/repo, offload-x86host bfbda8d)
+source key  08e1903b0a43feff  (worker/p2p/prebuilt.py: first 16 hex of the source sha256)
+built       2026-10-23T10:06:02Z on x86host, torch 2.10.0+cu126, nvcc cuda_12.6.r12.6/compiler.35059454_0,
+            -O3 -gencode=arch=compute_86,code=sm_86 (worker/p2p/__init__.py), one sm_86 cubin (cuobjdump --list-elf)
+staged from commit 63e460256022af9a664633ef9e7386e82ebef31d (offload/r3-promote); worker code identical to bfbda8d
+            except worker/tests/test_capture_stream.py
+.so sha256  a5ac180b2e9b7b8f93f0dd4baefc57c2a04daebb2636f1690275870258a8b6bc
+location    x86host:~/dsv41-offload/r3/prodtest/dspark-worker/p2p/08e1903b0a43feff/{dspark_p2p.so,dspark_p2p.so.sha256,BUILD.txt}
+checks      loads through the pinned path (DSPARK_P2P_PREBUILT -> worker.p2p.ext(): dspark_p2p with allocate_state,
+            ar_sum, cancel, enable_peer, reset, state_bytes, xchg_argmax, xchg_margin, xchg_markov);
+            prod_tp2.sh check 63e4602 in the rehearsal tree: code, libofl 9f11b6e8 (pinned), p2p prebuilt ok; the two
+            remaining lines (current not flipped, unit not installed) are coordinator steps.
+
+Not bit-identical to the JIT build window 4 measured (x86host:~/dsv41-offload/e/build/p2p/dspark_p2p.so, sha256
+a885ad2b2c03e1f0f67a563c88b5f6b55beaca468ae51f942bca91d4f5be4ee4): same source, compiler, flags and section sizes
+(.text 0x25142, .nv_fatbin 0xe170), but nvcc embeds per-compilation unique names, so no two builds match byte for byte.
+The promoted file is therefore qualified on the pair before it serves (README.md, window step 2). Pinning lane E's
+measured file instead is equally valid for prebuilt.py (it checks only the .sha256 next to the file).

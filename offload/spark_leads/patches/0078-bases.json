@@ -1,0 +1,11 @@
+{
+  "donor": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+  "bases": {
+    "offload/engram/spark/engram.py": "0bf3030e370d0f144631f4567cc9da06671a131628a92b49f4553bb45adfa9e7",
+    "vllm/v1/worker/gpu/model_runner.py": "af9be025ff8a17a5aabd452fc3e4b987abe64fb28d852c569e1372d6f1e4d3a6",
+    "vllm/v1/worker/gpu/x1_engram_lookahead.py": null,
+    "offload/engram/spark/engram_remote.cpp": "8e3d12b90b1d630ea1f3a1366b279f1744cce76be6d04ca96ea6705a1a49ab09",
+    "offload/engram/spark/stage_overlay.sh": "fa46624a243dc6fd36cc5d61b8348c1f45eab50f9ee11ecda2bb1ff589fd9e1e",
+    "offload/engram/spark/row_lookahead.h": null
+  }
+}

@@ -1,0 +1,416 @@
+[
+  {
+    "test": "qdq",
+    "dtype": "torch.bfloat16",
+    "elements": 6144,
+    "bit_exact": true
+  },
+  {
+    "test": "qdq",
+    "dtype": "torch.float16",
+    "elements": 6144,
+    "bit_exact": true
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": false,
+    "rows": 1,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": false,
+    "rows": 1,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": false,
+    "rows": 4,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": false,
+    "rows": 4,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": false,
+    "rows": 20,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": false,
+    "rows": 20,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": true,
+    "rows": 1,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": true,
+    "rows": 1,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": true,
+    "rows": 4,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": true,
+    "rows": 4,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": true,
+    "rows": 20,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.bfloat16",
+    "native_qdq": true,
+    "rows": 20,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": false,
+    "rows": 1,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": false,
+    "rows": 1,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": false,
+    "rows": 4,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": false,
+    "rows": 4,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": false,
+    "rows": 20,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": false,
+    "rows": 20,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": true,
+    "rows": 1,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": true,
+    "rows": 1,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 4232
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": true,
+    "rows": 4,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": true,
+    "rows": 4,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 15812
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": true,
+    "rows": 20,
+    "mode": "grouped",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "experts",
+    "dtype": "torch.float16",
+    "native_qdq": true,
+    "rows": 20,
+    "mode": "small",
+    "graph_dynamic_routing": true,
+    "invalid_id_nan": true,
+    "max_abs_error": 0.0,
+    "workspace_bytes": 71492
+  },
+  {
+    "test": "dense",
+    "dtype": "torch.bfloat16",
+    "shape": [
+      1,
+      1,
+      136,
+      64
+    ],
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "dense",
+    "dtype": "torch.bfloat16",
+    "shape": [
+      4,
+      20,
+      1024,
+      128
+    ],
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "dense",
+    "dtype": "torch.bfloat16",
+    "shape": [
+      1,
+      4,
+      64640,
+      32
+    ],
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "dense",
+    "dtype": "torch.float16",
+    "shape": [
+      1,
+      1,
+      136,
+      64
+    ],
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "dense",
+    "dtype": "torch.float16",
+    "shape": [
+      4,
+      20,
+      1024,
+      128
+    ],
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "dense",
+    "dtype": "torch.float16",
+    "shape": [
+      1,
+      4,
+      64640,
+      32
+    ],
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "wo_a_flat",
+    "dtype": "torch.bfloat16",
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "wo_a_flat",
+    "dtype": "torch.float16",
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "cublas_fp32",
+    "dtype": "torch.bfloat16",
+    "flat": false,
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "cublas_fp32",
+    "dtype": "torch.bfloat16",
+    "flat": true,
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "cublas_fp32",
+    "dtype": "torch.float16",
+    "flat": false,
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "cublas_fp32",
+    "dtype": "torch.float16",
+    "flat": true,
+    "bit_exact_fp64": true
+  },
+  {
+    "test": "auto_native_wkv",
+    "backend": "cublas",
+    "capture_exact_fp64": true
+  },
+  {
+    "test": "unsafe_reduction_flags_refused",
+    "passed": true
+  },
+  {
+    "test": "head",
+    "vocab": 17,
+    "bit_exact": true,
+    "nan_propagates": true
+  },
+  {
+    "test": "head",
+    "vocab": 64640,
+    "bit_exact": true,
+    "nan_propagates": true
+  },
+  {
+    "test": "head",
+    "vocab": 64768,
+    "bit_exact": true,
+    "nan_propagates": true
+  },
+  {
+    "test": "head",
+    "vocab": 64512,
+    "bit_exact": true,
+    "nan_propagates": true
+  },
+  {
+    "test": "complete",
+    "checks": 44,
+    "cuda_peak_allocated": 43798016
+  }
+]

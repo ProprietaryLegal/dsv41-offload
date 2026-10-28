@@ -1,0 +1,80 @@
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py
+@@ -221,6 +221,17 @@
+                 "across nodes)"
+             )
+ 
++    # RP1: an unsupported multinode layout must never run with stale local slots.
++    # One KV head is only a structural gate; GB10 rank-byte identity is mandatory.
++    if parallel_config.nnodes_within_dp > 1:
++        if not (_DSV41_OFFLOAD_MULTINODE and replicated_layout and not canonical_layout):
++            raise ValueError("RP1: multinode KV offload requires certified replicated layout and 0077")
++        identity = extra_config.get("prefix_store_identity", {})
++        for field in ("checkpoint_sha256", "layout_sha256"):
++            value = identity.get(field) if isinstance(identity, dict) else None
++            if not isinstance(value, str) or len(value) != 64 or any(c not in "0123456789abcdef" for c in value):
++                raise ValueError(f"RP1: prefix_store_identity.{field} must be lowercase SHA256")
++
+     # Only a single non-MLA full-attention group with genuinely head-sharded
+     # pages is parallelism-invariant: replicated latent or GQA heads,
+     # per-token-head scales, CP token sharding, and the V2 model runner's
+@@ -308,7 +319,11 @@
+         extra_config=extra_config,
+         engine_id=engine_id,
+         model=OffloadingModelConfig(
+-            name=vllm_config.model_config.model,
++            # RP1: pin actual checkpoint bytes and overlay/layout, not the mutable model path.
++            name=(vllm_config.model_config.model + "@rp1-" +
++                  extra_config["prefix_store_identity"]["checkpoint_sha256"] + "-" +
++                  extra_config["prefix_store_identity"]["layout_sha256"]
++                  if parallel_config.nnodes_within_dp > 1 else vllm_config.model_config.model),
+             dtype=str(cache_dtype).removeprefix("torch."),
+         ),
+         cache=OffloadingCacheConfig(
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ import os
++import math
+ import time
+ from collections.abc import Iterable, Sequence
+ from dataclasses import dataclass, field, replace
+@@ -646,9 +647,11 @@
+         windowed = [g for g in self.config.kv_group_configs if g.sliding_window_size_in_chunks is not None]
+         chunks_per_token = sum(1.0 / g.tokens_per_chunk for g in full)
+         window_chunks = sum((g.sliding_window_size_in_chunks or 0) + 1 for g in windowed)
++        if not math.isfinite(_DSV41_LOAD_FRACTION) or not 0 <= _DSV41_LOAD_FRACTION <= 1:
++            raise ValueError("RP1: offload load fraction must be finite and in [0, 1]")
+         if _DSV41_LOAD_FRACTION > 0 and num_cpu_chunks > 0 and chunks_per_token > 0:
+             budget = _DSV41_LOAD_FRACTION * num_cpu_chunks - window_chunks
+-            step = max(g.tokens_per_chunk for g in self.config.kv_group_configs)
++            step = math.lcm(*(g.tokens_per_chunk for g in self.config.kv_group_configs))
+             cap = (int(max(budget, 0) / chunks_per_token) // step) * step
+             self._dsv41_load_cap = cap
+         logger.info(
+@@ -1059,8 +1062,10 @@
+             req_context=req_context,
+             offloading_context=offloading_context,
+         )
+-        if req_status.max_load_tokens is None and self._dsv41_load_cap is not None:
+-            req_status.max_load_tokens = self._dsv41_load_cap  # dsv41 patch 0081
++        if self._dsv41_load_cap is not None:
++            # RP1: request metadata can lower the safety budget, never bypass it.
++            req_status.max_load_tokens = (self._dsv41_load_cap if req_status.max_load_tokens is None
++                                         else min(req_status.max_load_tokens, self._dsv41_load_cap))
+         self._req_status[request.request_id] = req_status
+ 
+     def get_num_new_matched_tokens(
+--- a/vllm/v1/kv_offload/tiering/fs/manager.py
++++ b/vllm/v1/kv_offload/tiering/fs/manager.py
+@@ -192,6 +192,8 @@
+         # I/O on filesystems that reject it (e.g. overlayfs, some NFS mounts)
+         # rather than failing every block.
+         self._use_o_direct = probe_o_direct(os.path.dirname(config_path))
++        if not self._use_o_direct and os.environ.get("VLLM_DSV41_OFFLOAD_MULTINODE", "0") == "1":
++            raise ValueError("RP1: file tier requires O_DIRECT; buffered fallback violates Spark memory budget")
+         if not self._use_o_direct:
+             logger.warning(
+                 "O_DIRECT is not supported at '%s'; falling back to buffered "

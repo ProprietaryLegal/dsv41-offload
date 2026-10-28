@@ -1,0 +1,122 @@
+--- a/vllm/v1/core/sched/scheduler.py
++++ b/vllm/v1/core/sched/scheduler.py
+@@ -681,6 +681,8 @@
+         # capacity/configuration before executing any skip, rather than spin at 0.
+         replay_on = _DSV41_REPLAY_SKIP and self.prefix_replay_tokens > 0
+         replay_floors: dict[str, int] = {}
++        replay_recovery_wait: set[str] = set()
++        replay_waiting_owners: set[str] = set()
+         if replay_on:
+             window = self.prefix_replay_tokens
+             if (self.max_num_scheduled_tokens < self.max_num_active_reqs * (window + 1)
+@@ -693,8 +695,12 @@
+                     # KV loss/backtracking invalidated the promised successor.
+                     # Use the installed preempt/prefix-hit replay route: it sends
+                     # replay_start with a resumed request and rebuilds REAL rows.
++                    if not self._request_blocks_can_be_freed(r):
++                        replay_recovery_wait.add(r.request_id)
++                        continue
+                     self.running.remove(r)
+-                    self._preempt_request(r, scheduled_timestamp)
++                    self._preempt_request(r, scheduled_timestamp,
++                                          drop_stale_output=self.requires_kv_delivery)
+                     preempted_reqs.append(r)
+                     continue
+                 demand = r.num_tokens_with_spec + r.num_output_placeholders - r.num_computed_tokens
+@@ -702,11 +708,30 @@
+                                 - self.num_sampled_tokens_per_step)
+                     if floor > 0:
+                         replay_floors[r.request_id] = floor
++            if not preempted_reqs and self._pause_state == PauseState.UNPAUSED:
++                ready_slots = self.max_num_active_reqs - len(self.running) - self.num_waiting_for_streaming_input
++                for r in itertools.chain(self.kv_holding_waiting, self.waiting):
++                    if ready_slots <= 0:
++                        break
++                    if (getattr(r, "_dsv41_replay_end", None) is not None
++                        and not r.has_encoder_inputs
++                        and not (r.num_stale_output_tokens and not r.drop_stale_output)
++                        and self._handle_blocked_waiting_request(r)):
++                        # A ready restored/preempted owner keeps both an admission
++                        # slot and a suffix-rebuild floor ahead of new admissions.
++                        replay_floors[r.request_id] = window + 1
++                        replay_waiting_owners.add(r.request_id)
++                        ready_slots -= 1
+ 
+         # First, schedule the RUNNING requests.
+         req_index = 0
+         while req_index < len(self.running) and token_budget > 0:
+             request = self.running[req_index]
++            if request.request_id in replay_recovery_wait:
++                # An in-flight connector owns these blocks until its fence; no
++                # unsafe free or consumer of the skipped gap. Ready peers run.
++                req_index += 1
++                continue
+             if input_budget <= draft_slots:
+                 break
+ 
+@@ -993,6 +1018,13 @@
+                 request = request_queue.peek_request()
+                 request_id = request.request_id
+ 
++                if replay_on and request_id not in replay_floors:
++                    waiting_floors = len(replay_waiting_owners - num_scheduled_tokens.keys())
++                    if waiting_floors >= self.max_num_active_reqs - num_running:
++                        skip_request(request_queue)
++                        continue
++
++                waiting_floor = 0
+                 ready_to_schedule = self._handle_blocked_waiting_request(request)
+                 if not ready_to_schedule:
+                     skip_request(request_queue)
+@@ -1181,7 +1213,14 @@
+                     # compute to a cadence-aligned step.
+                     break
+                 else:
+-                    request_token_budget = min(token_budget, input_budget - draft_slots)
++                    waiting_floor = replay_floors.pop(request_id, 0)
++                    held = sum(replay_floors.values())
++                    held_slots = len(replay_floors) * draft_slots
++                    request_token_budget = min(token_budget - held,
++                                               input_budget - draft_slots - held - held_slots)
++                    if request_token_budget <= 0:
++                        skip_request(request_queue)
++                        continue
+                     if did_prefix_cache_lookup:
+                         # Fresh admission: local and/or sync external hit.
+                         num_replay_tokens = self._mark_prefix_replay(
+@@ -1279,6 +1318,11 @@
+                     num_new_tokens = self._reserve_prefill_lookahead(
+                         request, num_computed_tokens, num_new_tokens
+                     )
++                    if waiting_floor:
++                        num_new_tokens = max(num_new_tokens, min(waiting_floor,
++                                                request.num_tokens - num_computed_tokens))
++                        if num_new_tokens > request_token_budget:
++                            raise RuntimeError("0075 waiting suffix reservation invalidated")
+                     num_new_tokens = _dsv41_replay_min_chunk(
+                         num_new_tokens, request.num_tokens - num_computed_tokens,
+                         self.prefix_replay_tokens, request.has_encoder_inputs,
+@@ -1344,6 +1388,23 @@
+                     # manager
+                     if request.has_encoder_inputs:
+                         self.encoder_cache_manager.free(request)
++                    if replay_on and (replay_floors or waiting_floor):
++                        replay_waiting_owners.discard(request_id)
++                        skip_request(request_queue)
++                        if waiting_floor:
++                            # This owner proved unadmittable. Hand its unused
++                            # floor/slot to the next ready owed owner; never let
++                            # one missing allocation freeze other admitted work.
++                            for candidate in itertools.chain(self.kv_holding_waiting, self.waiting):
++                                if (candidate.request_id not in replay_waiting_owners
++                                    and getattr(candidate, "_dsv41_replay_end", None) is not None
++                                    and not candidate.has_encoder_inputs
++                                    and not (candidate.num_stale_output_tokens and not candidate.drop_stale_output)
++                                    and self._handle_blocked_waiting_request(candidate)):
++                                    replay_floors[candidate.request_id] = window + 1
++                                    replay_waiting_owners.add(candidate.request_id)
++                                    break
++                        continue
+                     break
+ 
+                 # KVTransfer: the connector uses this info to determine

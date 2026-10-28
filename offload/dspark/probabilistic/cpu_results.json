@@ -1,0 +1,157 @@
+{
+  "status": "MEASURED synthetic CPU only",
+  "tests": 55,
+  "runtime_seconds": 14.89,
+  "distribution_identity": "225 exact rational p/q grid pairs; full target residual",
+  "seed_policy": "frequency seed 847; joint seeds 51..10050; request/round/domain-separated",
+  "observations": [
+    {
+      "accepted": 6042,
+      "counts": [
+        1287,
+        2427,
+        3548,
+        4738
+      ],
+      "evidence": "MEASURED synthetic CPU",
+      "expected_acceptance": 0.5,
+      "kind": "full",
+      "p": [
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "samples": 12000
+    },
+    {
+      "accepted": 4215,
+      "counts": [
+        1246,
+        2418,
+        3571,
+        4765
+      ],
+      "evidence": "MEASURED synthetic CPU",
+      "expected_acceptance": 0.35,
+      "kind": "sparse2",
+      "p": [
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "samples": 12000
+    },
+    {
+      "accepted": 1220,
+      "counts": [
+        1220,
+        2414,
+        3643,
+        4723
+      ],
+      "evidence": "MEASURED synthetic CPU",
+      "expected_acceptance": 0.1,
+      "kind": "delta",
+      "p": [
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "samples": 12000
+    },
+    {
+      "accepted": 12000,
+      "counts": [
+        1204,
+        2448,
+        3593,
+        4755
+      ],
+      "evidence": "MEASURED synthetic CPU",
+      "expected_acceptance": 1.0,
+      "kind": "equal",
+      "p": [
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "samples": 12000
+    },
+    {
+      "accepted": 0,
+      "counts": [
+        0,
+        2447,
+        3658,
+        5895
+      ],
+      "evidence": "MEASURED synthetic CPU",
+      "expected_acceptance": 0.0,
+      "kind": "disjoint",
+      "p": [
+        0.0,
+        0.2,
+        0.3,
+        0.5
+      ],
+      "samples": 12000
+    },
+    {
+      "counts_00_01_10_11": [
+        5664,
+        1860,
+        470,
+        2006
+      ],
+      "depth": 2,
+      "evidence": "MEASURED synthetic CPU",
+      "kind": "joint",
+      "samples": 10000,
+      "sparse": false
+    },
+    {
+      "counts_00_01_10_11": [
+        5678,
+        1848,
+        476,
+        1998
+      ],
+      "depth": 2,
+      "evidence": "MEASURED synthetic CPU",
+      "kind": "joint",
+      "samples": 10000,
+      "sparse": true
+    },
+    {
+      "counts_00_01_10_11": [
+        5664,
+        1860,
+        470,
+        2006
+      ],
+      "depth": 5,
+      "evidence": "MEASURED synthetic CPU",
+      "kind": "joint",
+      "samples": 10000,
+      "sparse": false
+    },
+    {
+      "counts_00_01_10_11": [
+        5678,
+        1848,
+        476,
+        1998
+      ],
+      "depth": 5,
+      "evidence": "MEASURED synthetic CPU",
+      "kind": "joint",
+      "samples": 10000,
+      "sparse": true
+    }
+  ],
+  "limits": "No GPU, target-model or live-service qualification."
+}
