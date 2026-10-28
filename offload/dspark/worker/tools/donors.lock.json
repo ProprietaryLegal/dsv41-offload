@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "donors": [
+    {
+      "repository": "https://github.com/sybil-solutions/trellis-serve",
+      "revision": "a1f72be2ff6319b9b2ea9bf6768c99664b1ca892",
+      "license": "MIT; Marlin-derived code Apache-2.0",
+      "files": {
+        "LICENSE": "cafea160e12f3e5e2c8692d58c5c5f8535b3348830ab6f337f138b8ee67d6b1c",
+        "NOTICE": "5794f5dc352000cf0550f625c4d2861b5dc77493ce5a9102b6b059627747e0a6",
+        "cuda/NOTICE": "49034d71c248f30ce6fd919b5933c222eefeed49a378555de5cae5347c1ca966",
+        "cuda/csrc/build.sh": "a075707d3d629c07a3c5dc3c2ab93b85b21cc0c191ce3b1aa3df852bc6505416",
+        "cuda/csrc/exl3_decode.cuh": "b0291379fc62e42ea48ca4d5a793ba1da6bfd6d0a2bacc7e5662adbf00d0d748",
+        "cuda/csrc/exl3_had.cuh": "fb4d3b9a111951e2f7b3e62106c89964d4f41f444ded48c0abcaeea7517cc955",
+        "cuda/csrc/exl3_marlin.cu": "9d58f156c2635d77fa0e62914f2ccc12dbabdbe885d42e5748a1046e700f2ce2",
+        "cuda/csrc/exl3_marlin_inst.h": "fa7cf4d038aa13e51b838e4087861d2004021d9373044a18046937f4a55b7583",
+        "cuda/csrc/exl3_marlin_kernels.h": "a5ebd6082993ba9f80bb3cab7710e532b7e4c79ec1b05abf9fa9462875b5398a",
+        "cuda/csrc/exl3_marlin_moe.cu": "edf628e542ee42f8efb0d4515eb83a6b8eb052941754caa952d0ef9aa33978cc",
+        "cuda/csrc/exl3_marlin_moe_inst.h": "e93f928b569f9295f1dfe60b9bc4c01f7e0d4dc2c2daa2ca0c69224ec9c479ad",
+        "cuda/csrc/exl3_marlin_moe_kernels.h": "57d4ea34b12e4ef45edf8316a5f143423985e5f9a98935a8f9ddb86675ddd747",
+        "cuda/csrc/exl3_marlin_moe_template.h": "8cc15da92bfc03850aa43b475f5a396cf83a990ce980f8e909abdb63191e7615",
+        "cuda/csrc/exl3_marlin_template.h": "4df0b19f244ee5797079b0ea7d951d478592e4ccacc97528b8856377ed7251c5",
+        "cuda/csrc/setup.py": "c681b49d61e60f83683945478a5e0bbd3558167e3a519a6cda62dc046b327ead",
+        "cuda/csrc/third_party/compat.cuh": "dd6038fa6eb8b28df56b184e358e5633421af76eeb40bad4abc522ce6ba54f57",
+        "cuda/csrc/third_party/exllamav3/LICENSE": "27a32b6263fcd96c79d3beeecf221c4366780bdf15ad51986f48650bd7369bff",
+        "cuda/csrc/third_party/exllamav3/codebook.cuh": "0e3c63b323f8d3cc15c6a8f2e2b3816efafd71e149a99997b30b2f806375138a",
+        "cuda/csrc/third_party/exllamav3/hadamard_inner.cuh": "8d8e437aced88735e919563301ffac0e4a2aac28cc542ed3f738e1216ea0c36b",
+        "cuda/csrc/third_party/marlin/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "cuda/csrc/third_party/marlin/core/scalar_type.hpp": "8d3671759c43a0219f51e3a1f32c94ef5d70ecc99e264100f4015a781d94bb99",
+        "cuda/csrc/third_party/marlin/dequant.h": "39c4640d2de39374ef5d96e7fa27701a675922113c3f5b05d45369321090e728",
+        "cuda/csrc/third_party/marlin/marlin.cuh": "8a129f1f3086d83c7f33ee8fdb38a0d68c0b167c99c9cef60394c3219ede86b7",
+        "cuda/csrc/third_party/marlin/marlin_dtypes.cuh": "15b90a65eadb200a3f7165e2e0d7d899f36d4993b20dbd89093ef2cea274da71",
+        "cuda/csrc/third_party/marlin/marlin_mma.h": "bf863d252bfc468eaff42b2c1bda583c5e6ab97ceacf0ac248c164564ddcce9b"
+      }
+    },
+    {
+      "repository": "https://github.com/Zeuss5/cuda-exl3",
+      "revision": "6a1ffc34866e23f484574ce1922a8bca93eb33b2",
+      "license": "MIT",
+      "files": {
+        "LICENSE": "10206ba3ee50ad2ddf4299242fb4833c714934b00aeb685f73fce13730e8fe02",
+        "NOTICE": "08a8814c28649bc48d12b00651c1944db834c9828708c6474cf30f0457a69cc4",
+        "src/cuda_exl3/csrc/bindings.cpp": "ab6321c2efff509f5b31f31f53e272b5b0b366996e99de6acba2d71440fa6cc1",
+        "src/cuda_exl3/csrc/exl3_codebook.cuh": "198fac6d6eca74a8c64491d85d7173dd47e8186f9eb77e00102881b76efcaadf",
+        "src/cuda_exl3/csrc/exl3_common.cuh": "5c9415aacc4a146e96af5a1f199109adbd7070a935ea47ad0e104178a8693c7c",
+        "src/cuda_exl3/csrc/exl3_dq.cuh": "7348f25ffbe6a7b410ef1ad6885aca546d10dd1787f837c2eb80abfa61e9ca4d",
+        "src/cuda_exl3/csrc/exl3_had.cuh": "215f938d50df58093480123f0813bdabd927fd7bd067417877c92f43630023c5",
+        "src/cuda_exl3/csrc/gemm.cu": "1d4a9093648ae14f4266baed60bf2415dc301cd2bed3e073eba00c785b0fac19",
+        "src/cuda_exl3/csrc/hadamard.cu": "d127c511a31a746418c0418f23eeb1703d55875fdda11449c9ff3d3a8c1216b4",
+        "src/cuda_exl3/csrc/mla_decode.cu": "1281cfbc5698d71ff2a65c4e20ed1867d0ec701cc9fe357382a98b3200132d26"
+      }
+    },
+    {
+      "repository": "https://github.com/turboderp-org/exllamav3",
+      "revision": "da68d57de61781e5b74ad68698ac4caf36408d7a",
+      "license": "MIT",
+      "files": {
+        "LICENSE": "27a32b6263fcd96c79d3beeecf221c4366780bdf15ad51986f48650bd7369bff",
+        "exllamav3/exllamav3_ext/quant/exl3_devctx.cu": "0dc8a01e2ede690f642fe0edb92805ac7be44007e84ca4d0347e9de75a2a1900",
+        "exllamav3/exllamav3_ext/quant/exl3_devctx.cuh": "18eedddaa67b026013c60b12748077e4861e6e458a42e94557de43e5ebaa68fa",
+        "exllamav3/exllamav3_ext/quant/exl3_dq.cuh": "4e48a37af4811e8e0f7e00e86c29c9c044fa0b6a8f6a685855a033684e4d6552",
+        "exllamav3/exllamav3_ext/quant/exl3_gemm.cu": "dfd00274ecdd0e012ef6c8d3fd549268f3bccb0690add345810fd4ce5030443d",
+        "exllamav3/exllamav3_ext/quant/exl3_gemm.cuh": "606ec462784d2550707df83e052447d111ad9d59ae64806dd272ef2f898a0b9f",
+        "exllamav3/exllamav3_ext/quant/exl3_gemm_inner.cuh": "1e5c025c38a7565b5bfab43f6241b6825236048c6d569a5926d0afc6209ab547",
+        "exllamav3/exllamav3_ext/quant/exl3_gemm_kernel.cuh": "217880b27dfb4deefac9cdf3b626c2e161bfc3b7c8496b923427207df102ea5b",
+        "exllamav3/exllamav3_ext/quant/exl3_gemv.cu": "e0dd7c2784c4d33bc867f1dbd7d3cb6b0ae0992efc450378069777e60d6ba424",
+        "exllamav3/exllamav3_ext/quant/exl3_gemv.cuh": "46c6ee7c303b4c3727363aa64ece118b8be9fd169a94e1f505a37b77f1702d1c",
+        "exllamav3/exllamav3_ext/quant/exl3_gemv_int8.cu": "f95ea99d2c0e0767c70873ba4d7c6666282771f94e61b692aee2dc52acebe277",
+        "exllamav3/exllamav3_ext/quant/exl3_gemv_int8.cuh": "2604b78a64537e072913dfe3ffb31e95f36fe2fce27943890d3e91fd17a5e636",
+        "exllamav3/exllamav3_ext/quant/exl3_gemv_int8_kernel.cuh": "3fd2d2a94e9ba70d25e770656af7fb41ed49351516a37cfca8a8255d5560a8f6",
+        "exllamav3/exllamav3_ext/quant/exl3_gemv_kernel.cuh": "3de98e1405b29eb7a3d25a47d2c4688e9575cdf31a3e42b1c26f996e37c4eecf",
+        "exllamav3/exllamav3_ext/quant/exl3_kernel_map.cu": "a7d3eabda9eebc5af65f53488c76c9e9b98a07aedff8d15c8327626a57f0276b",
+        "exllamav3/exllamav3_ext/quant/exl3_kernel_map.cuh": "92da1c479a6f6f89bfaf7d038fd54115492c5f9c2be0a23da3ffb7efdde35348",
+        "exllamav3/exllamav3_ext/quant/exl3_moe.cu": "5878e260106d4f13eaf510f74fb8e6307ea5425e0863ba9600893a35642e8967",
+        "exllamav3/exllamav3_ext/quant/exl3_moe.cuh": "86a28218028627b0a31bacdbf686564e0f10f6d0ebb486cb0dd469ea004b8b70",
+        "exllamav3/exllamav3_ext/quant/exl3_moe_common.cuh": "739a547d63b0e0bb53646831ac03d3dfcd24ec924659be7ed6d6f963657b1a31",
+        "exllamav3/exllamav3_ext/quant/exl3_moe_coop.cu": "5d077819af2c3c526b51c0a61b59d143f869c4e73ab8a64800d06f96d0d908fd",
+        "exllamav3/exllamav3_ext/quant/exl3_moe_coop.cuh": "eb906f6e0fc45337736a67492cc64dcb8baf5321375c164d4a58d3e3399db9a2",
+        "exllamav3/exllamav3_ext/quant/exl3_moe_coop_kernel.cuh": "bdd49840d121bc9d298de296f4ed975dd25a7b5c4331363ace0f5fbbda3917ed",
+        "exllamav3/exllamav3_ext/quant/exl3_moe_kernel.cuh": "29f2825196ff90ef3b9abc8481256448d01aa4277c53c250480bdbc5be7f0025",
+        "exllamav3/exllamav3_ext/rocm/vendor/rocm_wmma_gemm/LICENSE": "3da9e043c19cd0e35384d8e04f5beee3b69dabe1f160b2c92bc31feed9f1da33",
+        "exllamav3/vendor/fla/LICENSE": "41a83c8187efc1e3ccc21909e806a9e52338e69448554d9754706c3d1cd610e7"
+      }
+    }
+  ]
+}
