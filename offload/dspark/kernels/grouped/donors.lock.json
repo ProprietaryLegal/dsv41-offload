@@ -1,0 +1,9 @@
+{
+  "cutlass": {
+    "url": "https://github.com/NVIDIA/cutlass.git",
+    "tag": "v3.9.2",
+    "sha": "ad7b2f5e84fcfa124cb02b91d5bd26d238c0459e",
+    "scope": "headers only; no engine installation"
+  },
+  "toolchain": {"torch": "2.10.0+cu126", "cuda": "12.6", "arch": "sm_86"}
+}

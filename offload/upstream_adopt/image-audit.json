@@ -1,0 +1,234 @@
+{
+  "donor_sha": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+  "fuzz": 0,
+  "patches": [
+    "0051-dsv41-indexer-defer.patch",
+    "0053-dsv41-display-kv.patch",
+    "0054-dsv41-display-tensors.patch",
+    "0055-dsv41-hybrid-draft.patch",
+    "0056-dsv41-kv-offload-crc.patch",
+    "0057-dsv41-kv-pair-blocks.patch",
+    "0058-dsv41-offload-expandable-segments.patch",
+    "0059-dsv41-kv-nvfp4.patch",
+    "0060-dsv41-kv-three-pages.patch",
+    "0061-dsv41-kv-fp8-window-nvfp4-compressed.patch",
+    "0064-dsv41-exl3-moe-smoe-split.patch",
+    "0066-dsv41-dspark-drafter-markov.patch",
+    "0067-dsv41-vor-swa-fused.patch",
+    "0071-dsv41-background-depth-cap.patch",
+    "0072-dsv41-background-decode-pause.patch",
+    "0073-dsv41-throttle-waiting-foreground.patch",
+    "0074-dsv41-background-chunks-alone.patch",
+    "0075-dsv41-replay-skip-intermediate-chunks.patch",
+    "0076-dsv41-head-memory.patch",
+    "0077-dsv41-kv-offload-two-nodes.patch",
+    "0078-dsv41-engram-prefill-reads.patch",
+    "0079-dsv41-decode-fixed-costs.patch",
+    "0080-dsv41-startup-reservation.patch",
+    "0081-dsv41-kv-offload-load-cap.patch"
+  ],
+  "identical_files": [
+    {
+      "path": "vllm/config/vllm.py",
+      "image_base_sha256": "92e9b31dd01de77aad7b19fc60ae3e6b406f7f902e07da838b6028bb74d3996b",
+      "rebuilt_and_donor_sha256": "fc90a9e8e8fc9d79ae70a52a487e9e8df006b71dd5e251d6d131425bfe72e66c"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "image_base_sha256": "59119ba44f4fbc79506d37194c2d4a5007885fa8d469b86e7d661a0f1080bcfc",
+      "rebuilt_and_donor_sha256": "f276f0399ac6d2123799dd7b1f4773c3be1b8809a10c2b392f7891495f443931"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "image_base_sha256": "402789c09537e081adef23ef12bf53f572ad883ab299623fc0d83ca0eb297c9f",
+      "rebuilt_and_donor_sha256": "f9a3f65b62f61ec926dc1ddcf780819982c21d84473aa807d47b051169737d4b"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "image_base_sha256": "ca61db86f61b4b2638102ebb04d8a6cf20947203926a31a9f0cccf284ce2bcf8",
+      "rebuilt_and_donor_sha256": "1f51e2bfa4f8f370ac5dbfb4f4161243dcec572b1c484f3747cff832b043dbd6"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/attention.py",
+      "image_base_sha256": "91983486fc3504ae183e8bfc79c18354cca86ba4f8633b16b2afab7c5a39798f",
+      "rebuilt_and_donor_sha256": "d5f1ef3cac491f199be758130d47e426450e1773b4872a6493421570fcd10168"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/engram.py",
+      "image_base_sha256": "bf95ad9a61b0f5f211f00c21e4dc1fd46d2404fcfae54ab53690ec2e951b05e5",
+      "rebuilt_and_donor_sha256": "d5facc553b1c3b77a899dcdc5f884afaeb09f9ca7e2c698ae1e653bb7702a451"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+      "image_base_sha256": "a3f81abbab1f507e441176222578f90056e6b4bc0063bb36681c230a84b3d969",
+      "rebuilt_and_donor_sha256": "46554939227f051a2afeea16e66f30cb217a2cb7777205eb5e15f6d0dd5dc6ed"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "f1195654774029ce831d83837fdd159ee9cfc70c1732096d00889c7c591983b3"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/ops/swa_fused.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "3deeeb8cd82b49acaa405bff7a1827c97984ea12e75c71af5986cdc46f1bc5be"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/dspark.py",
+      "image_base_sha256": "3fe3c4942f496e65f7e7b6265d1e064af95ceb21f5680b991630deefd1a75e9a",
+      "rebuilt_and_donor_sha256": "35c52c83c4696505cb4159ecc9c2d94a3ca12e5b999b484982c49a69c05feda9"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+      "image_base_sha256": "7dc15a16043820329a6e5150c85dd7ebe707f14e8130879d2b9474d7ea65671c",
+      "rebuilt_and_donor_sha256": "9a3c5dafa209b54522042e365f8fa2d8f732319038c7e08f39dcf93b9ff5ed8f"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/model.py",
+      "image_base_sha256": "66005a8edde825612bbb9e041a5a218132cf97123bba9b401890122de6314a89",
+      "rebuilt_and_donor_sha256": "bc3aa8b06ff40c65e93f31e11c3cad38fcb4fb6425946e61829f041bac283d3f"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/model_state.py",
+      "image_base_sha256": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "rebuilt_and_donor_sha256": "f953c2e278df18ddc25f7ddb48df4e177cd22fc58a495b4eebea083ae3278790"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/ops/markov_step.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "89d8e80a4a7379ca5138e320548ad12bed32a5eab776728bf4196f7ca28ea503"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/replay_skip.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "3989c0eecc0eb9ca6757afaf20575f2cac8dc47738a392baa4ad3edcb6ad72c5"
+    },
+    {
+      "path": "vllm/v1/attention/backends/mla/sparse_swa.py",
+      "image_base_sha256": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb",
+      "rebuilt_and_donor_sha256": "1995997b763d57fcbb4b1028dc6f5831dd26294d6911a4c485801856f2321173"
+    },
+    {
+      "path": "vllm/v1/core/kv_cache_utils.py",
+      "image_base_sha256": "6cd5a3def8f7c9af4006e4c7f9302b160413e8ee049d278ed4edf62215338f1f",
+      "rebuilt_and_donor_sha256": "e47c5af891544772ca3ab2a63d4e689f685afaae75f7f13904b9173424a0c4ed"
+    },
+    {
+      "path": "vllm/v1/core/sched/output.py",
+      "image_base_sha256": "f0f1f278efb48f0ccd5190451d75374e47c752cb7ae26d8a8704c4538719a877",
+      "rebuilt_and_donor_sha256": "5f1039cbc2d9172c24bdccef9973846e2d336bdd25e8a4c1d6be1f6b44ef23d1"
+    },
+    {
+      "path": "vllm/v1/core/sched/scheduler.py",
+      "image_base_sha256": "54beb2a2060941c2747e5906d694e4495e333adf50cd990b56a54622cd1bdf97",
+      "rebuilt_and_donor_sha256": "8e24bfe9493d9e1efd15bc24b95b3b5478ce01f6cf23434bf1cba8a8fd5b015b"
+    },
+    {
+      "path": "vllm/v1/kv_cache_interface.py",
+      "image_base_sha256": "ba1501273333a1f6dc2446f92b029f2f1b1efb24971cf0dbfa0114f68c3d84c6",
+      "rebuilt_and_donor_sha256": "36ebd7e679c0771a5568026dc530546a0e7ce2ec85e8eeec29a50cf00f6c8755"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/io.py",
+      "image_base_sha256": "c12156b15a39f928262954e5c2aa7fea1e8b99caf7a596b2e647457bec4a7d33",
+      "rebuilt_and_donor_sha256": "26f613b00b0ed05cc69917e5e2f1b4e1e0299596ee5143d58bae0e01cbe3c09d"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/thread_pool.py",
+      "image_base_sha256": "8891ad969658c61a8b902e70d673292bf481504c4b8347b3801b45b257a20cab",
+      "rebuilt_and_donor_sha256": "da807568162e24bb01a2011c9547d8477a4684b55c181ff8a9d64a8bbd96bc47"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/dsv41_engram_lookahead.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "bbf84839e9f98935d56d2bc172d529b6739136b120ac0bb513e315f5b119b3ea"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/dsv41_memprobe.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "cce01329665cc3f6eef04745d5c8bcb9bdc99ff5768899c9a9d74baaf263bd64"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/dsv41_prealloc.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "7a1b79a863c323187496d7c453a3961b3299935ba3d8c0d22f23dedc4d558c7e"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/model_runner.py",
+      "image_base_sha256": "af9be025ff8a17a5aabd452fc3e4b987abe64fb28d852c569e1372d6f1e4d3a6",
+      "rebuilt_and_donor_sha256": "1e78b84fd987d3c156603771f05f7ad8b8f85ebbcd3684e74a4735804b2c50d3"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/spec_decode/depth_policy.py",
+      "image_base_sha256": "10aa179c7b4cf5ac5b35160eb5c762666484ecffe50594aebecdbe49c601a025",
+      "rebuilt_and_donor_sha256": "94edc277a4e057a2943d009a1c7178e4ccf12f585639d1ab09831b172db1edbd"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "image_base_sha256": "36d5bccd28eb64de1af348cbdd4d630bfd7d781479be472570e14c0865826058",
+      "rebuilt_and_donor_sha256": "12bcdb149b7b342397355db97fce96ac4367999c4af8377e26759834787e34cf"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/spec_decode/dspark/speculator.py",
+      "image_base_sha256": "f319e29d7b5492f8504d141474ef0bb58d39971249a24749fa8d464a808e8708",
+      "rebuilt_and_donor_sha256": "6f3e5a35adbb4a0e67de0e8b8057c2ed49a1d4ee15ce4d0bf897a45f270da57d"
+    },
+    {
+      "path": "vllm/v1/worker/gpu_worker.py",
+      "image_base_sha256": "0b368e907d897ed454923c6b1655b8bb1a9540d074510670621ad8569030a4f9",
+      "rebuilt_and_donor_sha256": "334cef90e73c78e406791631efc4ab551a383c204c5d2bfb96200f7883201e0e"
+    },
+    {
+      "path": "vllm/v1/worker/utils.py",
+      "image_base_sha256": "da97907a4a3906ff49349c45dcc8a888a3a8154ed11c501fe2f1878f37c4f0e1",
+      "rebuilt_and_donor_sha256": "163c6d58f4dc7bc83672ff93a2e4786666672b73c2dec9ee1b6e6521c70528e5"
+    },
+    {
+      "path": "vllm_exl3_moe/config.py",
+      "image_base_sha256": "0480bd254d7da906849bdbc14be941ac3a6c2cbb8e518eb4f54c840f63fb8d62",
+      "rebuilt_and_donor_sha256": "086726aad455d8341e668be1fcf2ff93b8ee751058d9eab078e52b5e5f452ac8"
+    },
+    {
+      "path": "vllm_exl3_moe/dense.py",
+      "image_base_sha256": "582f61da4b78fd7fcd1b9b6fed6c31b4e67baf8bc0d8cef46fbabbd1ffebd31e",
+      "rebuilt_and_donor_sha256": "286f43b849fde3f41f0990ae47b6af2c9c5f678e8a89ff0bcb1e41dc3efa02e6"
+    },
+    {
+      "path": "vllm_exl3_moe/display_kv.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "17d0e4a9dfcc7d18bdafe6ce6d657b1b7efb9a15e6ef778a7aae51ce233bbe9a"
+    },
+    {
+      "path": "vllm_exl3_moe/forward.py",
+      "image_base_sha256": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c",
+      "rebuilt_and_donor_sha256": "c06ba9b66e6349fc4c0bad93a74e62c22d489f1a9d54596a5d10fd0fcb7c8966"
+    },
+    {
+      "path": "vllm_exl3_moe/l2pf_draft.py",
+      "image_base_sha256": null,
+      "rebuilt_and_donor_sha256": "6921acbb382d1d0772b99a1f8ce819363b45e95a6e75f9f398ede33994a6c91d"
+    },
+    {
+      "path": "vllm_exl3_moe/moe_method.py",
+      "image_base_sha256": "405ffe86296375452ca463d3346ffa28ef7e645dfd19c7610e83c2c6e0f784b0",
+      "rebuilt_and_donor_sha256": "89e17a807fbd61c40f1e0c877ad7b9395bf5ec43538f585dc9ef79f2d63a5de4"
+    },
+    {
+      "path": "vllm_exl3_moe/smoe.py",
+      "image_base_sha256": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a",
+      "rebuilt_and_donor_sha256": "954976235fb0064204112b4b5388a6b04a1f0ebf092bf6ce6666584ac99b1497"
+    },
+    {
+      "path": "vllm_exl3_moe/tf_experts.py",
+      "image_base_sha256": "a74af3c58af8fd772caed04837f887247dc6ba1b9487418e3bca9af6029faabb",
+      "rebuilt_and_donor_sha256": "bde1d0b48b87394aeff364ac51d6bab209d21c422690e557778fa81c5922024d"
+    },
+    {
+      "path": "vllm_exl3_moe/tf_prompt.py",
+      "image_base_sha256": "e029add94af8ba593d8b9929c182a7df28e6abd6a7643da6b17527e27df10a99",
+      "rebuilt_and_donor_sha256": "8d66ae29656575b1ab38a6b7a8fa03d9bc4cc2b10565efdc966af07b30268456"
+    }
+  ],
+  "residual": [],
+  "qualification": "Source reconstruction only; donor code was never executed"
+}

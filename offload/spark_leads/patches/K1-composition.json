@@ -1,0 +1,39 @@
+{
+  "k1_ref": "87b08b5c486e68458223ea38dca6bb911b678400",
+  "k1_manifest_sha256": "559c5867ba42aa7daa7b4a7c8231d15ee1d35be40ae5b715b013f973193c58de",
+  "patches": [
+    "0075-v5.patch",
+    "0078-remote.patch"
+  ],
+  "fuzz": 0,
+  "patch_sha256": {
+    "0075-v5.patch": "16f24e94ad65e13c4184be49bfbff3bce8f5e9897daa711e04a0b42815597911",
+    "0078-remote.patch": "f3a8bd620912ffd85de330dee82c996ce4272439b87f67cbade04d749ef2c440"
+  },
+  "combined_files": {
+    "offload/dspark/spark/remote_dspark/gather.py": "dda5b1ee0da87ad737ac72238ebb2c41cc8bdfdaff90eb5c8e0908d91df9b052",
+    "offload/engram/spark/engram.py": "ec01f5f9b0ba044d8d01eb23da1ca8d7d0d2adea2a2ba62059e8a6382109d05f",
+    "offload/engram/spark/engram_remote.cpp": "6df170470ccdf82ec8a78225d0f6c055d754b07bcf9f7602c1f864324cc855f5",
+    "offload/engram/spark/row_lookahead.h": "30804397579b668459645ad82e14ff6fef10c505e561213ad383668385c004b3",
+    "offload/engram/spark/stage_overlay.sh": "c9f42bb218610f7b8ce99fe39f4656fe889d94f1aeac4905508c3aea0d76aa38",
+    "vllm/models/deepseek_v41/attention.py": "3b7d3c00a84c154c0e54af5b66724a1abf9208232e8b4c9262fc19b3b0e29074",
+    "vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py": "46554939227f051a2afeea16e66f30cb217a2cb7777205eb5e15f6d0dd5dc6ed",
+    "vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py": "cc5ca7868f3d8067114ce46caf20795ab5a797d827c86ac0c9a17fc65846621d",
+    "vllm/models/deepseek_v41/nvidia/dspark.py": "46a4467bbb2171a860cc46041eafea14ee18c81be5f97a310def60b5d77f7b29",
+    "vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py": "0b45a382234c4311c068d50a775bdff5314e13e9b25cad1bbb03ca21dbdcbb09",
+    "vllm/models/deepseek_v41/nvidia/model.py": "bc3aa8b06ff40c65e93f31e11c3cad38fcb4fb6425946e61829f041bac283d3f",
+    "vllm/models/deepseek_v41/nvidia/model_state.py": "cdf5cfd90d61b4c044b444d01ef9d8361baed9aec9029940adad18816dff0881",
+    "vllm/models/deepseek_v41/replay_skip.py": "3989c0eecc0eb9ca6757afaf20575f2cac8dc47738a392baa4ad3edcb6ad72c5",
+    "vllm/v1/core/kv_cache_utils.py": "e47c5af891544772ca3ab2a63d4e689f685afaae75f7f13904b9173424a0c4ed",
+    "vllm/v1/core/sched/scheduler.py": "491ceefc35724d91e888bf78426415d0ea898aeff554510fc7faef44558feabc",
+    "vllm/v1/kv_cache_interface.py": "36ebd7e679c0771a5568026dc530546a0e7ce2ec85e8eeec29a50cf00f6c8755",
+    "vllm/v1/worker/gpu/dsv41_memprobe.py": "cce01329665cc3f6eef04745d5c8bcb9bdc99ff5768899c9a9d74baaf263bd64",
+    "vllm/v1/worker/gpu/input_batch.py": "056f7eec511c71f25f82e6acb660fa5f405615efbf6d096ec8753f2f1c91462f",
+    "vllm/v1/worker/gpu/model_runner.py": "f9afd72a660be5c7a38b5b924b7e74bafd40073b918251e7a220662b2e943ed7",
+    "vllm/v1/worker/gpu/x1_engram_lookahead.py": "24fb3293097ada548fe747141bc57bc77eb2c1327616d4777b321f667122a934",
+    "vllm/v1/worker/utils.py": "163c6d58f4dc7bc83672ff93a2e4786666672b73c2dec9ee1b6e6521c70528e5",
+    "vllm_exl3_moe/tf_experts.py": "bde1d0b48b87394aeff364ac51d6bab209d21c422690e557778fa81c5922024d",
+    "vllm_exl3_moe/tf_prompt.py": "8d66ae29656575b1ab38a6b7a8fa03d9bc4cc2b10565efdc966af07b30268456"
+  },
+  "qualification": "text composition and Python/shell syntax only; no JIT/GB10/service test"
+}

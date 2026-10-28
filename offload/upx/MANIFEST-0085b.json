@@ -1,0 +1,40 @@
+{
+ "default": "OFF: nothing changes unless an arm mounts these files (offload/upx/configs.py) and sets a switch",
+ "donor": {
+  "patch_commit": "49473699d0d60acec3cdd4fe83c332da2f51766e",
+  "repo": "github.com/HeNryous/deepseek-v41-1017-dgx-spark",
+  "tip": "382071728ce69700b28e7a5ea197ab0a48b2232c"
+ },
+ "files": [
+  {
+   "base": "image:vllm/v1/engine/core.py",
+   "base_sha256": "194d96b759cc48a7e629507bcef5c09ba438f3fc5bf4be2f64e44947b46add49",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py",
+   "overlay": "offload/upx/overlay/vllm/v1/engine/core.py",
+   "overlay_sha256": "dc7b3fec51b84256567fd58b21d6bb6ede6e3335b12974de88917ec08fb8db0f",
+   "path": "vllm/v1/engine/core.py",
+   "port": "donor hunks unchanged (patch --fuzz=0)"
+  },
+  {
+   "base": "image:vllm/v1/worker/gpu_worker.py",
+   "base_sha256": "0b368e907d897ed454923c6b1655b8bb1a9540d074510670621ad8569030a4f9",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu_worker.py",
+   "overlay": "offload/upx/overlay/vllm/v1/worker/gpu_worker.py",
+   "overlay_sha256": "837e3e8954452f6ba92ac282a75640cc0c6fe0dbcafd8cf9acf348fb39e0dcef",
+   "path": "vllm/v1/worker/gpu_worker.py",
+   "port": "hunk 2 unchanged (patch --fuzz=0, offset); hunks 1 and 3 placed at v5 anchors (WORKER_PORT)"
+  }
+ ],
+ "image": "ghcr.io/henryous/deepseek-v41-1017-dgx-spark:v5",
+ "patch": "offload/upx/patches/0085b-dsv41-idle-cache-release.patch",
+ "patch_sha256": "73a293320e13d0d9135fe203f352b925c1b8c77e859cb82c1a58b7fe3444662d",
+ "port_patch": "offload/upx/patches/0085b-v5.patch",
+ "port_patch_sha256": "c97b4a32d0ebc6a150cb4058b706b5c5108320d9df93ab8b17822ab771985abb",
+ "schema": "dsv41-upx-0085b-v1",
+ "switches": {
+  "VLLM_DSV41_RELEASE_FILE": "path of a file holding the threshold, read at every idle check (0 = off); set = engine core idles through the grace period",
+  "VLLM_DSV41_RELEASE_GRACE_S": "idle seconds before the release (default 5; parsed at import, used only when a switch above is set)",
+  "VLLM_DSV41_RELEASE_TOKENS": "prefill-token threshold; '' or 0 = off (both files)"
+ },
+ "vllm_base": "6e517b15"
+}
