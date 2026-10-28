@@ -1,0 +1,30 @@
+offload/upfix contains third-party code under the Apache License, Version 2.0
+(https://www.apache.org/licenses/LICENSE-2.0).
+
+patches/0091-dsv41-upstream-fixes.patch
+  Unchanged copy of patches/0091-dsv41-upstream-fixes.patch from github.com/HeNryous/deepseek-v41-1017-dgx-spark
+  (introduced in f1b6207c5c774f3bdefa686ae6150f4042a4fd06; read at tip 382071728ce69700b28e7a5ea197ab0a48b2232c),
+  Apache-2.0, by the henryous contributors. It backports vLLM pull requests #59096, #59880, #61174, #63165, #61000
+  and #59504 (Copyright contributors to the vLLM project, Apache-2.0).
+
+overlay/, overlay-0075/
+  vLLM source files (Copyright contributors to the vLLM project, Apache-2.0; SPDX headers kept) from the serving image
+  (vLLM 6e517b15) and from offload/upstream_adopt/overlay, with the 0091 patch applied by build_0091.py. Modified:
+  every changed region is marked "dsv41 patch 0091".
+
+topk/csrc/persistent_topk.cuh, sampled_topk.cuh, topk_histogram_4096.cuh, persistent_topk_overflow.cuh,
+topk_histogram_4096_overflow.cuh
+  Unchanged copies from vllm-project/vllm 3090266d88b6c3abbe18483fa5bbc7de293d8ef0 (csrc/), Copyright contributors
+  to the vLLM project, Apache-2.0. Git blob ids are pinned in topk/build_overlay.py. Between the image's vLLM
+  6e517b15 and 3090266d8 six commits touch these files: #62467, #62936, #63475, #63118, #59645 (cooperative
+  candidate overflow, the prerequisite of #62936) and #60721 (header consolidation).
+
+topk/csrc/dsv41_topk.cu
+  Modified from vllm-project/vllm 3090266d8 csrc/topk.cu (blob d5ff2a8386ebdb10fb263ecd6a08f6bcf53ff4c2), Copyright
+  contributors to the vLLM project, Apache-2.0: ported from the libtorch stable ABI to ATen, registered as the
+  separate library dsv41_topk, low-shared-memory fallback routed to the image's _C op. The header comment states
+  the changes.
+
+topk/overlay/vllm/model_executor/layers/indexer_topk.py
+  vLLM 6e517b15 file from the serving image (Copyright contributors to the vLLM project, Apache-2.0) with two edits
+  marked "dsv41 R-UPF".

@@ -1,0 +1,10 @@
+X1 overlay drafts adapt portions of:
+  deepseek-v41-1017-dgx-spark — Copyright 2026 HeNryous
+  dgx-spark-deepseek-v41 — Copyright 2026 sudoingX
+  vLLM — Copyright contributors to the vLLM project
+These patches and source portions are licensed under Apache License 2.0; see licenses/Apache-2.0.txt.
+HeNryous source revision: afe4d5e41ec6fa4db17c5cc88758af439a106913.
+Changes by X1: v5 scheduler hand-port; explicit real-tap provenance; remote single-reader lookahead,
+private response buffers, bounded cache/credits/cancellation, selective miss fetch and attribution/CPU tests.
+No donor model weights, encoded payloads or private legal captures are included in this directory.
+Other donors are referenced for analysis only, with their revisions/licenses in the per-item notes.

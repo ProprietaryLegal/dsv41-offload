@@ -1,0 +1,19 @@
+# DSV41-OFFLOAD Engram table server (lane O1). systemd --user unit for x86host; NOT enabled by default.
+#   link (no enable):  systemctl --user link ~/dsv41-offload/o1/src/offload/engram/server/dsv41-engram.service
+#   then:              engram_ctl.sh start|stop|status   (uses this unit when linked, else tmux session dsv41-engram)
+[Unit]
+Description=DSV41-OFFLOAD Engram table server (x86host RAM; engram-v1 over ofl TCP/RDMA on 10.202.28.1 + 10.202.29.1)
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/dsv41-offload/o1/bin/engram_server --data /opt/dsv41/x86host-data/engram --manifest %h/dsv41-offload/o1/manifest.json --wait-marker ENGRAM_COPY_DONE --listen 10.202.28.1 --listen 10.202.29.1 --port 18610 --threads 8 --budget-gib 215 --stats %h/dsv41-offload/o1/run/engram_server.stats.json
+Restart=on-failure
+RestartSec=15
+LimitMEMLOCK=infinity
+TimeoutStartSec=infinity
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=default.target

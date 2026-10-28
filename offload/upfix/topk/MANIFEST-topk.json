@@ -1,0 +1,55 @@
+{
+ "also_in_vendored_files": {
+  "#59645": "cooperative candidate overflow, prerequisite of #62936",
+  "#60721": "header consolidation"
+ },
+ "launcher": {
+  "file": "offload/upfix/topk/csrc/dsv41_topk.cu",
+  "ported_from": {
+   "blob": "d5ff2a8386ebdb10fb263ecd6a08f6bcf53ff4c2",
+   "path": "csrc/topk.cu"
+  },
+  "sha256": "ec09398d68216d0184401c5ed5e5107df952dda2961abdbaa3828ede8cd41e66"
+ },
+ "op": "torch.ops.dsv41_topk.persistent_topk",
+ "overlay": {
+  "base_sha256": "49138f4f23f9b1e356a818725703b0e2b36270baf7ec3b2a308f8ee9e914ead9",
+  "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/indexer_topk.py",
+  "overlay_sha256": "706816bc69525167a3e17174742e918695ebb6b542651fabfb3f861b48407407",
+  "path": "vllm/model_executor/layers/indexer_topk.py"
+ },
+ "schema": "persistent_topk(Tensor logits, Tensor lengths, Tensor! output, Tensor workspace, int k, int max_seq_len) -> ()",
+ "switches": {
+  "VLLM_DSV41_TOPK_FIX": "'0' default (image kernel); '1' fixed op",
+  "VLLM_DSV41_TOPK_FIX_SO": "path of the built library inside the container"
+ },
+ "upstream_prs": [
+  "#62467",
+  "#62936",
+  "#63475",
+  "#63118"
+ ],
+ "vendored": {
+  "persistent_topk.cuh": {
+   "git_blob": "bd18483b48d0ae6aed27a9829baa4283a1212cc6",
+   "sha256": "09d23b8051d38df5debee1f95e0ccdd6d3dce1290e43885a53a5c16d484051c3"
+  },
+  "persistent_topk_overflow.cuh": {
+   "git_blob": "9ae116998e89eec5c4740a737e722505791d8f8c",
+   "sha256": "d6fd5e0ee9cf24acaa67209a58508a3432915fa700ada4b2ece69e9fcc032544"
+  },
+  "sampled_topk.cuh": {
+   "git_blob": "c25f8ed8e73137b37c94170bd4852dafa3bbafb6",
+   "sha256": "9d7ea93d7490998949152aa02043a0aff7c65645f0a52a6d441dd0ccd4cd85a2"
+  },
+  "topk_histogram_4096.cuh": {
+   "git_blob": "b5aeb2d78cd6b0419c291d58b03ba96c306df555",
+   "sha256": "e7d236fdba4488f183679339f7cd33593acaabdfda265a19e21674e7511a829b"
+  },
+  "topk_histogram_4096_overflow.cuh": {
+   "git_blob": "7433a0362acf866b27dbec76375bea131236df2a",
+   "sha256": "a7bf8ac5bd92c760989a234332a378ce16d549f40b9b02d1293764ac591bdeb8"
+  }
+ },
+ "vllm_fix_commit": "3090266d88b6c3abbe18483fa5bbc7de293d8ef0"
+}
