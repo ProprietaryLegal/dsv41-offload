@@ -1,0 +1,40 @@
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -674,6 +674,10 @@
+             _DSV41_LOAD_FRACTION,
+         )
+         self._dsv41_stream: _dsv41_stream.StreamController | None = None
++        # Requests whose lookup counted file-tier chunks without promotion. Latched: the matter gate can
++        # close (janitor thread) between a request's lookup and its allocation, and those chunks must
++        # still be landed by the stream (which then fails and recomputes), never by a direct load.
++        self._dsv41_stream_reqs: set[ReqId] = set()
+         if _DSV41_STREAM:
+             primary = getattr(self.manager, "primary_tier", None)
+             if primary is None or num_cpu_chunks <= 0:
+@@ -695,6 +699,7 @@
+         """MC1: a streaming request's file-tier chunks are hits where they lie (no promotion at lookup)."""
+         stream = self._dsv41_stream
+         if stream is not None and stream.eligible(req_context):
++            self._dsv41_stream_reqs.add(req_context.req_id)
+             return stream.exists(key, req_context)
+         return self.manager.lookup(key, req_context)
+ 
+@@ -1291,9 +1296,7 @@
+             if req_status.offloading_context.policy == OffloadPolicy.CHUNK_LEVEL:
+                 group_state.next_stored_chunk_idx = num_chunks
+ 
+-        if self._dsv41_stream is not None and self._dsv41_stream.eligible(
+-            req_status.req_context
+-        ):
++        if self._dsv41_stream is not None and request.request_id in self._dsv41_stream_reqs:
+             # MC1: land window by window from build_connector_meta (first window this step).
+             self._dsv41_stream.start(
+                 request.request_id,
+@@ -2126,6 +2129,7 @@
+         if self._dsv41_stream is not None:
+             # MC1: finished mid-stream (e.g. aborted): no further windows; a fail job frees it.
+             self._dsv41_stream.abort(request.request_id)
++            self._dsv41_stream_reqs.discard(request.request_id)
+ 
+         if req_status is None:
+             # Untracked request (offloading never started): no in-flight jobs,

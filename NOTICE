@@ -1,0 +1,19 @@
+PLI Labs — dsv41-offload
+Copyright 2026 Proprietary Legal Intelligence LLC
+
+Original PLI Labs code is licensed under Apache-2.0 (LICENSE).
+
+Third-party components in this tree:
+- vLLM: overlay files under offload/**/overlay/vllm/ and patches against vLLM sources. Apache-2.0; Copyright contributors to
+  the vLLM project, retained in SPDX headers. Licence: LICENSES/Apache-2.0.txt; upstream
+  https://github.com/vllm-project/vllm/blob/main/LICENSE. offload/upfix/topk vendors vLLM top-k kernels (commit 3090266d8,
+  including PRs #62467, #62936, #63475, #63118, #59645, #60721).
+- HeNryous/deepseek-v41-1017-dgx-spark: patch series and image files adopted under offload/upstream_adopt/, offload/upfix/,
+  offload/up3/ and offload/upx/ (including patches 0051, 0064, 0067, 0075, 0085b, 0091). Apache-2.0. Its NOTICE (which also
+  carries the sudoingX dgx-spark-deepseek-v41 NOTICE) is reproduced in LICENSES/HeNryous-deepseek-v41-1017-dgx-spark-NOTICE.txt.
+- sudoingX/dgx-spark-deepseek-v41: serving recipe and the vllm_exl3_moe plugin lineage. Apache-2.0.
+- exllamav3 (turboderp): EXL3 trellis decoding adapted in the drafter worker and patches. MIT; LICENSES/exllamav3-MIT.txt.
+- TensorFold: the one-hop gather adapted in the vllm_exl3_moe plugin, as credited in the HeNryous NOTICE.
+
+Source files retain their SPDX and attribution notices. Third-party material retains its original licence.
+DeepSeek supplies the model and the DSpark drafter; no model files are distributed.

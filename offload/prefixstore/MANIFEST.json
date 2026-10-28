@@ -1,0 +1,124 @@
+{
+  "image": "ghcr.io/henryous/deepseek-v41-1017-dgx-spark:v5",
+  "donor_sha": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+  "patch_fuzz": 0,
+  "k1_manifest_sha256": "559c5867ba42aa7daa7b4a7c8231d15ee1d35be40ae5b715b013f973193c58de",
+  "patches": [
+    {
+      "name": "0056-dsv41-kv-offload-crc.patch",
+      "sha256": "d1073571912d229b65af8c070ee0657ad3caa7cce66aa82af20a19fb06a322e4"
+    },
+    {
+      "name": "0058-dsv41-offload-expandable-segments.patch",
+      "sha256": "6fb50e3a1b0e4dbf92901011599e0b01b546f7b1a2c532b8cbacd4a569e854ed"
+    },
+    {
+      "name": "0077-dsv41-kv-offload-two-nodes.patch",
+      "sha256": "6f818dddd4ecc16bc8e1745914459fd8dbc54a95e19b19bbde2687ac879374e4"
+    },
+    {
+      "name": "0081-dsv41-kv-offload-load-cap.patch",
+      "sha256": "a982833bac6a264b2b119149f283297cdcf61ffa6f2a33c5fcb7f634a07a168a"
+    },
+    {
+      "name": "local/0100-rp1-safety.patch",
+      "sha256": "7eda96950223eeb3ba0cf9afd81ee28221aa0294de36318fea10d25fa16be487"
+    },
+    {
+      "name": "local/0101-mc1-unscoped-fs-tier-refused.patch",
+      "sha256": "13e75e4e4d4bb6770946438af598a7c76a55172093bbd7b8133445c6f622800f"
+    },
+    {
+      "name": "local/0102-mc1-streamed-landing.patch",
+      "sha256": "bc90ea881be970b4266886f9b230541e47223f94eef76d61748cf4103878bb9e"
+    },
+    {
+      "name": "local/0103-mc1-block-hash-dump.patch",
+      "sha256": "2db42afe59129455d93e032ab81cef80186c1dd6092aec3976e96fc447c6ac2a"
+    },
+    {
+      "name": "local/0104-mc1-stream-eligibility-latched.patch",
+      "sha256": "13e03752d17a125539f58160ed353005f484d1c0c8393c08c3b8046c030a0ee2"
+    },
+    {
+      "name": "local/0105-mc1-persistent-tiers-matter-gated.patch",
+      "sha256": "b0a1c2ea7ada906a550b156ce71b521984b6bf0276327f73b0b345f08d102709"
+    }
+  ],
+  "files": [
+    {
+      "path": "vllm/config/vllm.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/config/vllm.py",
+      "base_sha256": "92e9b31dd01de77aad7b19fc60ae3e6b406f7f902e07da838b6028bb74d3996b",
+      "overlay_sha256": "fc90a9e8e8fc9d79ae70a52a487e9e8df006b71dd5e251d6d131425bfe72e66c"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading_connector.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading_connector.py",
+      "base_sha256": "98eb1a9663d5d8b81f74e437c15106f9abe1554089bf994778695fe7c357e374",
+      "overlay_sha256": "b99c814144c0a0f68f34f8dd3e18b659f8382325263a829fb8fd208038f6f77e"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "base_sha256": "59119ba44f4fbc79506d37194c2d4a5007885fa8d469b86e7d661a0f1080bcfc",
+      "overlay_sha256": "0e4e73dfabcea82c30973284a183e23b23b9eae95e156bf0e85d399904c9b837"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "base_sha256": "ca61db86f61b4b2638102ebb04d8a6cf20947203926a31a9f0cccf284ce2bcf8",
+      "overlay_sha256": "5e997e8f6b15f7969aa6c2c5345c7c9159f7f8a6c5af64d88c422285a2bd7913"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "base_sha256": "402789c09537e081adef23ef12bf53f572ad883ab299623fc0d83ca0eb297c9f",
+      "overlay_sha256": "ca0830178ab2e04fb719ec4486d3e51aebff24029d404d160da47751e8e6694b"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/io.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/io.py",
+      "base_sha256": "c12156b15a39f928262954e5c2aa7fea1e8b99caf7a596b2e647457bec4a7d33",
+      "overlay_sha256": "26f613b00b0ed05cc69917e5e2f1b4e1e0299596ee5143d58bae0e01cbe3c09d"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/manager.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/manager.py",
+      "base_sha256": "7bbcecd31991ed85a39bc232d9b1a8b78dc43b6c4f345d63bc0d423bcead1e0d",
+      "overlay_sha256": "303703fce2773f5a695bdc09b1088f24afbf329af9fc1923d03d8ace74441a51"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/thread_pool.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/thread_pool.py",
+      "base_sha256": "8891ad969658c61a8b902e70d673292bf481504c4b8347b3801b45b257a20cab",
+      "overlay_sha256": "da807568162e24bb01a2011c9547d8477a4684b55c181ff8a9d64a8bbd96bc47"
+    }
+  ],
+  "new_files": [
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/dsv41_blockhash.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/dsv41_blockhash.py",
+      "base_sha256": null,
+      "overlay_sha256": "60472c205fb6bc7be6f086ca992d1b46d2139f3592b8f178eb455b4c3c5e3a03"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/dsv41_stream.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/dsv41_stream.py",
+      "base_sha256": null,
+      "overlay_sha256": "383646d060e22761e31a011e98959e20e7db2aad9e76e56d12b1b7efaf98a38b"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/dsv41_matter.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/dsv41_matter.py",
+      "base_sha256": null,
+      "overlay_sha256": "16ba79592c9f81ba7f7b57b290eb49199686e9868165d27001ffcb476ececec1"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/dsv41_matter_tier.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/dsv41_matter_tier.py",
+      "base_sha256": null,
+      "overlay_sha256": "ba916368c0fb44466782aad6496a1cc6220e8189fb0ecaa664976ddd7cd097ea"
+    }
+  ]
+}

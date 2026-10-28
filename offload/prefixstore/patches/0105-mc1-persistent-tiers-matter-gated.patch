@@ -1,0 +1,20 @@
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -588,6 +588,17 @@
+             spec, vllm_config, kv_cache_config
+         )
+         self.manager: OffloadingManager = spec.get_manager()
++        # MC1: in multinode (production) mode every persistent tier, whatever its type (Tier 1 Spark NVMe, a later
++        # Tier 2), must be matter-gated: default deny, excluded namespaces, fail closed (dsv41_stream contract).
++        if os.environ.get("VLLM_DSV41_OFFLOAD_MULTINODE", "0") == "1":
++            ungated = _dsv41_stream.ungated_tiers(
++                getattr(self.manager, "secondary_tiers", ())
++            )
++            if ungated:
++                raise ValueError(
++                    "MC1: secondary tier(s) %s are not matter-gated; refused in "
++                    "multinode mode" % ungated
++                )
+         self._connector_stats = OffloadingConnectorStats()
+ 
+         full_attention_groups: list[int] = []

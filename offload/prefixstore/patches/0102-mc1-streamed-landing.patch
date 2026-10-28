@@ -1,0 +1,359 @@
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading_connector.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading_connector.py
+@@ -13,7 +13,10 @@
+     KVConnectorRole,
+     SupportsHMA,
+ )
+-from vllm.distributed.kv_transfer.kv_connector.v1.base import KVConnectorMetadata
++from vllm.distributed.kv_transfer.kv_connector.v1.base import (
++    KVConnectorMetadata,
++    KVConnectorTransferResults,
++)
+ from vllm.distributed.kv_transfer.kv_connector.v1.metrics import (
+     KVConnectorPromMetrics,
+     KVConnectorStats,
+@@ -141,6 +144,12 @@
+         assert isinstance(self._connector_metadata, OffloadingConnectorMetadata)
+         return self.connector_worker.get_finished(finished_req_ids)
+ 
++    def get_transfer_results(self, finished_req_ids: set[str]) -> KVConnectorTransferResults:
++        # MC1 streamed landing: an abandoned streamed load is reported as failed_recving.
++        assert self.connector_worker is not None
++        assert isinstance(self._connector_metadata, OffloadingConnectorMetadata)
++        return self.connector_worker.get_transfer_results(finished_req_ids)
++
+     def build_connector_worker_meta(self) -> OffloadingWorkerMetadata | None:
+         if self.connector_worker is not None:
+             return self.connector_worker.build_connector_worker_meta()
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -12,6 +12,9 @@
+ from vllm.distributed.kv_events import KVCacheEvent
+ from vllm.distributed.kv_transfer.kv_connector.utils import yield_req_data
+ from vllm.distributed.kv_transfer.kv_connector.v1.base import KVConnectorMetadata
++from vllm.distributed.kv_transfer.kv_connector.v1.offloading import (
++    dsv41_stream as _dsv41_stream,
++)
+ from vllm.distributed.kv_transfer.kv_connector.v1.offloading.common import (
+     OffloadingConnectorMetadata,
+     OffloadingWorkerMetadata,
+@@ -70,6 +73,11 @@
+ # EngineCore at 100 % CPU, the request never scheduled). With a fraction > 0 every
+ # request loads at most what fits that share of the CPU tier; the rest is computed.
+ _DSV41_LOAD_FRACTION = float(os.environ.get("VLLM_DSV41_OFFLOAD_LOAD_FRACTION", "0") or 0)
++# MC1 streamed landing (dsv41_stream.py): a matter-tier hit is counted without promotion and landed window by
++# window through the CPU tier, so it is not capped by 0081 and never needs the whole prefix resident.
++# STREAM_MB is the per-request landing budget (two windows: one lands while the next promotes).
++_DSV41_STREAM = os.environ.get("VLLM_DSV41_OFFLOAD_STREAM", "0") == "1"
++_DSV41_STREAM_MB = float(os.environ.get("VLLM_DSV41_OFFLOAD_STREAM_MB", "64") or 0)
+ 
+ KV_LOAD_TIERS_KEY = "kv_load_tiers"
+ MATCHER_MEDIUM_KEY = "medium"
+@@ -663,6 +671,53 @@
+             self._dsv41_load_cap,
+             _DSV41_LOAD_FRACTION,
+         )
++        self._dsv41_stream: _dsv41_stream.StreamController | None = None
++        if _DSV41_STREAM:
++            primary = getattr(self.manager, "primary_tier", None)
++            if primary is None or num_cpu_chunks <= 0:
++                raise ValueError("MC1: streamed landing needs the tiering manager's CPU primary tier")
++            chunk_bytes = primary.get_kv_memoryview().strides[0]
++            budget = int(_DSV41_STREAM_MB * (1 << 20)) // chunk_bytes
++            if _DSV41_LOAD_FRACTION > 0:
++                budget = min(budget, int(_DSV41_LOAD_FRACTION * num_cpu_chunks))
++            if budget // 2 < 1:
++                raise ValueError("MC1: streamed landing budget is below two CPU chunks")
++            self._dsv41_stream = _dsv41_stream.StreamController(self.manager, budget // 2)
++            logger.info(
++                "MC1 streamed landing: windows of %d CPU chunks (%d B each), at most two per request resident",
++                budget // 2,
++                chunk_bytes,
++            )
++
++    def _dsv41_lookup(self, key: OffloadKey, req_context: ReqContext) -> LookupResult:
++        """MC1: a streaming request's file-tier chunks are hits where they lie (no promotion at lookup)."""
++        stream = self._dsv41_stream
++        if stream is not None and stream.eligible(req_context):
++            return stream.exists(key, req_context)
++        return self.manager.lookup(key, req_context)
++
++    def _dsv41_emit(
++        self,
++        req_id: ReqId,
++        src_spec: Any,
++        dst_spec: GPULoadStoreSpec,
++        keys: Iterable[OffloadKey],
++    ) -> int:
++        """MC1: register one stream window (or its fail job) as an ordinary load job."""
++        job_id = self._generate_job_id()
++        self._current_batch_load_jobs[job_id] = TransferJob(
++            req_id=req_id, src_spec=src_spec, dst_spec=dst_spec
++        )
++        req_status = self._req_status[req_id]
++        assert not req_status.transfer_jobs
++        req_status.transfer_jobs.add(job_id)
++        self._jobs[job_id] = TransferJobStatus(
++            req_id=req_id,
++            pending_count=self.config.num_workers,
++            keys=set(keys),
++            is_store=False,
++        )
++        return job_id
+ 
+     def _maybe_observe_lookup_async_delay(
+         self, req_status: RequestOffloadState
+@@ -712,7 +767,7 @@
+         hit_count = 0
+         defer_lookup = False
+         for local_idx, key in enumerate(keys):
+-            result = self.manager.lookup(key, req_context)
++            result = self._dsv41_lookup(key, req_context)
+             match result:
+                 case LookupResult.HIT:
+                     self._events_tracker.record_lookup(
+@@ -749,7 +804,7 @@
+         consecutive_hits = 0
+         required_window = initial_window_size or sliding_window_size
+         for idx in range(len(keys) - 1, -1, -1):
+-            match self.manager.lookup(keys[idx], req_context):
++            match self._dsv41_lookup(keys[idx], req_context):
+                 case LookupResult.HIT:
+                     consecutive_hits += 1
+                 case LookupResult.HIT_PENDING:
+@@ -1030,7 +1085,7 @@
+                     req_status.req_context,
+                 )
+                 boundary_keys.append(key)
+-                result = self.manager.lookup(key, req_status.req_context)
++                result = self._dsv41_lookup(key, req_status.req_context)
+                 if result is LookupResult.MISS:
+                     boundary_missed = True
+                     break
+@@ -1062,8 +1117,10 @@
+             req_context=req_context,
+             offloading_context=offloading_context,
+         )
+-        if self._dsv41_load_cap is not None:
++        streaming = self._dsv41_stream is not None and self._dsv41_stream.eligible(req_context)
++        if self._dsv41_load_cap is not None and not streaming:
+             # RP1: request metadata can lower the safety budget, never bypass it.
++            # MC1: a streaming request is bounded by its landing windows instead.
+             req_status.max_load_tokens = (self._dsv41_load_cap if req_status.max_load_tokens is None
+                                          else min(req_status.max_load_tokens, self._dsv41_load_cap))
+         self._req_status[request.request_id] = req_status
+@@ -1147,6 +1204,7 @@
+         # per group
+         group_sizes: list[int] = []
+         block_indices: list[int] = []
++        dsv41_groups: list[_dsv41_stream.GroupLoad] = []  # MC1 streamed landing
+         for group_config, group_state in zip(
+             self.config.kv_group_configs,
+             req_status.group_states,
+@@ -1189,6 +1247,7 @@
+                 )
+ 
+             num_chunks = cdiv(num_cached_tokens, tokens_per_chunk)
++            dsv41_keys_start = len(keys_to_load)
+             if num_pending_gpu_blocks:
+                 start_chunk_idx = (
+                     load_start_gpu_block_idx // self.config.blocks_per_chunk
+@@ -1212,6 +1271,17 @@
+             )
+             group_sizes.append(num_pending_gpu_blocks)
+             block_indices.append(load_start_gpu_block_idx)
++            dsv41_groups.append(
++                _dsv41_stream.GroupLoad(
++                    keys=tuple(keys_to_load[dsv41_keys_start:]),
++                    dst_block_ids=tuple(
++                        block.block_id
++                        for block in group_blocks[load_start_gpu_block_idx:num_gpu_blocks]
++                    ),
++                    start_block=load_start_gpu_block_idx,
++                    sliding=group_config.sliding_window_size_in_chunks is not None,
++                )
++            )
+ 
+             # Skip prefix-hit chunks for block-level policy; for
+             # request-level, next_stored_chunk_idx stays at 0 so all
+@@ -1219,6 +1289,21 @@
+             if req_status.offloading_context.policy == OffloadPolicy.CHUNK_LEVEL:
+                 group_state.next_stored_chunk_idx = num_chunks
+ 
++        if self._dsv41_stream is not None and self._dsv41_stream.eligible(
++            req_status.req_context
++        ):
++            # MC1: land window by window from build_connector_meta (first window this step).
++            self._dsv41_stream.start(
++                request.request_id,
++                req_status.req_context,
++                dsv41_groups,
++                self.config.blocks_per_chunk,
++            )
++            if self._chunks_being_loaded is not None:
++                self._chunks_being_loaded.update(keys_to_load)
++            req_status.partial_tail_boundary = None
++            return
++
+         src_spec = self.manager.prepare_load(keys_to_load, req_status.req_context)
+         dst_spec = GPULoadStoreSpec(
+             dst_block_ids, group_sizes=group_sizes, block_indices=block_indices
+@@ -1813,6 +1898,12 @@
+         self, scheduler_output: SchedulerOutput
+     ) -> KVConnectorMetadata:
+         self._update_req_states(scheduler_output)
++        if self._dsv41_stream is not None:
++            # MC1: before on_schedule_end (flushes the promotions this starts) and before store
++            # jobs (their allocations may evict): pin and issue every resident window now.
++            self._dsv41_stream.advance(
++                self._dsv41_emit, len(self.config.kv_group_configs)
++            )
+         schedule_end_context = ScheduleEndContext(
+             new_req_ids=[req.req_id for req in scheduler_output.scheduled_new_reqs],
+             preempted_req_ids=scheduler_output.preempted_req_ids or (),
+@@ -1858,7 +1949,7 @@
+                 continue
+             req_status.finished_signaled = True
+             self.manager.on_request_finished(req_status.req_context)
+-            if not req_status.transfer_jobs:
++            if not req_status.transfer_jobs and not self._dsv41_streaming(req_id):
+                 del self._req_status[req_id]
+         self._current_batch_load_jobs = {}
+         self._current_batch_jobs_to_flush = set()
+@@ -1871,7 +1962,14 @@
+         While True, build_connector_meta() and update_connector_output()
+         continue to be called even when no requests are scheduled.
+         """
+-        return bool(self._jobs) or self.manager.has_pending_work()
++        return (
++            bool(self._jobs)
++            or self.manager.has_pending_work()
++            or (self._dsv41_stream is not None and self._dsv41_stream.active())
++        )
++
++    def _dsv41_streaming(self, req_id: ReqId) -> bool:
++        return self._dsv41_stream is not None and self._dsv41_stream.is_streaming(req_id)
+ 
+     def update_connector_output(self, connector_output: KVConnectorOutput):
+         """Update KVConnector state from worker-side connectors output.
+@@ -1950,7 +2048,16 @@
+ 
+             del self._jobs[job_id]
+             req_status.transfer_jobs.remove(job_id)
+-            if req_status.finished_signaled and not req_status.transfer_jobs:
++            if self._dsv41_stream is not None:
++                # MC1: a finished stream releases the keys of windows it never issued.
++                leftover = self._dsv41_stream.on_job_done(job_status.req_id, job_id)
++                if leftover and self._chunks_being_loaded:
++                    self._chunks_being_loaded.difference_update(leftover)
++            if (
++                req_status.finished_signaled
++                and not req_status.transfer_jobs
++                and not self._dsv41_streaming(job_status.req_id)
++            ):
+                 del self._req_status[job_status.req_id]
+ 
+     def get_stats(self) -> OffloadingConnectorStats | None:
+@@ -1983,6 +2090,9 @@
+ 
+         """
+         req_status = self._req_status.get(request.request_id)
++        if self._dsv41_stream is not None:
++            # MC1: finished mid-stream (e.g. aborted): no further windows; a fail job frees it.
++            self._dsv41_stream.abort(request.request_id)
+ 
+         if req_status is None:
+             # Untracked request (offloading never started): no in-flight jobs,
+@@ -2030,11 +2140,16 @@
+         assert not self._current_batch_jobs_to_flush
+         assert not self._current_batch_allocated_block_ids
+ 
++        # MC1: every stream's scheduler-side job is discarded below; each ends with a fail job
++        # unless its final window is already with the workers.
++        if self._dsv41_stream is not None:
++            self._dsv41_stream.reset()
++
+         # Flush all in-flight jobs
+         self._current_batch_jobs_to_flush.update(self._jobs.keys())
+ 
+         for req_id, status in list(self._req_status.items()):
+-            if status.req.is_finished():
++            if status.req.is_finished() and not self._dsv41_streaming(req_id):
+                 if not status.finished_signaled:
+                     self.manager.on_request_finished(status.req_context)
+                 del self._req_status[req_id]
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
+@@ -9,6 +9,7 @@
+ import torch
+ 
+ from vllm.config import VllmConfig
++from vllm.distributed.kv_transfer.kv_connector.v1.base import KVConnectorTransferResults
+ from vllm.distributed.kv_transfer.kv_connector.v1.offloading.canonical_mapping import (
+     derive_canonical_mappings,
+ )
+@@ -82,6 +83,11 @@
+ 
+         # job_id -> req_id for in-flight loads.
+         self._load_jobs: dict[int, ReqId] = {}
++        # MC1 streamed landing: non-final windows do not release their request; fail jobs
++        # release it as finished AND failed (the scheduler then recomputes or frees it).
++        self._dsv41_window_jobs: set[int] = set()
++        self._dsv41_failed: set[ReqId] = set()
++        self._dsv41_failed_out: set[ReqId] = set()
+         self._unsubmitted_store_jobs: list[
+             tuple[int, GPULoadStoreSpec, LoadStoreSpec]
+         ] = []
+@@ -371,8 +377,15 @@
+         self._unsubmitted_store_jobs.clear()
+ 
+         for job_id, entry in metadata.load_jobs.items():
+-            self._load_jobs[job_id] = entry.req_id
+             assert isinstance(entry.dst_spec, GPULoadStoreSpec)
++            stream = getattr(entry.dst_spec, "dsv41_stream", None)  # MC1 streamed landing
++            if stream == "fail":
++                self._connector_worker_meta.mark_completed(job_id)
++                self._dsv41_failed.add(entry.req_id)
++                continue
++            self._load_jobs[job_id] = entry.req_id
++            if stream == "window":
++                self._dsv41_window_jobs.add(job_id)
+             if self._mn_group is not None:  # patch 0077
+                 self._mn_sync(entry.src_spec)
+             success = self.worker.submit_load(job_id, entry.src_spec, entry.dst_spec)
+@@ -424,11 +437,26 @@
+ 
+             self._connector_worker_meta.mark_completed(job_id)
+             req_id = self._load_jobs.pop(job_id, None)
+-            if req_id is not None:
++            if req_id is not None and job_id not in self._dsv41_window_jobs:
+                 finished_recving.add(req_id)
++            self._dsv41_window_jobs.discard(job_id)
+ 
++        if self._dsv41_failed:
++            finished_recving |= self._dsv41_failed
++            self._dsv41_failed_out |= self._dsv41_failed
++            self._dsv41_failed = set()
+         return set(), finished_recving
+ 
++    def get_transfer_results(self, finished_req_ids: set[str]) -> KVConnectorTransferResults:
++        """MC1: get_finished plus the requests whose streamed load was abandoned (failed_recving)."""
++        finished_sending, finished_recving = self.get_finished(finished_req_ids)
++        failed, self._dsv41_failed_out = self._dsv41_failed_out, set()
++        return KVConnectorTransferResults(
++            finished_sending=finished_sending,
++            finished_recving=finished_recving,
++            failed_recving=failed,
++        )
++
+     def build_connector_worker_meta(self) -> OffloadingWorkerMetadata | None:
+         """Return completed transfer job IDs since the last call."""
+         if not self._connector_worker_meta.completed_jobs:
+@@ -440,6 +468,7 @@
+     def shutdown(self) -> None:
+         self._unsubmitted_store_jobs.clear()
+         self._load_jobs.clear()
++        self._dsv41_window_jobs.clear()
+         self._connector_worker_meta = OffloadingWorkerMetadata()
+         if self.worker is not None:
+             self.worker.shutdown()

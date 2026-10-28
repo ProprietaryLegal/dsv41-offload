@@ -1,0 +1,33 @@
+diff --git a/scripts/launch/dsv41_tp2.sh b/scripts/launch/dsv41_tp2.sh
+index ce5274c..6fe4570 100755
+--- a/scripts/launch/dsv41_tp2.sh
++++ b/scripts/launch/dsv41_tp2.sh
+@@ -47,6 +47,10 @@ RECIPE_ENV=${RECIPE_ENV-"VLLM_EXL3_MOE_PARALLEL_GROUPS=1 EXL3_MOE_COOP_WIDE=1 EX
+ DOCKER_ENV=${DOCKER_ENV:-}
+ REPO=$(cd "$(dirname "$0")/../.." && pwd)
+ NAME=dsv41-serve
++# SERVE_DIR: where each node keeps its generated launch file (relative to that node's home, or absolute). Default /tmp,
++# as the recipe ships. A /tmp file vanishes at reboot, and a docker bind mount of a missing file leaves a root-owned
++# directory in its place that makes the next start's scp fail (2026-10-22, SPARKFIX1022); dsv41.env sets a home path.
++SERVE_DIR=${SERVE_DIR:-/tmp}
+ cmd=${1:-status}
+ 
+ sh_() { ssh -o BatchMode=yes -o ConnectTimeout=10 "$1" "$2"; }
+@@ -78,12 +82,14 @@ launch() {   # $1 node  $2 rank  $3 master ip  $4 self ip  $5 gid
+     [ "$rank" != 0 ] && echo "  --headless \\"
+     echo "  $EXTRA"
+   } > "$tmp"
+-  scp -q -o BatchMode=yes "$tmp" "$n:/tmp/$NAME.sh"
++  sh_ "$n" "mkdir -p '$SERVE_DIR' && test ! -d '$SERVE_DIR/$NAME.sh'" \
++    || { rm -f "$tmp"; echo "$n: cannot write $SERVE_DIR/$NAME.sh (a directory is in the way, or $SERVE_DIR cannot be made)" >&2; return 1; }
++  scp -q -o BatchMode=yes "$tmp" "$n:$SERVE_DIR/$NAME.sh"
+   rm -f "$tmp"
+-  sh_ "$n" "chmod +x /tmp/$NAME.sh; docker rm -f $NAME >/dev/null 2>&1; mkdir -p \$HOME/.cache/dsv41-serve
++  sh_ "$n" "chmod +x '$SERVE_DIR/$NAME.sh'; docker rm -f $NAME >/dev/null 2>&1; mkdir -p \$HOME/.cache/dsv41-serve
+     docker run -d --name $NAME --network host --ipc host --shm-size 64g --gpus all --device /dev/infiniband \
+       --ulimit memlock=-1 --ulimit stack=67108864 --restart no --entrypoint /bin/bash \
+-      -v '$MODEL_DIR':'$MODEL_DIR':ro -v /tmp/$NAME.sh:/serve.sh:ro -v \$HOME/.cache/dsv41-serve:/root/.cache \
++      -v '$MODEL_DIR':'$MODEL_DIR':ro -v \$(realpath '$SERVE_DIR/$NAME.sh'):/serve.sh:ro -v \$HOME/.cache/dsv41-serve:/root/.cache \
+       -e NCCL_IB_HCA=$FAB_HCA -e NCCL_IB_GID_INDEX=$gid -e NCCL_IB_DISABLE=0 -e NCCL_NET=IB \
+       -e NCCL_SOCKET_IFNAME=$FAB_IF -e GLOO_SOCKET_IFNAME=$FAB_IF -e TP_SOCKET_IFNAME=$FAB_IF \
+       -e VLLM_HOST_IP=$self -e VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=1800 -e VLLM_ALLOW_LONG_MAX_MODEL_LEN=1 \

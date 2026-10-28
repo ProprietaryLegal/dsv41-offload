@@ -1,0 +1,163 @@
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -78,6 +78,8 @@
+ # STREAM_MB is the per-request landing budget (two windows: one lands while the next promotes).
+ _DSV41_STREAM = os.environ.get("VLLM_DSV41_OFFLOAD_STREAM", "0") == "1"
+ _DSV41_STREAM_MB = float(os.environ.get("VLLM_DSV41_OFFLOAD_STREAM_MB", "64") or 0)
++# MC1 hash dump (worker.py): label every load/store GPU spec with its offload keys in transfer order.
++_DSV41_HASH_DUMP = os.environ.get("VLLM_DSV41_OFFLOAD_HASH_DUMP", "")
+ 
+ KV_LOAD_TIERS_KEY = "kv_load_tiers"
+ MATCHER_MEDIUM_KEY = "medium"
+@@ -1940,6 +1942,8 @@
+             store_jobs=partial_store_jobs | normal_store_jobs,
+             jobs_to_flush=self._current_batch_jobs_to_flush,
+         )
++        if _DSV41_HASH_DUMP:
++            self._dsv41_label_jobs(meta)
+ 
+         # All prepare_store calls for finished requests have been issued.
+         # Signal on_request_finished and clean up state where possible.
+@@ -1968,6 +1972,35 @@
+             or (self._dsv41_stream is not None and self._dsv41_stream.active())
+         )
+ 
++    def _dsv41_label_jobs(self, meta: OffloadingConnectorMetadata) -> None:
++        """MC1 hash dump: attach each job's offload keys, in the CPU spec's chunk order, to its GPU spec so every
++        rank can name each block by (key, sub-block). Keys are pinned or allocated in the primary tier here."""
++        policy = getattr(getattr(self.manager, "primary_tier", None), "_policy", None)
++        if policy is None:
++            raise ValueError("MC1 hash dump needs the tiering manager's CPU primary tier")
++        for jobs, gpu_side, cpu_side in (
++            (meta.load_jobs, "dst_spec", "src_spec"),
++            (meta.store_jobs, "src_spec", "dst_spec"),
++        ):
++            for job_id, job in jobs.items():
++                gpu_spec = getattr(job, gpu_side)
++                if getattr(gpu_spec, "dsv41_stream", None) == "fail":
++                    continue
++                try:
++                    position = {
++                        int(c): i for i, c in enumerate(getattr(job, cpu_side).block_ids)
++                    }
++                    order = sorted(
++                        self._jobs[job_id].keys,
++                        key=lambda k: position[policy.get(k).chunk_id],
++                    )
++                except (AttributeError, KeyError):
++                    # Never stop a diagnostic window over a label: the job's blocks are dumped
++                    # unlabeled and blockhash_compare fails the gate on them, loudly.
++                    logger.error("MC1 hash dump: cannot label job %d with its keys", job_id)
++                    continue
++                setattr(gpu_spec, "dsv41_keys", [k.hex() for k in order])
++
+     def _dsv41_streaming(self, req_id: ReqId) -> bool:
+         return self._dsv41_stream is not None and self._dsv41_stream.is_streaming(req_id)
+ 
+--- a/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
++++ b/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
+@@ -13,6 +13,9 @@
+ from vllm.distributed.kv_transfer.kv_connector.v1.offloading.canonical_mapping import (
+     derive_canonical_mappings,
+ )
++from vllm.distributed.kv_transfer.kv_connector.v1.offloading import (
++    dsv41_blockhash as _dsv41_blockhash,
++)
+ from vllm.distributed.kv_transfer.kv_connector.v1.offloading.common import (
+     OffloadingConnectorMetadata,
+     OffloadingWorkerMetadata,
+@@ -52,6 +55,10 @@
+ _DSV41_OFFLOAD_MN_VERIFY = os.environ.get("VLLM_DSV41_OFFLOAD_MN_VERIFY", "0") == "1"
+ _DSV41_OFFLOAD_MN_STAGE_MB = int(os.environ.get("VLLM_DSV41_OFFLOAD_MN_STAGE_MB", "32"))
+ _DSV41_OFFLOAD_MN_RUN_MIN = 16  # runs of >= 16 consecutive chunks go without staging
++# MC1: per-block payload hash dump (dsv41_blockhash.py), extends MN_VERIFY: every rank hashes the GPU blocks of
++# each store (in-memory bytes) and of each completed load (restored bytes). Path prefix; empty = off.
++_DSV41_HASH_DUMP = os.environ.get("VLLM_DSV41_OFFLOAD_HASH_DUMP", "")
++_DSV41_HASH_SEGMENT = int(os.environ.get("VLLM_DSV41_OFFLOAD_HASH_SEGMENT", "4096") or 0)
+ 
+ 
+ class OffloadingConnectorWorker:
+@@ -88,6 +95,10 @@
+         self._dsv41_window_jobs: set[int] = set()
+         self._dsv41_failed: set[ReqId] = set()
+         self._dsv41_failed_out: set[ReqId] = set()
++        # MC1 hash dump: registered GPU tensors, and the GPU spec of each load until it completes.
++        self._dsv41_kv: CanonicalKVCaches | None = None
++        self._dsv41_dump: _dsv41_blockhash.BlockHashDump | None = None
++        self._dsv41_dump_loads: dict[int, GPULoadStoreSpec] = {}
+         self._unsubmitted_store_jobs: list[
+             tuple[int, GPULoadStoreSpec, LoadStoreSpec]
+         ] = []
+@@ -96,6 +107,29 @@
+     def _init_worker(self, kv_caches: CanonicalKVCaches) -> None:
+         self.worker = self.spec.get_worker(kv_caches)
+         self._mn_init()
++        if _DSV41_HASH_DUMP:
++            self._dsv41_kv = kv_caches
++            self._dsv41_dump = _dsv41_blockhash.BlockHashDump(
++                _DSV41_HASH_DUMP,
++                self.spec.config.parallel.rank,
++                self.spec.blocks_per_chunk,
++                _DSV41_HASH_SEGMENT,
++            )
++            logger.warning(
++                "MC1 hash dump ON (%s): every store/load hashes its GPU blocks (diagnostic, synchronizes)",
++                self._dsv41_dump.path,
++            )
++
++    def _dsv41_rows(self, group: int, block_ids: list[int]) -> list[bytes]:
++        """MC1 hash dump: the bytes of the given GPU blocks of one selected group, as the transfer moves them."""
++        kv = self._dsv41_kv
++        assert kv is not None
++        parts = []
++        for ref in kv.group_data_refs[group]:
++            tensor = kv.tensors[ref.tensor_idx].tensor
++            idx = torch.tensor(block_ids, dtype=torch.long, device=tensor.device)
++            parts.append(tensor.index_select(0, idx)[:, : ref.page_size_bytes].cpu().numpy())
++        return [b"".join(p[i].tobytes() for p in parts) for i in range(len(block_ids))]
+ 
+     def _mn_init(self) -> None:
+         """patch 0077: set up the chunk copy from rank 0 for TP across nodes.
+@@ -386,12 +420,21 @@
+             self._load_jobs[job_id] = entry.req_id
+             if stream == "window":
+                 self._dsv41_window_jobs.add(job_id)
++            if self._dsv41_dump is not None:
++                self._dsv41_dump_loads[job_id] = entry.dst_spec
+             if self._mn_group is not None:  # patch 0077
+                 self._mn_sync(entry.src_spec)
+             success = self.worker.submit_load(job_id, entry.src_spec, entry.dst_spec)
+             assert success
+ 
+     def prepare_store_kv(self, metadata: OffloadingConnectorMetadata):
++        if self._dsv41_dump is not None and metadata.store_jobs:
++            # MC1: hash the in-memory bytes on every rank (writers and non-writers) once the step's
++            # KV writes are complete.
++            if torch.cuda.is_available():
++                torch.cuda.synchronize()
++            for job_id, entry in metadata.store_jobs.items():
++                self._dsv41_dump.dump("store", job_id, entry.src_spec, self._dsv41_rows)
+         for job_id, entry in metadata.store_jobs.items():
+             if not self._is_store_writer:
+                 # Gate before queueing: no _unsubmitted_store_jobs entry.
+@@ -436,6 +479,9 @@
+                 )
+ 
+             self._connector_worker_meta.mark_completed(job_id)
++            dump_spec = self._dsv41_dump_loads.pop(job_id, None)
++            if dump_spec is not None and self._dsv41_dump is not None:
++                self._dsv41_dump.dump("load", job_id, dump_spec, self._dsv41_rows)
+             req_id = self._load_jobs.pop(job_id, None)
+             if req_id is not None and job_id not in self._dsv41_window_jobs:
+                 finished_recving.add(req_id)
+@@ -469,6 +515,10 @@
+         self._unsubmitted_store_jobs.clear()
+         self._load_jobs.clear()
+         self._dsv41_window_jobs.clear()
++        self._dsv41_dump_loads.clear()
++        if self._dsv41_dump is not None:
++            self._dsv41_dump.close()
++            self._dsv41_dump = None
+         self._connector_worker_meta = OffloadingWorkerMetadata()
+         if self.worker is not None:
+             self.worker.shutdown()

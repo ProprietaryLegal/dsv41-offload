@@ -1,0 +1,44 @@
+diff --git a/exllamav3/exllamav3_ext/quant/exl3_gemm_inner.cuh b/exllamav3/exllamav3_ext/quant/exl3_gemm_inner.cuh
+index bd9e357c..abd0652a 100644
+--- a/exllamav3/exllamav3_ext/quant/exl3_gemm_inner.cuh
++++ b/exllamav3/exllamav3_ext/quant/exl3_gemm_inner.cuh
+@@ -11,7 +11,7 @@
+ // faster at bsz 1 on RTX 3090 together with the codebook.cuh IMUL change (see benchmarks/exl3_m1_bench).
+ // Max observed error vs fp32 accumulation is ~1% of output RMS at k=4096, well below quantization noise.
+ // Only enabled for sm_86 for now; unvalidated on other archs where fp32-acc HMMA is also half rate.
+-#if defined(__CUDA_ARCH__) && (__CUDA_ARCH__ == 860)
++#if 0  // DSV41-OFFLOAD O2: fp32 MMA accumulation on sm_86 too (upstream: __CUDA_ARCH__ == 860 -> fp16 accumulators)
+     #define EXL3_GEMM_H_ACC 1
+ #else
+     #define EXL3_GEMM_H_ACC 0
+diff --git a/setup.py b/setup.py
+index 7e1bb102..e42a2b24 100644
+--- a/setup.py
++++ b/setup.py
+@@ -7,7 +7,7 @@ if torch := importlib.util.find_spec("torch") is not None:
+     from torch.utils import cpp_extension
+     from torch import version as torch_version
+ 
+-extension_name = "exllamav3_ext"
++extension_name = "exllamav3_ext_facc"  # DSV41-OFFLOAD O2: fp32-accumulation build, imported alongside the stock exllamav3_ext
+ precompile = "EXLLAMA_NOCOMPILE" not in os.environ
+ verbose = "EXLLAMA_VERBOSE" in os.environ
+ ext_debug = "EXLLAMA_EXT_DEBUG" in os.environ
+@@ -59,13 +59,16 @@ hip = bool(torch and torch_version.hip)
+ if not hip and (cuda_host_cxx := os.environ.get("CUDAHOSTCXX")):
+     extra_cuda_cflags += ["-ccbin", cuda_host_cxx]
+ 
++# DSV41-OFFLOAD O2: own pybind11 internals (the stock exllamav3_ext registers the same class names in-process)
++extra_cflags.append("-DPYBIND11_STDLIB=\"_o2facc\"")
++extra_cuda_cflags.append("-DPYBIND11_STDLIB=\"_o2facc\"")
+ extra_compile_args = {
+     "cxx": extra_cflags,
+     "nvcc": extra_cuda_cflags,
+ }
+ 
+ library_dir = "exllamav3"
+-sources_dir = os.path.join(library_dir, extension_name)
++sources_dir = os.path.join(library_dir, "exllamav3_ext")  # DSV41-OFFLOAD O2: same sources as the stock module
+ sources = [
+     os.path.relpath(path, start=os.path.dirname(os.path.abspath(__file__)))
+     for path in cuda_flags.extension_sources(sources_dir, hip = hip)
