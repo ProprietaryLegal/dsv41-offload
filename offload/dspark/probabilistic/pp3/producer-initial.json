@@ -1,0 +1,116 @@
+{
+  "schema": "pp3.producer.v1",
+  "classification": "MEASURED solo synthetic logits",
+  "complete": true,
+  "torch": "2.12.1+cu130",
+  "uuid": "GPU-bc62df2a-59cf-9828-7d43-558d1355bab7",
+  "source_sha256": "a166d87d9161d4d07e765d4e401a4e05a22e1d95417c7754dd55118d19862016",
+  "rows": [
+    {
+      "batch": 1,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.4642816066741943,
+        "p95_ms": 0.46448640823364257
+      },
+      "argmax": {
+        "median_ms": 0.1047551989555359,
+        "p95_ms": 0.1052672028541565
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 1,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.5042175769805908,
+        "p95_ms": 0.5043200016021728
+      },
+      "argmax": {
+        "median_ms": 0.13096959590911866,
+        "p95_ms": 0.13127679824829103
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 2,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.44892158508300783,
+        "p95_ms": 0.4491263866424561
+      },
+      "argmax": {
+        "median_ms": 0.10680320262908935,
+        "p95_ms": 0.10721280574798583
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 2,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.5610496044158936,
+        "p95_ms": 0.561356782913208
+      },
+      "argmax": {
+        "median_ms": 0.13332480192184448,
+        "p95_ms": 0.13382400274276735
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 3,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.4724575996398926,
+        "p95_ms": 0.47266879081726076
+      },
+      "argmax": {
+        "median_ms": 0.10690560340881347,
+        "p95_ms": 0.10711040496826171
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 3,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.5904223918914795,
+        "p95_ms": 0.5906367778778077
+      },
+      "argmax": {
+        "median_ms": 0.1334272027015686,
+        "p95_ms": 0.13373440504074097
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 4,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.5169151782989502,
+        "p95_ms": 0.5170176029205322
+      },
+      "argmax": {
+        "median_ms": 0.10761920213699341,
+        "p95_ms": 0.10792959928512573
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 4,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.6459392070770263,
+        "p95_ms": 0.6461440086364746
+      },
+      "argmax": {
+        "median_ms": 0.13445119857788085,
+        "p95_ms": 0.1347584009170532
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    }
+  ],
+  "maxrss_kib": 977584,
+  "gpu_peak_bytes": 26173952
+}

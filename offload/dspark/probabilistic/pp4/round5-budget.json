@@ -1,0 +1,141 @@
+{
+  "schema": "pp4-round5-budget-v1",
+  "classification": "ESTIMATED planning from MEASURED historical inputs; not complete PP4 blocks or a guarantee",
+  "dep1_input_sha256": "9e5432d13f0a86f9caaf7d329e190f1cdf557284236bfdd37ef1439228311309",
+  "cells": {
+    "short-b1": {
+      "observations": [
+        {
+          "max_decode_span_s": 26.50626343896147,
+          "max_ttft_s": 1.7645618190290406,
+          "measured_output_tokens": 1500,
+          "sha256": "deac0950c403b7415ce7e61310d718d4b8b9fb149c3cefa6d24f1678575cd25c",
+          "source": "NBW-W-20261026T231445Z/s1-K-short-b1.json"
+        },
+        {
+          "max_decode_span_s": 28.47160706698196,
+          "max_ttft_s": 2.331858152989298,
+          "measured_output_tokens": 1500,
+          "sha256": "daa891adf4cf907a5cd3418b36b01aaf97cfd0fcb801994785b59061eef1ee3d",
+          "source": "NBW-W-20261026T231445Z/s3-K-short-b1.json"
+        },
+        {
+          "max_decode_span_s": 27.960649574000854,
+          "max_ttft_s": 2.4093480160227045,
+          "measured_output_tokens": 1500,
+          "sha256": "3ecc7c888b506b8c618902b7745c32b0675b49e4e221cbbf6ca2b76dc0afbc84",
+          "source": "NBW-W-20261026T231445Z/s5-K-short-b1.json"
+        }
+      ],
+      "historical_batch": 1,
+      "batch_scaling": 1,
+      "max_ttft_s": 2.4093480160227045,
+      "max_decode_span_s": 28.47160706698196,
+      "scaled_512_estimate_s": 19.115146022178664,
+      "allowance_per_group_s": 20,
+      "groups_per_start": 4,
+      "profile_groups_per_start": 2,
+      "classification": "ESTIMATED from MEASURED B1"
+    },
+    "32k-b1": {
+      "observations": [
+        {
+          "max_decode_span_s": 29.4779839469702,
+          "max_ttft_s": 14.812975562002975,
+          "measured_output_tokens": 1500,
+          "sha256": "c5331d3465fb12b15d5ba4690fba9da45769236787bdb53cd0650c959861234d",
+          "source": "NBW-W-20261026T231445Z/s1-K-32k-b1.json"
+        },
+        {
+          "max_decode_span_s": 29.47603059199173,
+          "max_ttft_s": 16.56382137304172,
+          "measured_output_tokens": 1500,
+          "sha256": "979e7337ba5b75f4888dc0bfd403a2cb301a537f3990cf9d03f55431bd9bca82",
+          "source": "NBW-W-20261026T231445Z/s3-K-32k-b1.json"
+        },
+        {
+          "max_decode_span_s": 27.4701354339486,
+          "max_ttft_s": 16.617130869999528,
+          "measured_output_tokens": 1500,
+          "sha256": "0aaff802c13c57a5dc551b30b7be7b0287f060894110e92d0397dac26da8d24f",
+          "source": "NBW-W-20261026T231445Z/s5-K-32k-b1.json"
+        }
+      ],
+      "historical_batch": 1,
+      "batch_scaling": 1,
+      "max_ttft_s": 16.617130869999528,
+      "max_decode_span_s": 29.4779839469702,
+      "scaled_512_estimate_s": 33.66599664511745,
+      "allowance_per_group_s": 35,
+      "groups_per_start": 4,
+      "profile_groups_per_start": 2,
+      "classification": "ESTIMATED from MEASURED B1"
+    },
+    "32k-b4": {
+      "observations": [
+        {
+          "max_decode_span_s": 58.99707188201137,
+          "max_ttft_s": 51.37888995197136,
+          "measured_output_tokens": 1500,
+          "sha256": "87c9c91c212076d1feabb9bf3ab66002eefa3ae7726d46496827203704e5b767",
+          "source": "NBW-W-20261026T231445Z/s1-K-32k-b3.json"
+        },
+        {
+          "max_decode_span_s": 58.419027732044924,
+          "max_ttft_s": 51.72109578800155,
+          "measured_output_tokens": 1500,
+          "sha256": "a5879c7ac17144b1e1081683007375af797ffd231f9a42ce9d9f713288314fa2",
+          "source": "NBW-W-20261026T231445Z/s3-K-32k-b3.json"
+        },
+        {
+          "max_decode_span_s": 61.36587655596668,
+          "max_ttft_s": 51.6934184510028,
+          "measured_output_tokens": 1500,
+          "sha256": "1de0febd3966a4a7b062b3f501676c22ac92e9684e1487a7133417a236db9bc5",
+          "source": "NBW-W-20261026T231445Z/s5-K-32k-b3.json"
+        }
+      ],
+      "historical_batch": 3,
+      "batch_scaling": 1.3333333333333333,
+      "max_ttft_s": 68.96146105066873,
+      "max_decode_span_s": 81.8211687412889,
+      "scaled_512_estimate_s": 103.85380076167516,
+      "allowance_per_group_s": 105,
+      "groups_per_start": 2,
+      "profile_groups_per_start": 2,
+      "classification": "ESTIMATED B3-to-B4 extrapolation, not measured B4"
+    }
+  },
+  "startup_observations_s": [
+    388,
+    404
+  ],
+  "startup_sources": [
+    {
+      "locator": "Budget: Spark X start to ready 388 s",
+      "path": "S49.report.md",
+      "sha256": "9564a6621221c6d594835395a6853aad1ac7f575806cf71fea9abaf128475636"
+    },
+    {
+      "locator": "2026-10-26 20:45 COORD: W8 start 404 s incl warm-up",
+      "path": "LANES.md",
+      "sha256": "d11f865bd2dc118478d828b19fe3979b667c448a342fc6d910a13d88426460ab"
+    }
+  ],
+  "worker_startup_s": 333,
+  "worker_source": {
+    "locator": "Budget: Spark X start to ready 388 s",
+    "path": "S49.report.md",
+    "sha256": "9564a6621221c6d594835395a6853aad1ac7f575806cf71fea9abaf128475636"
+  },
+  "setup_s": 120,
+  "cuts_s": 120,
+  "warm_per_start_s": 30,
+  "greedy_on_s": 42,
+  "transition_per_start_s": 60,
+  "restore_s": 720,
+  "pair_bound_s": 600,
+  "formula": "preserve max cold TTFT; scale max decode span by511/1499; add2s publication+5s overhead; ceil to5s; B4 extrapolates B3 TTFT and decode by4/3",
+  "profiles": "two512-token companions per cell/start (one per public family); distinct from headline",
+  "limits": "historical333s worker startup is separate from388\u2013404s Spark startup; no overlap credited; no sampled speed gain assumed"
+}

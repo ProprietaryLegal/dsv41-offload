@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "scope": "S2 packed checkpoint delivery only; no runtime numerics or performance claim",
+  "drafter": {
+    "files": [
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-00002-of-00046.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-00002-of-00046.safetensors",
+        "size": 1323858304,
+        "sha256": "73fb40235a6291d1bf0d3ed3cba854c5d3aaf4b57d8af9fbcaa0a8e02a003efe",
+        "started_utc": "2026-10-22T18:30:53Z",
+        "finished_utc": "2026-10-22T18:30:57Z",
+        "elapsed_seconds_including_verification": 4.118234503000167,
+        "bytes_per_second": 321462583.79302067,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-00043-of-00046.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-00043-of-00046.safetensors",
+        "size": 10352,
+        "sha256": "f78d1a460387d6b28c3a475e773aefa0508cecc492f041a43d04e77fa594a4b0",
+        "started_utc": "2026-10-22T18:31:00Z",
+        "finished_utc": "2026-10-22T18:31:01Z",
+        "elapsed_seconds_including_verification": 0.47534618000008777,
+        "bytes_per_second": 21777.812540742598,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-00044-of-00046.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-00044-of-00046.safetensors",
+        "size": 38867392,
+        "sha256": "2119f61fe72550d6824ec343f11b89eb4bf6c4778f2c8c9da22f5851016c06aa",
+        "started_utc": "2026-10-22T18:31:01Z",
+        "finished_utc": "2026-10-22T18:31:01Z",
+        "elapsed_seconds_including_verification": 0.7164830940000684,
+        "bytes_per_second": 54247465.607327074,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-00045-of-00046.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-00045-of-00046.safetensors",
+        "size": 38857064,
+        "sha256": "e752150654cf1d40a7324036fd8a31f632ce8f9756bf0e456a1b7caebe97ab28",
+        "started_utc": "2026-10-22T18:31:01Z",
+        "finished_utc": "2026-10-22T18:31:02Z",
+        "elapsed_seconds_including_verification": 0.7486275239998577,
+        "bytes_per_second": 51904402.06150821,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-00046-of-00046.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-00046-of-00046.safetensors",
+        "size": 171261184,
+        "sha256": "65d2277451072ab473c14cfa059a20f2d445048764d60a7720d72e5099e011d7",
+        "started_utc": "2026-10-22T18:31:02Z",
+        "finished_utc": "2026-10-22T18:31:03Z",
+        "elapsed_seconds_including_verification": 1.0454597150001064,
+        "bytes_per_second": 163814235.53941777,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-exl3-head.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-exl3-head.safetensors",
+        "size": 496704308,
+        "sha256": "2308effa2d22621a06cccfbb49022148b1717dfbc89e2de9463971b18a09a60c",
+        "started_utc": "2026-10-22T18:31:04Z",
+        "finished_utc": "2026-10-22T18:31:06Z",
+        "elapsed_seconds_including_verification": 2.01868757200009,
+        "bytes_per_second": 246053086.614028,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-exl3-mtp-experts.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-exl3-mtp-experts.safetensors",
+        "size": 3414937960,
+        "sha256": "249aa6c0b515b1919ddb22dc77a4ab964758c4720cf7b172c533615f752b3e43",
+        "started_utc": "2026-10-22T18:31:07Z",
+        "finished_utc": "2026-10-22T18:31:17Z",
+        "elapsed_seconds_including_verification": 9.952302486000008,
+        "bytes_per_second": 343130442.9104545,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/source/model-exl3-mtp.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-exl3-mtp.safetensors",
+        "size": 290535720,
+        "sha256": "d2ed306f5e8c5f129e53121f5065d1349096f50d14f4d8cefffb1a14dc3796c5",
+        "started_utc": "2026-10-22T18:31:24Z",
+        "finished_utc": "2026-10-22T18:31:25Z",
+        "elapsed_seconds_including_verification": 1.4043991470002766,
+        "bytes_per_second": 206875460.31380692,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/config.json",
+        "source": "/srv/dsv41/legal-v2a/config.json",
+        "size": 4080,
+        "sha256": "2ad7277abf6475967f8ff120114284c66abe7122771c6399d87be7c659c6bedb",
+        "started_utc": "2026-10-22T18:31:26Z",
+        "finished_utc": "2026-10-22T18:31:26Z",
+        "elapsed_seconds_including_verification": 0.4840041260004,
+        "bytes_per_second": 8429.68020482666,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/exl3_moe_plan.json",
+        "source": "/srv/dsv41/legal-v2a/exl3_moe_plan.json",
+        "size": 19943,
+        "sha256": "ebf315efa28868de91fb95f5782fbc3a4a75623e0e0cd8a7fd3bae0b1a01830d",
+        "started_utc": "2026-10-22T18:31:26Z",
+        "finished_utc": "2026-10-22T18:31:27Z",
+        "elapsed_seconds_including_verification": 0.5063043550003385,
+        "bytes_per_second": 39389.35109492919,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/tokenizer.json",
+        "source": "/srv/dsv41/legal-v2a/tokenizer.json",
+        "size": 6367257,
+        "sha256": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+        "started_utc": "2026-10-22T18:31:27Z",
+        "finished_utc": "2026-10-22T18:31:27Z",
+        "elapsed_seconds_including_verification": 0.5813079170002311,
+        "bytes_per_second": 10953329.231876725,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/tokenizer_config.json",
+        "source": "/srv/dsv41/legal-v2a/tokenizer_config.json",
+        "size": 801,
+        "sha256": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+        "started_utc": "2026-10-22T18:31:27Z",
+        "finished_utc": "2026-10-22T18:31:28Z",
+        "elapsed_seconds_including_verification": 0.47994262100019114,
+        "bytes_per_second": 1668.9495055278305,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/CANDIDATE_MANIFEST.json",
+        "source": "/srv/dsv41/legal-v2a/CANDIDATE_MANIFEST.json",
+        "size": 97638,
+        "sha256": "7549bb956f6f660d7932bcd5112501f78a2c660b8bcbcbc8905c2673f5ae05ae",
+        "started_utc": "2026-10-22T18:31:28Z",
+        "finished_utc": "2026-10-22T18:31:28Z",
+        "elapsed_seconds_including_verification": 0.473846052999761,
+        "bytes_per_second": 206054.26463275668,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/dspark/markov_top_tokens.json",
+        "source": "/home/rank0user/.cache/dsv41-serve/markov_top_tokens.json",
+        "size": 53112,
+        "sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "started_utc": "2026-10-22T18:31:28Z",
+        "finished_utc": "2026-10-22T18:31:29Z",
+        "elapsed_seconds_including_verification": 0.47127569000031144,
+        "bytes_per_second": 112698.3655786805,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      }
+    ],
+    "extracted_files": [
+      {
+        "file": "model-00002-of-00046.safetensors",
+        "sha256": "97f1017d2be589273ebd94001bcd40e4f521ad63061c95dc126e09cbf8399cc9",
+        "size": 1323827296
+      },
+      {
+        "file": "model-00043-of-00046.safetensors",
+        "sha256": "e7a2e56d8be64391f476a9d28c949d43804b44b09c569adcea950ab2d41e5dce",
+        "size": 10320
+      },
+      {
+        "file": "model-00044-of-00046.safetensors",
+        "sha256": "47885e5d1f2313213655d0060ad17aad18659660b593bf40bff874f3fa5d0f24",
+        "size": 38867360
+      },
+      {
+        "file": "model-00045-of-00046.safetensors",
+        "sha256": "0a0df7be17d611ba77e1277b372cad3898aa8025169b43a8cb163f4d6c65398d",
+        "size": 38857032
+      },
+      {
+        "file": "model-00046-of-00046.safetensors",
+        "sha256": "e7d2d517b2528378d3cea193779c736bafcb42d11bb9166f051bcdddd49bac0e",
+        "size": 171261152
+      },
+      {
+        "file": "model-exl3-head.safetensors",
+        "sha256": "aeda44d770a05da620343654b3256a1ee8221a33d654cb4b419bd0e5367b919a",
+        "size": 496704308
+      },
+      {
+        "file": "model-exl3-mtp-experts.safetensors",
+        "sha256": "fc7946d54a2dac5a563ec334b1c130cb1e39d870be7ff413f3395c3d8872911d",
+        "size": 3414937960
+      },
+      {
+        "file": "model-exl3-mtp.safetensors",
+        "sha256": "a960ecaf7d6038266557d95e2ed1f812215276387b1c833ed64ec666cb1cc952",
+        "size": 290535720
+      }
+    ],
+    "tensors": 4755,
+    "markov_caches_byte_identical": true
+  },
+  "engram": {
+    "files": [
+      {
+        "file": "/opt/dsv41/x86host-data/engram/model-00047-of-00048.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-00047-of-00048.safetensors",
+        "size": 101535150936,
+        "sha256": "76a05106ece259be83d1bfea0dcb54f23377864ee60fd321690f35e6698a2af5",
+        "started_utc": "2026-10-22T18:31:33Z",
+        "finished_utc": "2026-10-22T18:37:33Z",
+        "elapsed_seconds_including_verification": 359.93095990999973,
+        "bytes_per_second": 282096185.7834867,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/engram/model-00048-of-00048.safetensors",
+        "source": "/srv/dsv41/legal-v2a/model-00048-of-00048.safetensors",
+        "size": 101537926640,
+        "sha256": "9dc51433e195bc78b5ad846b68643cc0351d3b174e5e4309222d3b7402c83afd",
+        "started_utc": "2026-10-22T18:56:25Z",
+        "finished_utc": "2026-10-22T18:57:43Z",
+        "elapsed_seconds_including_verification": 78.51095595099969,
+        "bytes_per_second": 49183375.66046197,
+        "resumed_from_bytes": 97676492800,
+        "bytes_transferred": 3861433840,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      },
+      {
+        "file": "/opt/dsv41/x86host-data/engram/model.safetensors.index.json",
+        "source": "/srv/dsv41/legal-v2a/model.safetensors.index.json",
+        "size": 13795043,
+        "sha256": "3c235cb242535f183bc9e5649288a2896c2c98f4c3e6ec8e363a11b75470dd66",
+        "started_utc": "2026-10-22T18:59:33Z",
+        "finished_utc": "2026-10-22T18:59:33Z",
+        "elapsed_seconds_including_verification": 0.6476758700000573,
+        "bytes_per_second": 21299300.52820831,
+        "resumed_from_bytes": 0,
+        "bytes_transferred": 13795043,
+        "rate_cap_bytes_per_second": 1000000000,
+        "transport": "10.202.28.2 -> 10.202.28.1 SSH aes128-gcm",
+        "read": "dd iflag=direct bs=64M"
+      }
+    ]
+  },
+  "minimum_sampled_spark_mem_available_bytes": 5431017472,
+  "production_guard_interruptions": [
+    "RuntimeError: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=30165499904",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=32432586752",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=36943364096",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=39180042240",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=42691788800",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=44637945856",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=47974973440",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=49443045376",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=50880708608",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=93850501120",
+    "WAIT_IDLE: copy aborted: ssh=255, guards=[\"serve is not idle: running=['1.0']\"], bytes=97676492800"
+  ],
+  "controlled_own_wait_worker_restart_exit": 143,
+  "verification": {
+    "unit_tests_passed": 9,
+    "strict_mypy_files": 5,
+    "destination_header_validation_count": 4755,
+    "installed_safetensors_reader_header_validation_count": 4755,
+    "markov_caches_identical": true
+  }
+}

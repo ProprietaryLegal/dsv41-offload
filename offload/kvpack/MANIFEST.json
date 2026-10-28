@@ -1,0 +1,124 @@
+{
+ "donor": "github.com/HeNryous/deepseek-v41-1017-dgx-spark",
+ "donor_sha": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+ "patches": [
+  {
+   "name": "0051-dsv41-indexer-defer",
+   "sha256": "055677b5ad2667ce92aeff0af040f1929aedbffbbf1ed793a9c4e026f87a81c3"
+  },
+  {
+   "name": "0053-dsv41-display-kv",
+   "sha256": "5a676d0ceddb705a90d595b431ebbc81881639372b3da7f6a23eb381abfbd8a9"
+  },
+  {
+   "name": "0057-dsv41-kv-pair-blocks",
+   "sha256": "6058242fbd5909d50507baf4876082b4dedbff068795c97de3fa5f939fb9cb3b"
+  },
+  {
+   "name": "0059-dsv41-kv-nvfp4",
+   "sha256": "9f7f8a87f013b0d862f2d7fa2c713908ca3790f93270ac879b34be2f263907d4"
+  },
+  {
+   "name": "0060-dsv41-kv-three-pages",
+   "sha256": "52b5528f2aa3eb4060c3e427466e9859b980fcb8be4ab5dcb367332146f65772"
+  },
+  {
+   "name": "0076-dsv41-head-memory",
+   "sha256": "bf3ab06aae624f3e9ed68bdd76b94a4369787b366014f2dcb2588351b7c2663f"
+  }
+ ],
+ "image": "ghcr.io/henryous/deepseek-v41-1017-dgx-spark:v5",
+ "not_deployed": [
+  "vllm_exl3_moe/display_kv.py (0053; only with VLLM_DSV41_DISPLAY_KV_MIB)"
+ ],
+ "switches_default_off": {
+  "VLLM_DSV41_KV_PAIR": "0 | 1 (0057, two pages) | 3 (0060, three pages)",
+  "VLLM_DSV41_KV_SWA_FILL": "0 (no effect with FP8 records)",
+  "VLLM_DSV41_KV_NVFP4": "0 (never enable: rejected at the KV-KLD gate)",
+  "VLLM_DSV41_INDEXER_DEFER": "0 | 1 (0051)",
+  "VLLM_DSV41_DROP_MTP_BUFFER": "0 | 1 (0076b)",
+  "VLLM_EXL3_TF_PROMPT_TRANSIENT": "0 | 1 (0076d)",
+  "VLLM_EXL3_TF_PROMPT_ALIAS": "0 | 1 (0076e, with 0076d)",
+  "VLLM_DSV41_MEMPROBE": "'' | <prefix> (0076a, measurement windows only)"
+ },
+ "files": [
+  {
+   "path": "vllm/models/deepseek_v41/attention.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/attention.py",
+   "base_sha256": "91983486fc3504ae183e8bfc79c18354cca86ba4f8633b16b2afab7c5a39798f",
+   "overlay_sha256": "3b7d3c00a84c154c0e54af5b66724a1abf9208232e8b4c9262fc19b3b0e29074"
+  },
+  {
+   "path": "vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+   "base_sha256": "a3f81abbab1f507e441176222578f90056e6b4bc0063bb36681c230a84b3d969",
+   "overlay_sha256": "46554939227f051a2afeea16e66f30cb217a2cb7777205eb5e15f6d0dd5dc6ed"
+  },
+  {
+   "path": "vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+   "base_sha256": null,
+   "overlay_sha256": "cc5ca7868f3d8067114ce46caf20795ab5a797d827c86ac0c9a17fc65846621d"
+  },
+  {
+   "path": "vllm/models/deepseek_v41/nvidia/dspark.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/dspark.py",
+   "base_sha256": "3fe3c4942f496e65f7e7b6265d1e064af95ceb21f5680b991630deefd1a75e9a",
+   "overlay_sha256": "46a4467bbb2171a860cc46041eafea14ee18c81be5f97a310def60b5d77f7b29"
+  },
+  {
+   "path": "vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+   "base_sha256": "7dc15a16043820329a6e5150c85dd7ebe707f14e8130879d2b9474d7ea65671c",
+   "overlay_sha256": "0b45a382234c4311c068d50a775bdff5314e13e9b25cad1bbb03ca21dbdcbb09"
+  },
+  {
+   "path": "vllm/models/deepseek_v41/nvidia/model.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/model.py",
+   "base_sha256": "66005a8edde825612bbb9e041a5a218132cf97123bba9b401890122de6314a89",
+   "overlay_sha256": "bc3aa8b06ff40c65e93f31e11c3cad38fcb4fb6425946e61829f041bac283d3f"
+  },
+  {
+   "path": "vllm/v1/core/kv_cache_utils.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/kv_cache_utils.py",
+   "base_sha256": "6cd5a3def8f7c9af4006e4c7f9302b160413e8ee049d278ed4edf62215338f1f",
+   "overlay_sha256": "e47c5af891544772ca3ab2a63d4e689f685afaae75f7f13904b9173424a0c4ed"
+  },
+  {
+   "path": "vllm/v1/kv_cache_interface.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_cache_interface.py",
+   "base_sha256": "ba1501273333a1f6dc2446f92b029f2f1b1efb24971cf0dbfa0114f68c3d84c6",
+   "overlay_sha256": "36ebd7e679c0771a5568026dc530546a0e7ce2ec85e8eeec29a50cf00f6c8755"
+  },
+  {
+   "path": "vllm/v1/worker/utils.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/utils.py",
+   "base_sha256": "da97907a4a3906ff49349c45dcc8a888a3a8154ed11c501fe2f1878f37c4f0e1",
+   "overlay_sha256": "163c6d58f4dc7bc83672ff93a2e4786666672b73c2dec9ee1b6e6521c70528e5"
+  },
+  {
+   "path": "vllm/v1/worker/gpu/model_runner.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/model_runner.py",
+   "base_sha256": "af9be025ff8a17a5aabd452fc3e4b987abe64fb28d852c569e1372d6f1e4d3a6",
+   "overlay_sha256": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62"
+  },
+  {
+   "path": "vllm/v1/worker/gpu/dsv41_memprobe.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/dsv41_memprobe.py",
+   "base_sha256": null,
+   "overlay_sha256": "cce01329665cc3f6eef04745d5c8bcb9bdc99ff5768899c9a9d74baaf263bd64"
+  },
+  {
+   "path": "vllm_exl3_moe/tf_prompt.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_prompt.py",
+   "base_sha256": "e029add94af8ba593d8b9929c182a7df28e6abd6a7643da6b17527e27df10a99",
+   "overlay_sha256": "8d66ae29656575b1ab38a6b7a8fa03d9bc4cc2b10565efdc966af07b30268456"
+  },
+  {
+   "path": "vllm_exl3_moe/tf_experts.py",
+   "container_path": "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_experts.py",
+   "base_sha256": "a74af3c58af8fd772caed04837f887247dc6ba1b9487418e3bca9af6029faabb",
+   "overlay_sha256": "bde1d0b48b87394aeff364ac51d6bab209d21c422690e557778fa81c5922024d"
+  }
+ ]
+}

@@ -1,0 +1,423 @@
+{
+  "schema": "pp3.cost-sensitivity.v1",
+  "classification": "ESTIMATED conditional sensitivities from MEASURED proxies",
+  "decision": "STOP: absolute selector target missed; full K2/pair/GB10 costs and long-context acceptance unmeasured",
+  "single_launch_goal_met": false,
+  "selector_absolute_005ms_goal_met": false,
+  "parts": {
+    "selector_addition_solo_synthetic_p95_ms": 0.1555456042289734,
+    "sparse1280_D2H_solo_p95_ms": 0.003859199956059456,
+    "sparse1280_H2D_solo_p95_ms": 0.004307200014591217,
+    "full_dense_p_standard_verifier_solo_p95_ms": 0.014028799533843995,
+    "dense_q_expand_solo_p95_ms": 0.0045056000351905824,
+    "two_serialized_framed_replies_40gbps_ms": 0.0005664
+  },
+  "known_proxy_sum_ms": 0.18281280376865866,
+  "additional_unmeasured_ms": null,
+  "unknown_components": [
+    "extra Markov materialization and duplicate greedy selector work",
+    "eager graph/CPU launch gaps in sampled full K2 path",
+    "full-vocabulary worker peer copies and completion waits",
+    "CPU CRC/q validation/proxy queue and registered pool overhead",
+    "full dense-q slot index-copy/TP synchronization",
+    "GB10 H2D/expansion/rejection differences",
+    "policy-induced future occupancy and150K acceptance"
+  ],
+  "fixed5_replay_sensitivities": {
+    "all": {
+      "retained_greedy": 3.091812865497076,
+      "retained_sampled": 3.3055144183257505,
+      "archived_price_ms_not_live_mean": 48.08,
+      "break_even_total_added_ms": 3.323218806242593,
+      "break_even_total_added_ms_CI_lower": 2.7271286961559005,
+      "remaining_unmeasured_budget_ms_CI_lower": 2.544315892387242,
+      "true_net_rate_change": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 68.48988333451705,
+          "conditional_pct_change": 6.506885570972609
+        },
+        {
+          "assumed_unmeasured_ms": 0.1,
+          "conditional_tps": 68.34826650256723,
+          "conditional_pct_change": 6.286660816876677
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 67.78760756947726,
+          "conditional_pct_change": 5.414794288220137
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 67.09958750209398,
+          "conditional_pct_change": 4.344871680388884
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 65.76461272135384,
+          "conditional_pct_change": 2.2688861582940145
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 64.48172149622546,
+          "conditional_pct_change": 0.27389445641894383
+        }
+      ]
+    },
+    "family:chronology": {
+      "retained_greedy": 3.1334164588528677,
+      "retained_sampled": 3.3695267294869105,
+      "archived_price_ms_not_live_mean": 48.08,
+      "break_even_total_added_ms": 3.622940634019893,
+      "break_even_total_added_ms_CI_lower": 2.5036243177279935,
+      "remaining_unmeasured_budget_ms_CI_lower": 2.320811513959335,
+      "true_net_rate_change": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 69.81621115178345,
+          "conditional_pct_change": 7.127905794132672
+        },
+        {
+          "assumed_unmeasured_ms": 0.1,
+          "conditional_tps": 69.67185186599282,
+          "conditional_pct_change": 6.90639695379951
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 69.10033559890326,
+          "conditional_pct_change": 6.029446746812783
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 68.39899180968283,
+          "conditional_pct_change": 4.953285635497773
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 67.03816482857614,
+          "conditional_pct_change": 2.8651954594615336
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 65.73043001727746,
+          "conditional_pct_change": 0.8585713623168179
+        }
+      ]
+    },
+    "family:motion_outline": {
+      "retained_greedy": 3.055066079295154,
+      "retained_sampled": 3.2489749100093954,
+      "archived_price_ms_not_live_mean": 48.08,
+      "break_even_total_added_ms": 3.0516971936959547,
+      "break_even_total_added_ms_CI_lower": 2.552472830065053,
+      "remaining_unmeasured_budget_ms_CI_lower": 2.3696600262963945,
+      "true_net_rate_change": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 67.31839114349539,
+          "conditional_pct_change": 5.944295873495564
+        },
+        {
+          "assumed_unmeasured_ms": 0.1,
+          "conditional_tps": 67.17919661108338,
+          "conditional_pct_change": 5.725234388582834
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 66.62812752586531,
+          "conditional_pct_change": 4.857973225334988
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 65.95187576785801,
+          "conditional_pct_change": 3.793702152923606
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 64.63973519933589,
+          "conditional_pct_change": 1.7286823825787723
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 63.37878731793943,
+          "conditional_pct_change": -0.2557713923631133
+        }
+      ]
+    },
+    "context:16-32K": {
+      "retained_greedy": 3.2238532110091747,
+      "retained_sampled": 3.3763755332215233,
+      "archived_price_ms_not_live_mean": 48.08,
+      "break_even_total_added_ms": 2.274692044577973,
+      "break_even_total_added_ms_CI_lower": 1.5484899964050594,
+      "remaining_unmeasured_budget_ms_CI_lower": 1.3656771926364006,
+      "true_net_rate_change": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 69.95811758733373,
+          "conditional_pct_change": 4.334350029109735
+        },
+        {
+          "assumed_unmeasured_ms": 0.1,
+          "conditional_tps": 69.81346488098436,
+          "conditional_pct_change": 4.118617436275551
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 69.24078696626333,
+          "conditional_pct_change": 3.2645353072952465
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 68.53801764570024,
+          "conditional_pct_change": 2.2164370620871177
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 67.17442468656203,
+          "conditional_pct_change": 0.18279765035837947
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 65.86403181085889,
+          "conditional_pct_change": -1.7715000592474772
+        }
+      ]
+    },
+    "context:8-16K": {
+      "retained_greedy": 3.0780559646539025,
+      "retained_sampled": 3.3196853100138957,
+      "archived_price_ms_not_live_mean": 48.08,
+      "break_even_total_added_ms": 3.7743104928291156,
+      "break_even_total_added_ms_CI_lower": 2.837580127346125,
+      "remaining_unmeasured_budget_ms_CI_lower": 2.6547673235774667,
+      "true_net_rate_change": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 68.78350260088186,
+          "conditional_pct_change": 7.4415424224507865
+        },
+        {
+          "assumed_unmeasured_ms": 0.1,
+          "conditional_tps": 68.6412786510881,
+          "conditional_pct_change": 7.219385074286633
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 68.07821614747647,
+          "conditional_pct_change": 6.339867434434643
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 67.38724650655628,
+          "conditional_pct_change": 5.260555663728161
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 66.04654862779563,
+          "conditional_pct_change": 3.166352220027613
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 64.75815758923483,
+          "conditional_pct_change": 1.153853362133428
+        }
+      ]
+    },
+    "context:<8K": {
+      "retained_greedy": 2.923809523809524,
+      "retained_sampled": 3.182490083411704,
+      "archived_price_ms_not_live_mean": 48.08,
+      "break_even_total_added_ms": 4.253820642005351,
+      "break_even_total_added_ms_CI_lower": 2.6634884659468425,
+      "remaining_unmeasured_budget_ms_CI_lower": 2.480675662178184,
+      "true_net_rate_change": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 65.94083308719205,
+          "conditional_pct_change": 8.435082005661343
+        },
+        {
+          "assumed_unmeasured_ms": 0.1,
+          "conditional_tps": 65.80448693761066,
+          "conditional_pct_change": 8.210870311346463
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 65.26469455768851,
+          "conditional_pct_change": 7.3232195456139015
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 64.60228115858297,
+          "conditional_pct_change": 6.233927101299752
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 63.31699134778792,
+          "conditional_pct_change": 4.120358019600157
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 62.08184665156998,
+          "conditional_pct_change": 2.089249067031229
+        }
+      ]
+    },
+    "context:>=32K": {
+      "retained_greedy": 3.212121212121212,
+      "retained_sampled": 3.3574671090750323,
+      "archived_price_ms_not_live_mean": 48.08,
+      "break_even_total_added_ms": 2.175581263611411,
+      "break_even_total_added_ms_CI_lower": null,
+      "remaining_unmeasured_budget_ms_CI_lower": null,
+      "true_net_rate_change": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 69.56633718648203,
+          "conditional_pct_change": 4.12899361656589
+        },
+        {
+          "assumed_unmeasured_ms": 0.1,
+          "conditional_tps": 69.4224945661846,
+          "conditional_pct_change": 3.913685640085962
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 68.85302377010436,
+          "conditional_pct_change": 3.061284560941857
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 68.15419010784099,
+          "conditional_pct_change": 2.0152492384007736
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 66.79823356052395,
+          "conditional_pct_change": -0.014387456160647183
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 65.49517916481172,
+          "conditional_pct_change": -1.9648386131539075
+        }
+      ]
+    }
+  },
+  "historical_adaptive_sensitivities": [
+    {
+      "cell": "short-B1-C2",
+      "historical_adaptive_baseline_tps": 53.55715427657873,
+      "acceptance_proxy": "context:<8K",
+      "measured_acceptance_at150k": "different fixed-depth replay population",
+      "extra_assumption": "transplant relative fixed5 token-count gain to adaptive window; 150K extrapolates pooled <=47K anchors",
+      "expected_live_tps": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 58.01297197094225,
+          "conditional_pct_change": 8.319743187535478
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 57.253894482079396,
+          "conditional_pct_change": 6.902420891166172
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 56.51442490682154,
+          "conditional_pct_change": 5.5217097887070965
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 55.091347040590456,
+          "conditional_pct_change": 2.8645897728039937
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 53.73817728280131,
+          "conditional_pct_change": 0.33799967281260557
+        }
+      ]
+    },
+    {
+      "cell": "32k-B1-C2",
+      "historical_adaptive_baseline_tps": 62.64150943396226,
+      "acceptance_proxy": "context:16-32K",
+      "measured_acceptance_at150k": "different fixed-depth replay population",
+      "extra_assumption": "transplant relative fixed5 token-count gain to adaptive window; 150K extrapolates pooled <=47K anchors",
+      "expected_live_tps": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 65.3047738904776,
+          "conditional_pct_change": 4.251596873352814
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 64.49720239888462,
+          "conditional_pct_change": 2.96240141990618
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 63.70936010341274,
+          "conditional_pct_change": 1.704701369905881
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 62.19004012834808,
+          "conditional_pct_change": -0.7207190722154144
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 60.74149678662487,
+          "conditional_pct_change": -3.0331527201470365
+        }
+      ]
+    },
+    {
+      "cell": "150k-B1-C2",
+      "historical_adaptive_baseline_tps": 55.23329129886507,
+      "acceptance_proxy": "all",
+      "measured_acceptance_at150k": null,
+      "extra_assumption": "transplant relative fixed5 token-count gain to adaptive window; 150K extrapolates pooled <=47K anchors",
+      "expected_live_tps": null,
+      "sensitivity": [
+        {
+          "assumed_unmeasured_ms": 0.0,
+          "conditional_tps": 58.77992063838422,
+          "conditional_pct_change": 6.42118051652667
+        },
+        {
+          "assumed_unmeasured_ms": 0.5,
+          "conditional_tps": 58.051234532057265,
+          "conditional_pct_change": 5.101892657354812
+        },
+        {
+          "assumed_unmeasured_ms": 1.0,
+          "conditional_tps": 57.34039402725252,
+          "conditional_pct_change": 3.8149143004823083
+        },
+        {
+          "assumed_unmeasured_ms": 2.0,
+          "conditional_tps": 55.96969026185602,
+          "conditional_pct_change": 1.3332520037713014
+        },
+        {
+          "assumed_unmeasured_ms": 3.0,
+          "conditional_tps": 54.662989006482675,
+          "conditional_pct_change": -1.0325336024183507
+        }
+      ]
+    }
+  ],
+  "interpretation": "No unknown component is assigned zero in the decision. u=0 rows are illustrative only; no speedup is claimed."
+}

@@ -1,0 +1,9 @@
+dense.cu adapts the BF16 MMA operand/register mapping used by
+kernels/mxfp4/regfed.cu, originally adapted from ro99/strata's
+kernels/cuda/detail/backend_kernels.cuh at commit
+015b075079c51a7aec670ee24924f920f5e7bb2b, licensed under Apache-2.0.
+Source: https://github.com/ro99/strata . Original license: LICENSE.strata.
+Changes for this lane: FP8 E4M3/E8M0 decoding, byte-preserving dense fragment
+prepack, grouped dense addressing, split-K and fixed-order reduction,
+BF16/FP32 outputs, tiny-M SIMT control, caller-owned buffers and binding.
+No donor engine, runtime or model weights are included.
