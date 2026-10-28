@@ -1,0 +1,355 @@
+{
+  "classification": "ESTIMATED PC1 planning from MEASURED historical startup/cold cells; no PC1 hardware result",
+  "production": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "cells": {
+    "short-b1": {
+      "observations": [
+        {
+          "source": "NBW-W-20261026T231445Z/s1-K-short-b1.json",
+          "sha256": "deac0950c403b7415ce7e61310d718d4b8b9fb149c3cefa6d24f1678575cd25c",
+          "max_ttft_s": 1.7645618190290406,
+          "max_decode_span_s": 26.50626343896147,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s3-K-short-b1.json",
+          "sha256": "daa891adf4cf907a5cd3418b36b01aaf97cfd0fcb801994785b59061eef1ee3d",
+          "max_ttft_s": 2.331858152989298,
+          "max_decode_span_s": 28.47160706698196,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s5-K-short-b1.json",
+          "sha256": "3ecc7c888b506b8c618902b7745c32b0675b49e4e221cbbf6ca2b76dc0afbc84",
+          "max_ttft_s": 2.4093480160227045,
+          "max_decode_span_s": 27.960649574000854,
+          "measured_output_tokens": 1500
+        }
+      ],
+      "scaled_512_estimate_s": 19.115146022178664,
+      "allowance_per_group_s": 20,
+      "groups_per_start": 2,
+      "requests_per_start": 2,
+      "classification": "ESTIMATED from MEASURED NBW-W3 controls"
+    },
+    "32k-b1": {
+      "observations": [
+        {
+          "source": "NBW-W-20261026T231445Z/s1-K-32k-b1.json",
+          "sha256": "c5331d3465fb12b15d5ba4690fba9da45769236787bdb53cd0650c959861234d",
+          "max_ttft_s": 14.812975562002975,
+          "max_decode_span_s": 29.4779839469702,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s3-K-32k-b1.json",
+          "sha256": "979e7337ba5b75f4888dc0bfd403a2cb301a537f3990cf9d03f55431bd9bca82",
+          "max_ttft_s": 16.56382137304172,
+          "max_decode_span_s": 29.47603059199173,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s5-K-32k-b1.json",
+          "sha256": "0aaff802c13c57a5dc551b30b7be7b0287f060894110e92d0397dac26da8d24f",
+          "max_ttft_s": 16.617130869999528,
+          "max_decode_span_s": 27.4701354339486,
+          "measured_output_tokens": 1500
+        }
+      ],
+      "scaled_512_estimate_s": 33.66599664511745,
+      "allowance_per_group_s": 35,
+      "groups_per_start": 2,
+      "requests_per_start": 2,
+      "classification": "ESTIMATED from MEASURED NBW-W3 controls"
+    },
+    "mixed150k-2decode": {
+      "classification": "ESTIMATED, not a measured PC1 mixed cell",
+      "allowance_per_group_s": 145,
+      "groups_per_start": 2,
+      "requests_per_start": 6,
+      "basis": "RS1 reports about70s cold150K prefill; add two32K decoder arrival/prefill and512-token decode plus scheduling/publication reserve.145s per group is an explicit planning allowance, not a bound from GB10 measurements.",
+      "limitation": "all3 admitted while both512-token decoders live; no whole150K-prefill runway requirement or sustained-throughput claim; absent overlap STOP"
+    },
+    "150k-b1": {
+      "classification": "ESTIMATED from MEASURED PF1-W1 cold327 controls; same capacity/K1; no PC1 timing",
+      "source": "PF1-W1-20261025T234254Z/off-327-requests.jsonl",
+      "sha256": "a30cad940a11a46caa7bce4b70324062e8da3b4503241ebc5c99cdfb652d3422",
+      "observations": [
+        {
+          "rep": 0,
+          "ttft_s": 71.16492061002646,
+          "decode_span_s": 26.51096762099769,
+          "output_tokens": 1500
+        },
+        {
+          "rep": 1,
+          "ttft_s": 69.60316875798162,
+          "decode_span_s": 26.15869907004526,
+          "output_tokens": 1500
+        }
+      ],
+      "formula": "max measured TTFT + max measured decode span*511/1499 +7s; extra reserve rounded up to100s",
+      "allowance_per_group_s": 100,
+      "groups_per_start": 2,
+      "requests_per_start": 2
+    }
+  },
+  "formula": "max measured TTFT + max measured decode span*511/1499 +2s publication+5s overhead; round up to5s. Mixed/host-evidence/greedy estimates explicitly separate.",
+  "startup_observations_s": [
+    388,
+    404
+  ],
+  "startup_allowance_s": 404,
+  "startup_sources": [
+    {
+      "path": "S49.report.md",
+      "sha256": "9564a6621221c6d594835395a6853aad1ac7f575806cf71fea9abaf128475636",
+      "locator": "Spark X start to ready388s"
+    },
+    {
+      "path": "LANES.md",
+      "sha256": "de40e965c15d3e0c5160947e67efff9d47daeda137c4de83e6868160e6869770",
+      "locator": "OPS1 start404s incl warmup at20:45; line427"
+    }
+  ],
+  "ops1_bound_s": 90,
+  "transition_allowance_s": 60,
+  "qualification_total_allowance_s": 30,
+  "qualification_rank_collector_cap_s": 15,
+  "qualification_classification": "ESTIMATED30s candidate-only mounted settings/identity reads;15s per rank; no resident hooks",
+  "setup_allowance_s": 120,
+  "recovery_allowance_s": 720,
+  "control_block_s": 1214,
+  "candidate_block_s": 1244,
+  "selected_starts": [
+    "control",
+    "arm",
+    "control"
+  ],
+  "requests_per_start": 12,
+  "hold_estimate_minutes": 75.2,
+  "submit_abort_minutes": 73,
+  "restore_deadline_minutes": 85,
+  "post_close_watch_minutes_outside_hold": 15,
+  "limitations": "one candidate start; no restart replication.512-token mixed decoders prove arrival overlap, not entire150K prefill coverage. Changed chunk startup, mixed and greedy costs unmeasured. Admission/immutable deadlines can stop the screen.",
+  "greedy_allowance_per_start_s": 60,
+  "greedy_classification": "ESTIMATED six W5/K1 checks and any first-divergence top20 diagnostic; DEP1 used42s; PC1 reserves60s, hard process cap60s and original premeasurement ceiling",
+  "round3": {
+    "classification": "ESTIMATED larger-chunk starts; no larger-chunk startup measured",
+    "pc1_ready_observations_s": [
+      353,
+      337
+    ],
+    "pc1_ready_sources": [
+      "PC1-chunk2048-W-20261027T100908Z/cmd/0030-s1-control-start.log",
+      "PC1-chunk2048-W-20261027T100908Z/cmd/0094-s2-chunk2048-start.log"
+    ],
+    "startup_basis_s": 404,
+    "extra_startup_allowance_s": 180,
+    "candidate_block_s": 1424,
+    "hold_estimate_minutes_by_arm": {
+      "chunk8192": 78.2,
+      "chunk16384": 78.2
+    },
+    "chunk16384": "REFUSED by headroom before host action; estimate only, no window scheduled",
+    "formula": "120 + 1214 + 1424 + 1214 + 720 = 4692s = 78.2min; existing immutable73/85min deadlines unchanged"
+  },
+  "win2": {
+    "classification": "ESTIMATED HOLD per WIN2 plan from the same MEASURED startup basis and per-group cell allowances (no WIN2 hardware run yet)",
+    "decision_repeats": 3,
+    "reported_repeats": 1,
+    "formula": "block = PREPARE_S + sum(allowance_per_group_s x plan repeats); candidate adds QUALIFY_S (+180 s ESTIMATED larger-chunk startup); HOLD = setup + C + X + C + recovery",
+    "groups": {
+      "threshold2048": {
+        "decision": [
+          "short-b1",
+          "mixed150k-2decode"
+        ],
+        "reported": [
+          "32k-b1",
+          "150k-b1"
+        ],
+        "control_block_s": 1244,
+        "candidate_block_s": 1274,
+        "submit_minutes": 64.7,
+        "hold_estimate_minutes": 76.7
+      },
+      "threshold512": {
+        "decision": [
+          "short-b1",
+          "mixed150k-2decode"
+        ],
+        "reported": [
+          "32k-b1",
+          "150k-b1"
+        ],
+        "control_block_s": 1244,
+        "candidate_block_s": 1274,
+        "submit_minutes": 64.7,
+        "hold_estimate_minutes": 76.7
+      },
+      "chunk2048": {
+        "decision": [
+          "32k-b1",
+          "150k-b1"
+        ],
+        "reported": [
+          "short-b1",
+          "mixed150k-2decode"
+        ],
+        "control_block_s": 1184,
+        "candidate_block_s": 1214,
+        "submit_minutes": 61.7,
+        "hold_estimate_minutes": 73.7
+      },
+      "chunk8192": {
+        "decision": [
+          "32k-b1",
+          "150k-b1"
+        ],
+        "reported": [
+          "short-b1",
+          "mixed150k-2decode"
+        ],
+        "control_block_s": 1184,
+        "candidate_block_s": 1394,
+        "submit_minutes": 64.7,
+        "hold_estimate_minutes": 76.7
+      },
+      "chunk16384": {
+        "decision": [
+          "32k-b1",
+          "150k-b1"
+        ],
+        "reported": [
+          "short-b1",
+          "mixed150k-2decode"
+        ],
+        "control_block_s": 1184,
+        "candidate_block_s": 1394,
+        "submit_minutes": 64.7,
+        "hold_estimate_minutes": 76.7
+      }
+    },
+    "measured_basis": {
+      "classification": "MEASURED per-repeat maxima from every PC1 window checkpoint (2026-10-27); per-repeat driver+stats overhead 2 s ESTIMATED; setup 120 s and recovery 720 s are the runner allowances",
+      "sources": [
+        "PC1-chunk2048-W-20261027T100908Z",
+        "PC1-chunk2048-W-20261027T112828Z",
+        "PC1-threshold2048-W-20261027T153817Z",
+        "PC1-threshold512-W-20261027T181314Z"
+      ],
+      "prepare_s_max": {
+        "control": 435.4,
+        "chunk2048": 413.9,
+        "threshold2048": 415.5,
+        "threshold512": 414.1
+      },
+      "cell_s_per_repeat_max": {
+        "control": {
+          "short-b1": 13.6,
+          "32k-b1": 28.8,
+          "150k-b1": 82.3,
+          "mixed150k-2decode": 170.7
+        },
+        "chunk2048": {
+          "short-b1": 13.2,
+          "32k-b1": 31.3,
+          "150k-b1": 97.3,
+          "mixed150k-2decode": 170.6
+        },
+        "threshold2048": {
+          "short-b1": 13.7,
+          "32k-b1": 27.8,
+          "150k-b1": 81.9,
+          "mixed150k-2decode": 135.8
+        },
+        "threshold512": {
+          "short-b1": 13.2,
+          "32k-b1": 28.8,
+          "150k-b1": 81.7,
+          "mixed150k-2decode": 218.2
+        }
+      },
+      "per_repeat_overhead_s": 2,
+      "projection": {
+        "threshold2048": {
+          "blocks_s": [
+            1115.4,
+            989.7,
+            1115.4
+          ],
+          "allowance_blocks_s": [
+            1244,
+            1274,
+            1244
+          ],
+          "hold_minutes": 67.7,
+          "submit_minutes": 55.7,
+          "basis": "MEASURED"
+        },
+        "threshold512": {
+          "blocks_s": [
+            1115.4,
+            1234.8,
+            1115.4
+          ],
+          "allowance_blocks_s": [
+            1244,
+            1274,
+            1244
+          ],
+          "hold_minutes": 71.8,
+          "submit_minutes": 59.8,
+          "basis": "MEASURED"
+        },
+        "chunk2048": {
+          "blocks_s": [
+            969.0,
+            999.5,
+            969.0
+          ],
+          "allowance_blocks_s": [
+            1184,
+            1214,
+            1184
+          ],
+          "hold_minutes": 63.0,
+          "submit_minutes": 51.0,
+          "basis": "MEASURED"
+        },
+        "chunk8192": {
+          "blocks_s": [
+            969.0,
+            1149.0,
+            969.0
+          ],
+          "allowance_blocks_s": [
+            1184,
+            1394,
+            1184
+          ],
+          "hold_minutes": 65.5,
+          "submit_minutes": 53.5,
+          "basis": "MEASURED controls; arm ESTIMATED as control cells + 180 s startup"
+        },
+        "chunk16384": {
+          "blocks_s": [
+            969.0,
+            1149.0,
+            969.0
+          ],
+          "allowance_blocks_s": [
+            1184,
+            1394,
+            1184
+          ],
+          "hold_minutes": 65.5,
+          "submit_minutes": 53.5,
+          "basis": "MEASURED controls; arm ESTIMATED as control cells + 180 s startup"
+        }
+      },
+      "note": "the mixed cell measured 169-171 s per control repeat against its 145 s allowance; each start block allowance still exceeds its measured block because prepare is allowed 614 s against <= 436 s measured"
+    }
+  }
+}

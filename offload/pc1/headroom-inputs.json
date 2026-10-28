@@ -1,0 +1,18 @@
+{
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/PC1-chunk2048-W-20261027T100908Z/telemetry-sparkhead.jsonl": "9e62506c40f6f3bfdb11eccb03a372cc6fcd9acc4ff6cf3910aa12c4be17c1a1",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/PC1-chunk2048-W-20261027T100908Z/telemetry-sparkworker-wired.jsonl": "af0bbc704045344130d1e25895c8e99d63ba5908b7bab110b34b5ec39824e415",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/PC1-chunk2048-W-20261027T100908Z/requests-ledger.jsonl": "6cb496e39c46b0c8a5b45b1a249134b3b09e3f7fa0f5202b34273d5e994a54bd",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T144153Z/telemetry-sparkhead.jsonl": "ac6eddfd4cff641c86b9f92247ed636dc2d082e3d9c35a5a549eafd490d13dd5",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T144153Z/telemetry-sparkworker-wired.jsonl": "ed25b694b0de79d54e29fe48e71c9716a37ff9424135edd037c0637612482116",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T144153Z/requests-ledger.jsonl": "361bc3aa15007812febe57910e3634b39e2cc4da98892d5aa8546b02d88c9686",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T160012Z/telemetry-sparkhead.jsonl": "2b853f97b854b85257bcd8ee2debe2807d7f7d3b703114db7cf2593a6958030a",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T160012Z/telemetry-sparkworker-wired.jsonl": "d5340009b76275895b6a2831ec114e030e9cc5f9130f62b815306eadc68e72c9",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T160012Z/requests-ledger.jsonl": "449a51174e2b9d7c07bf0029ec9acb561618544999e85e2c84444ce05075d96b",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T191247Z/telemetry-sparkhead.jsonl": "f077c5f81817b23a77f02b543fb570fc52c66d0a3d07711dd8d94afde826704a",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T191247Z/telemetry-sparkworker-wired.jsonl": "6ee65d2a55274a62a7e8eb93b62584e5b144ab28d447253455ec233ab6ef01c3",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T191247Z/requests-ledger.jsonl": "e79f4bc314d8984a6d5a96d4f7a800c6fca6c5789f678617c7c4956a5fec8ac2",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/PC1-chunk2048-W-20261027T100908Z/cmd/0030-s1-control-start.log": "c8e3d5ddc547c3ad6dbba5ec9257c0210b4ac285b921cd4ce228689e35b9e7d5",
+  "/opt/dsv41/campaigns/DSV41-OFFLOAD/PC1-chunk2048-W-20261027T100908Z/cmd/0094-s2-chunk2048-start.log": "ab2841c0932b9b21ec11ca69db7b75bb3275aeacc13f8398b3e363f6a8d3bd90",
+  "/opt/dsv41/repos/dsv41-deploy/offload/results/K1/extra/memprobe/sparkhead/dsv41-memprobe-R1p_r0.jsonl": "bc27b0f75018f75050d7278af67f7210e5b1c2ae6744945ecfc777ad76e0353c",
+  "/opt/dsv41/repos/dsv41-deploy/offload/results/K1/extra/memprobe/sparkworker-wired/dsv41-memprobe-R1p_r1.jsonl": "d5d8fd0d7ec6a30d8466fbbe044a39e820bcab5ee6df3d4d613147b892a00d94"
+}

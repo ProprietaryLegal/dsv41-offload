@@ -1,0 +1,8 @@
+UP1 ports HeNryous patches0064/0067 and composes the X1 port of0075.
+0078 remains unmounted reference code in offload/spark_leads; it is dropped from this adoption set.
+HeNryous donor: afe4d5e41ec6fa4db17c5cc88758af439a106913, Apache-2.0.
+Copyright2026 HeNryous; vLLM copyright contributors; sudoingX recipe/plugin; K1 and X1 adaptations retain notices.
+Full Apache2 license: offload/spark_leads/licenses/Apache-2.0.txt in this repository.
+UP1 changes: process-proxy BatchView provenance relocation (preserving max_q ABI), import-hunk rebasing,
+pinned K1/remote composition, isolated configurations, reproducibility/runtime checks and CPU tests.
+All local-drafter paths are excluded from new adoption. No weights, private tensors, calibration or legal outputs included.

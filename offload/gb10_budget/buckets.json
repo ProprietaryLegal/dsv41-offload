@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "status": "Pre-registered before any SP1 trace exists (2026-10-26). Patterns from the image source (vllm_exl3_moe/csrc, vllm v1 sample/spec_decode, offload/engram, offload/dspark); thresholds are decision rules, not results.",
+  "kernel_rules_note": "Ordered: the first rule whose regex (Python re.search, case-sensitive) matches the GPU activity name wins; a bucket may appear in several rules. A name matching no rule is 'unmatched' and lowers coverage.",
+  "kernel_rules": [
+    ["prefetch", "\\bl2pf_kernel\\b"],
+    ["collectives", "\\b(stage_kernel|sum_kernel|gather_kernel)\\b"],
+    ["collectives", "nccl|cross_device_reduce|custom_ar|all_?reduce|all_?gather|reduce_?scatter|AllReduce|AllGather|ReduceScatter"],
+    ["engram", "engram|\\b_hash_ids_kernel\\b|\\b_write_hash_cache_kernel\\b"],
+    ["drafter", "markov|dspark|eagle|dflash|\\b_suffix_match_kernel\\b|\\b_selector_walk_kernel\\b|\\b_predict_kernel\\b|\\b_trace_replay_kernel\\b|\\b_update_draft_inputs_kernel\\b|\\b_pad_trailing_draft_slots_kernel\\b"],
+    ["sampler", "rejection|sample|gumbel|\\b_topk_topp_kernel\\b|\\b_topp_sb_|\\b_min_p_kernel\\b|\\b_temperature_kernel\\b|\\b_penalties_kernel\\b|\\b_bad_words_kernel\\b|logprob|\\b_argmax_finish(_vi)?_kernel\\b|\\b_resample_kernel\\b|\\b_thinking_budget_kernel\\b|\\b_compute_local_logits_stats_kernel\\b|\\b_local_max_sumexp_kernel\\b|\\b_compute_local_residual_mass_kernel\\b|\\b_compute_cumulative_log_p_kernel\\b|\\b_bias_kernel\\b|\\b_repeated_context_mask_kernel\\b|\\b_compact_sampling_mask_kernel\\b|\\b_bincount_kernel\\b|\\b_ranks_kernel\\b|\\b_cache_draft_logits_kernel\\b"],
+    ["routed_moe", "\\bsmoe_(rot|gu|down|fused)\\b|\\bgrouped_\\w*kernel\\b|\\bgroup_(count|place)?_?kernel\\b|\\bgateup_epilogue_kernel\\b|\\bdown_(epilogue|combine)_kernel\\b|\\bcombine(_y)?_kernel\\b|\\bnative_combine_kernel\\b|\\bdecode_prep_kernel\\b|\\bwork_list_kernel\\b|\\brot_in_kernel\\b|\\bdequant_kernel\\b|\\brouter_kernel\\b|\\b_route_(partial|finish)_kernel\\b|\\b_moe_prep_kernel\\b|\\b_sum_groups_kernel\\b|\\b_moe_w(13|2)_kernel\\b|mega_moe|fused_moe|moe_align|topk_softmax"],
+    ["dense_gemm", "\\bmrow(32)?_kernel\\b|\\b_dense_kernel\\b|\\blinear_kernel\\b|\\b_wo_a_fp8_kernel\\b|\\b_mxfp8_wo_a_bmm_kernel\\b|gemm|Gemm|GEMM|cutlass|cublas|nvjet|xmma|deep_gemm|scaled_mm|[Mm]arlin|\\breconstruct_had_kernel\\b"],
+    ["attention", "attn|attention|flash|fmha|\\bmla|indexer|mqa|_sparse_|swa|topk_(indices|lens)|\\b_compute_topk_lens_kernel\\b|\\b_pack_global_topk_ragged_kernel\\b|\\b_prefill_topk_global_slots_kernel\\b|\\b_count_valid_row_entries_kernel\\b|\\b_compact_dense_row_to_ragged_kernel\\b|rope|rotary|kv_cache|\\b_kv_store_kernel\\b|reshape_and_cache|_and_cache|_insert_k|_gather_k|\\b_fused_save_compress_norm_kernel\\b|kpool|slot_mapping|\\b_block_attn_kernel\\b|\\b_gather_lookback_kernel\\b|\\b_gather_replay_batch_kernel\\b|\\b_pad_replayed_slots_kernel\\b|\\b_qdq_ue8m0_kernel\\b|QNormRope|KVRope"],
+    ["other", "\\bmhc_|post_collapse|\\b_hc_|collapse|rms_norm|layer_norm|\\b_prescale_kernel\\b|swiglu|silu|\\bactivation_kernel\\b|\\b_act_qdq_kernel\\b|\\b_amax_kernel\\b|elementwise|vectorized|reduce_kernel|index|scatter|gather|copy|fill|\\bcat\\b|CatArray|embedding|_prepare_|\\b_cache_inputs_kernel\\b|\\bexpand_kernel\\b|_flatten|_pack_|_unpack_|_shift_input|\\b_accumulate_kernel\\b|\\b_refit_kernel\\b|\\b_build_shard_plan_kernel\\b|\\b_insert_resampled_kernel\\b|\\b_update_committed_marker_cache_kernel\\b|^Memcpy|^Memset"]
+  ],
+  "wait_rules_note": "GPU idle inside a step period is classified by the activity that ends it. A wait rule applies when that activity's name matches 'next' and either its launch call is not in the trace ('unrecorded': kineto keeps no cuMemcpyHtoDAsync/cuStreamWaitValue32 driver call) or the recorded launch matches 'launch' and was issued before the idle began. Otherwise: launch issued before the idle -> device_wait; after -> host_gap; launch not recorded -> unrecorded_wait. ESTIMATED attribution from trace structure (offload/dspark/spark/remote_dspark/streamsync.py: WAIT released -> H2D reply).",
+  "wait_rules": [
+    {"bucket": "drafter", "next": "^Memcpy HtoD", "launch": "^cuMemcpyHtoDAsync", "unrecorded": true},
+    {"bucket": "engram", "next": "engram", "launch": null, "unrecorded": true}
+  ],
+  "graph_launch": "^cudaGraphLaunch|^cuGraphLaunch",
+  "report_buckets": ["routed_moe", "prefetch", "dense_gemm", "attention", "collectives", "engram", "sampler", "drafter", "host_gap", "device_wait", "unrecorded_wait", "other", "unmatched"],
+  "limits": {
+    "profiler_overhead_max": 0.10,
+    "coverage_min": 0.90
+  },
+  "hypotheses_note": "Metric keys are '<cell>:<capture>.share.<bucket>' (fraction of the summed GPU step/chunk periods, both ranks averaged) and '<cell>:<capture>.ms.<bucket>' (mean ms per step) plus '<cell>:<capture>.idle_share' and '<cell>:<capture>.collective_imbalance_ms'. A hypothesis is SUPPORTED when any listed key pattern (fnmatch) reaches its minimum; supported ones are ranked by the largest 'addressable' share, then by experiments.json rank.",
+  "hypotheses": [
+    {"id": "prefill-grouped-kernel", "any": [["*:prefill-*.share.routed_moe", 0.40]], "addressable": "*:prefill-*.share.routed_moe",
+     "then": "kernel lane: TF prompt grouped kernel (SM121 tiling, scratch)"},
+    {"id": "decode-smoe-bandwidth", "any": [["*:decode.share.routed_moe", 0.40]], "addressable": "*:decode.share.routed_moe",
+     "then": "kernel lane: smoe PIPE/OBI/CTA-tail sweep"},
+    {"id": "chunk-threshold-grid", "any": [["*:prefill-*.idle_share", 0.10]], "addressable": "*:prefill-*.idle_share",
+     "then": "chunk grid window (2048/4096; 8192 only after the headroom gate)"},
+    {"id": "clocks-and-cooling", "trace": false, "then": "telemetry question (clocks, power, temperature), not answered by kernel traces"},
+    {"id": "remaining-host-gaps", "any": [["*:decode.ms.host_gap", 0.5]], "addressable": "*:decode.share.host_gap",
+     "then": "host-gap lane (launch path, sample_tokens, async scheduling)"},
+    {"id": "collective-boundary-fusion", "any": [["*:decode.share.collectives", 0.05], ["*:decode.collective_imbalance_ms", 1.0]],
+     "addressable": "*:decode.share.collectives", "then": "collective fusion lane (RDMA ring boundaries)"},
+    {"id": "verify-coverage-and-width", "any": [["*:decode.share.sampler", 0.05]], "addressable": "*:decode.share.sampler",
+     "then": "verify/rejection width lane"},
+    {"id": "depth-policy-recalibration", "any": [["*:decode.share.drafter", 0.10]], "addressable": "*:decode.share.drafter",
+     "then": "depth A/B window (drafter round exposed on the engine stream)"},
+    {"id": "expert-parallel-split", "any": [["prof-32k-b4:decode.share.routed_moe", 0.50]], "addressable": "prof-32k-b4:decode.share.routed_moe",
+     "then": "EP feasibility study only (B1 regression possible)"},
+    {"id": "kv-dtype-change", "trace": false, "then": "excluded: experiments.json records no justified deployable gain"}
+  ]
+}

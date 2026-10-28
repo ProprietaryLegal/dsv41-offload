@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "default_variant": 131072,
+  "shape_overrides": [
+    {
+      "stage": 1,
+      "rows": 10,
+      "variant": 256
+    }
+  ],
+  "source_sha256": "4c0a712489565352e13f5a4bb185b379ea03739bfc7d0decf07f080d86539e14",
+  "numerical_gates_pass": true,
+  "all_latency_gates_pass": false,
+  "median_latency_cases_passed": 4,
+  "median_latency_cases_total": 6,
+  "scope": "Per-rank isolated expert kernels; no model/engine integration",
+  "conditions": "X86host dev UUID7744b44b, exclusive flock,325W owner cap,SM1695MHz,mem9501MHz,CUDA graph20replays x3trials",
+  "cases": [
+    {
+      "stage": 0,
+      "rows": 5,
+      "variant": 131072,
+      "target_us": 135,
+      "ranks": [
+        {
+          "rank": 0,
+          "median_us": 143.0016040802002,
+          "p90_us": 162.15039491653442,
+          "all_distinct_us": 186.6752028465271,
+          "median_gate_pass": false,
+          "evidence": "bench0r0carry-final.json"
+        },
+        {
+          "rank": 1,
+          "median_us": 143.15520524978638,
+          "p90_us": 162.20159530639648,
+          "all_distinct_us": 186.6752028465271,
+          "median_gate_pass": false,
+          "evidence": "bench0r1carry-final.json"
+        }
+      ]
+    },
+    {
+      "stage": 0,
+      "rows": 10,
+      "variant": 131072,
+      "target_us": 210,
+      "ranks": [
+        {
+          "rank": 0,
+          "median_us": 196.27439975738525,
+          "p90_us": 243.0959939956665,
+          "all_distinct_us": 351.692795753479,
+          "median_gate_pass": true,
+          "evidence": "bench0r0carry-final.json"
+        },
+        {
+          "rank": 1,
+          "median_us": 196.34960293769836,
+          "p90_us": 243.04640293121338,
+          "all_distinct_us": 351.692795753479,
+          "median_gate_pass": true,
+          "evidence": "bench0r1carry-final.json"
+        }
+      ]
+    },
+    {
+      "stage": 1,
+      "rows": 5,
+      "variant": 131072,
+      "target_us": 100,
+      "ranks": [
+        {
+          "rank": 0,
+          "median_us": 91.80160164833069,
+          "p90_us": 111.56480312347412,
+          "all_distinct_us": 187.03360557556152,
+          "median_gate_pass": true,
+          "evidence": "bench1r0carry-final.json"
+        },
+        {
+          "rank": 1,
+          "median_us": 91.80160164833069,
+          "p90_us": 111.51360273361206,
+          "all_distinct_us": 186.72640323638916,
+          "median_gate_pass": true,
+          "evidence": "bench1r1carry-final.json"
+        }
+      ]
+    },
+    {
+      "stage": 1,
+      "rows": 10,
+      "variant": 256,
+      "target_us": 150,
+      "ranks": [
+        {
+          "rank": 0,
+          "median_us": 128.33279967308044,
+          "p90_us": 163.02080154418945,
+          "all_distinct_us": 354.5088052749634,
+          "median_gate_pass": true,
+          "evidence": "bench1r0dispatch-final.json"
+        },
+        {
+          "rank": 1,
+          "median_us": 128.35839986801147,
+          "p90_us": 163.02080154418945,
+          "all_distinct_us": 356.5567970275879,
+          "median_gate_pass": true,
+          "evidence": "bench1r1dispatch-final.json"
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "rows": 5,
+      "variant": 131072,
+      "target_us": 70,
+      "ranks": [
+        {
+          "rank": 0,
+          "median_us": 79.76959943771362,
+          "p90_us": 91.6480004787445,
+          "all_distinct_us": 187.1359944343567,
+          "median_gate_pass": false,
+          "evidence": "bench2r0carry-final.json"
+        },
+        {
+          "rank": 1,
+          "median_us": 79.76959943771362,
+          "p90_us": 91.59680008888245,
+          "all_distinct_us": 186.98240518569946,
+          "median_gate_pass": false,
+          "evidence": "bench2r1carry-final.json"
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "rows": 10,
+      "variant": 131072,
+      "target_us": 105,
+      "ranks": [
+        {
+          "rank": 0,
+          "median_us": 96.40879929065704,
+          "p90_us": 147.50720262527466,
+          "all_distinct_us": 352.0512104034424,
+          "median_gate_pass": true,
+          "evidence": "bench2r0carry-final.json"
+        },
+        {
+          "rank": 1,
+          "median_us": 96.25599980354309,
+          "p90_us": 148.1727957725525,
+          "all_distinct_us": 351.6416072845459,
+          "median_gate_pass": true,
+          "evidence": "bench2r1carry-final.json"
+        }
+      ]
+    }
+  ]
+}

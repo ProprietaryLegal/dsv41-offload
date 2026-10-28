@@ -1,0 +1,2 @@
+(VllmWorker-1 pid=187) INFO 10-27 06:07:40 [rdma.py:188] EXL3 RDMA all-reduce: vLLM's TP all-reduce routed for bf16 tensors up to 256 KB
+EXL3 RDMA all-reduce: rank 1 of 2 on rocep1s0f1, gid 3, proxy on cpu 14, up to 256 KB (slots 3072 KB, all-gathers up to 3072 KB)

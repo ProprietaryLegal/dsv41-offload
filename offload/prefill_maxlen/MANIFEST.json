@@ -1,0 +1,10 @@
+{
+  "image": "ghcr.io/henryous/deepseek-v41-1017-dgx-spark:v5",
+  "path": "vllm/model_executor/layers/sparse_attn_indexer.py",
+  "base_sha256": "75d14da5e2b8c237f7fc0a807d2b72677660a945c70d23825da3517801d9ca10",
+  "overlay_sha256": "1663d82cfa842a93b47e27cf942bd8bb9ceb65fe88763c3c953fdc6466a50ffd",
+  "patch_sha256": "90288fe843afd83c5c635301a9c24e06e11b834204d484d97481e1eab9857f02",
+  "switch": "VLLM_DSV41_INDEXER_REQUEST_WORKSPACE",
+  "default": "0",
+  "status": "CPU candidate; no established GB10 speed benefit"
+}

@@ -1,0 +1,11 @@
+# Isolated target install for the pinned official component check only.
+# Existing X86host Torch2.10.0+cu126, NumPy and CUDA12.6 are reused.
+tilelang==0.1.12
+apache-tvm-ffi==0.1.11
+torch-c-dlpack-ext==0.1.5
+z3-solver==4.15.4.0
+psutil==7.0.0
+cloudpickle==3.1.1
+ml-dtypes==0.5.1
+tqdm==4.67.1
+typing-extensions==4.15.0

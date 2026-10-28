@@ -1,0 +1,1112 @@
+{
+  "range": [
+    "b1726644b89fbb57b6468d33880cddac55a3c527",
+    "afe4d5e41ec6fa4db17c5cc88758af439a106913"
+  ],
+  "readme_sha256": "d966378fcb0b2120637b01c76e52e3e0e82409692b2da19bec1ee460ba004c19",
+  "commits": [
+    {
+      "sha": "cb89793f7a299662dbf9712d3663a6114e5b1a39",
+      "subject": "v12: KV page layout without allocator padding (1,531,258 tokens), NVFP4 KV tried",
+      "paths": [
+        "README.md",
+        "docker/Dockerfile",
+        "docker/files/vllm/config/vllm.py",
+        "docker/files/vllm/models/deepseek_v41/attention.py",
+        "docker/files/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+        "docker/files/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/dspark.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+        "docker/files/vllm/v1/core/kv_cache_utils.py",
+        "docker/files/vllm/v1/kv_cache_interface.py",
+        "docker/files/vllm/v1/kv_offload/tiering/fs/io.py",
+        "docker/files/vllm/v1/worker/gpu/model_runner.py",
+        "docker/files/vllm/v1/worker/gpu/spec_decode/dspark/speculator.py",
+        "docker/files/vllm/v1/worker/utils.py",
+        "docker/files/vllm_exl3_moe/display_kv.py",
+        "patches/0051-dsv41-indexer-defer.patch",
+        "patches/0053-dsv41-display-kv.patch",
+        "patches/0054-dsv41-display-tensors.patch",
+        "patches/0055-dsv41-hybrid-draft.patch",
+        "patches/0056-dsv41-kv-offload-crc.patch",
+        "patches/0057-dsv41-kv-pair-blocks.patch",
+        "patches/0058-dsv41-offload-expandable-segments.patch",
+        "patches/0059-dsv41-kv-nvfp4.patch",
+        "patches/0060-dsv41-kv-three-pages.patch",
+        "patches/0061-dsv41-kv-fp8-window-nvfp4-compressed.patch",
+        "serve/serve_example.sh"
+      ]
+    },
+    {
+      "sha": "140a641cfdf3543d867f671373d15803755d394c",
+      "subject": "README: clean 2400 MHz measurement of v12, SSD offload live result, T=0 reproducibility note",
+      "paths": [
+        "README.md"
+      ]
+    },
+    {
+      "sha": "3fff0d31e8a29819746521553a3527bb7eb20d34",
+      "subject": "v22: patches 0062-0074, background only in idle time, Zig comparison",
+      "paths": [
+        "README.md",
+        "docker/Dockerfile",
+        "docker/files/vllm/models/deepseek_v41/common/ops/swa_fused.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/dspark.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/model_state.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/ops/markov_step.py",
+        "docker/files/vllm/v1/attention/backends/mla/sparse_swa.py",
+        "docker/files/vllm/v1/core/sched/output.py",
+        "docker/files/vllm/v1/core/sched/scheduler.py",
+        "docker/files/vllm/v1/worker/gpu/model_runner.py",
+        "docker/files/vllm/v1/worker/gpu/spec_decode/depth_policy.py",
+        "docker/files/vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+        "docker/files/vllm/v1/worker/gpu/spec_decode/dspark/speculator.py",
+        "docker/files/vllm/v1/worker/gpu_worker.py",
+        "docker/files/vllm_exl3_moe/config.py",
+        "docker/files/vllm_exl3_moe/dense.py",
+        "docker/files/vllm_exl3_moe/forward.py",
+        "docker/files/vllm_exl3_moe/l2pf_draft.py",
+        "docker/files/vllm_exl3_moe/moe_method.py",
+        "docker/files/vllm_exl3_moe/smoe.py",
+        "patches/0040-dsv41-dynamic-sd-config.md",
+        "patches/0062-dsv41-exact-verify-sampling.patch",
+        "patches/0063-dsv41-exl3-l2pf-verify-rows.patch",
+        "patches/0064-dsv41-exl3-moe-smoe-split.patch",
+        "patches/0065-dsv41-pw-mixed-graphs.patch",
+        "patches/0066-dsv41-dspark-drafter-markov.patch",
+        "patches/0067-dsv41-vor-swa-fused.patch",
+        "patches/0071-dsv41-background-depth-cap.patch",
+        "patches/0072-dsv41-background-decode-pause.patch",
+        "patches/0073-dsv41-throttle-waiting-foreground.patch",
+        "patches/0074-dsv41-background-chunks-alone.patch",
+        "serve/serve_example.sh"
+      ]
+    },
+    {
+      "sha": "dc619a2b0c500327b945cbb30693481e6d174713",
+      "subject": "SSD KV offload in use (0056/0058), serve example updated",
+      "paths": [
+        "README.md",
+        "serve/serve_example.sh"
+      ]
+    },
+    {
+      "sha": "8ea876e7de79b170034fe95d228f3a5319823f07",
+      "subject": "512K context by default (needle at 479K 3/3), serve example",
+      "paths": [
+        "README.md",
+        "serve/serve_example.sh"
+      ]
+    },
+    {
+      "sha": "f4bcfde4aaa75447da59861d689fa80728527e7a",
+      "subject": "SSD KV offload off again: rank 1 read stale blocks across two nodes",
+      "paths": [
+        "README.md",
+        "serve/serve_example.sh"
+      ]
+    },
+    {
+      "sha": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+      "subject": "v24: KV offload across two nodes (0077/0081), 1M context, replay skip, Engram lookahead",
+      "paths": [
+        "README.md",
+        "docker/Dockerfile",
+        "docker/files/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+        "docker/files/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+        "docker/files/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+        "docker/files/vllm/models/deepseek_v41/common/engram.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/model.py",
+        "docker/files/vllm/models/deepseek_v41/nvidia/model_state.py",
+        "docker/files/vllm/models/deepseek_v41/replay_skip.py",
+        "docker/files/vllm/v1/core/sched/scheduler.py",
+        "docker/files/vllm/v1/kv_offload/tiering/fs/thread_pool.py",
+        "docker/files/vllm/v1/worker/gpu/dsv41_engram_lookahead.py",
+        "docker/files/vllm/v1/worker/gpu/dsv41_memprobe.py",
+        "docker/files/vllm/v1/worker/gpu/dsv41_prealloc.py",
+        "docker/files/vllm/v1/worker/gpu/model_runner.py",
+        "docker/files/vllm/v1/worker/gpu_worker.py",
+        "docker/files/vllm_exl3_moe/moe_method.py",
+        "docker/files/vllm_exl3_moe/tf_experts.py",
+        "docker/files/vllm_exl3_moe/tf_prompt.py",
+        "patches/0075-dsv41-replay-skip-intermediate-chunks.patch",
+        "patches/0076-dsv41-head-memory.patch",
+        "patches/0076c-exl3-det-prefill-tiles-sidepath.patch",
+        "patches/0077-dsv41-kv-offload-two-nodes.patch",
+        "patches/0078-dsv41-engram-prefill-reads.patch",
+        "patches/0079-dsv41-decode-fixed-costs.patch",
+        "patches/0080-dsv41-startup-reservation.patch",
+        "patches/0081-dsv41-kv-offload-load-cap.patch",
+        "serve/serve_example.sh"
+      ]
+    }
+  ],
+  "patches": [
+    {
+      "id": "0051",
+      "patch": "patches/0051-dsv41-indexer-defer.patch",
+      "sha256": "055677b5ad2667ce92aeff0af040f1929aedbffbbf1ed793a9c4e026f87a81c3",
+      "disposition": "K1",
+      "our_applicability_and_conflicts": "Target indexer defer; use K1 composition, no second mount.",
+      "upstream_readme_verbatim": "| 0051 | the indexer's `weights_proj` GEMV (hidden \u2192 32 heads, 56\u201361 \u00b5s on GB10) no longer makes the main stream wait right after the fused QKV GEMM: the join moves to the first read, and with short contexts, where every candidate is selected and the weights are never read, the GEMV is skipped (`VLLM_DSV41_INDEXER_DEFER=1`); bit-identical | **in use** since 21.10., measured together with the RDMA ring over both PCIe functions (cost per round \u22121.20 %, step 1 of \"From v12 to v22\"); on top of 0054 alone it measured +0.2 % (within noise) |"
+    },
+    {
+      "id": "0053",
+      "patch": "patches/0053-dsv41-display-kv.patch",
+      "sha256": "5a676d0ceddb705a90d595b431ebbc81881639372b3da7f6a23eb381abfbd8a9",
+      "disposition": "K1/off",
+      "our_applicability_and_conflicts": "Display KV code carried by K1; switch stays off, slower reads and less headroom.",
+      "upstream_readme_verbatim": "| 0053 | KV cache backed by the GB10 display reservation (1,792 MiB per node, DRM dumb buffer + `cuMemHostRegister`) with pinned ordinary memory behind it (`VLLM_DSV41_DISPLAY_KV_MIB`) | off: KV pool +47 %, but ~1 GB less free memory under load and +1.5 % per round (see \"Tried\") |"
+    },
+    {
+      "id": "0054",
+      "patch": "patches/0054-dsv41-display-tensors.patch",
+      "sha256": "7ea2deb07e307fc5a866d4b9ba7897c8bc85a047ab5f1383a3878727b0ac6420",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Display embedding/Markov allocation regressed; Markov is remote and embedding move conflicts with capacity accounting.",
+      "upstream_readme_verbatim": "| 0054 | token embedding (631 MiB per rank) and the DSpark Markov cache (505 MiB) in the display reservation, copied bit-exact (`VLLM_DSV41_DISPLAY_TENSORS=1`) | off: decode \u22121.7 % (geometric mean), 64K code \u22126.7 % |"
+    },
+    {
+      "id": "0055",
+      "patch": "patches/0055-dsv41-hybrid-draft.patch",
+      "sha256": "9affd2a869ef344be901ed5fa9b444544ebff48f714b78c930101392467a05f5",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Hybrid local drafter probability/state path is absent in capacity mode; remote contract is greedy. Also failed upstream prose gate.",
+      "upstream_readme_verbatim": "| 0055 | draft mode per request from the 0047 regime: requests that plan the full window draft probabilistically, the others greedy with a one-hot draft distribution, so their verification stays exact (`VLLM_DSV41_HYBRID_DRAFT=1`) | off: +0.75 % at T=1 (code at 1 stream +5.0 %), but prose at 1 stream \u22121.6 % |"
+    },
+    {
+      "id": "0056",
+      "patch": "patches/0056-dsv41-kv-offload-crc.patch",
+      "sha256": "d1073571912d229b65af8c070ee0657ad3caa7cce66aa82af20a19fb06a322e4",
+      "disposition": "RP1",
+      "our_applicability_and_conflicts": "CRC protects files, not rank mismatch; retain RP1 safety gates.",
+      "upstream_readme_verbatim": "| 0056 | CRC-32 sidecar for every block of vLLM's file-system KV offload tier, checked after each load; a bad block is deleted and recomputed (`VLLM_DSV41_KV_CRC=1`) | **in use again** since 22.10. with image v24, together with 0058, 0077 and 0081. Off 02:08\u201321:40 that day: with TP across two nodes vLLM's tiering spec kept rank 1's pages on a node nothing reads them back from, so a load from disk gave rank 1 stale blocks (garbage text, NaN logits, an illegal memory access); 0077 fixes that. The CRC cannot see such a case, the bytes on disk are fine; it guards the files themselves. |"
+    },
+    {
+      "id": "0057",
+      "patch": "patches/0057-dsv41-kv-pair-blocks.patch",
+      "sha256": "6058242fbd5909d50507baf4876082b4dedbff068795c97de3fa5f939fb9cb3b",
+      "disposition": "K1",
+      "our_applicability_and_conflicts": "FP8 page pairing; preserve K1 record/group layout.",
+      "upstream_readme_verbatim": "| 0057 | paired KV pages: the ratio-1 compressed-KV group takes 128-token blocks made of two 64-state kernel pages and stops paying the ratio-2 group's block stride (`VLLM_DSV41_KV_PAIR=1`; `VLLM_DSV41_KV_SWA_FILL=1` fills the sliding-window groups up to the stride) | KV pool 989,460 \u2192 1,346,928 tokens (+36 %), live 3,267 \u2192 2,187 B per token, cost per round \u22120.3 %, T=0 identical 8/8, corruption test 0 hits |"
+    },
+    {
+      "id": "0058",
+      "patch": "patches/0058-dsv41-offload-expandable-segments.patch",
+      "sha256": "6fb50e3a1b0e4dbf92901011599e0b01b546f7b1a2c532b8cbacd4a569e854ed",
+      "disposition": "RP1",
+      "our_applicability_and_conflicts": "Connector-specific allocator exception, not a general allocator change.",
+      "upstream_readme_verbatim": "| 0058 | vLLM's OffloadingConnector next to `expandable_segments:True` (`VLLM_DSV41_OFFLOAD_EXPANDABLE_OK=1`) | needed for 0056; in use with it |"
+    },
+    {
+      "id": "0059",
+      "patch": "patches/0059-dsv41-kv-nvfp4.patch",
+      "sha256": "9f7f8a87f013b0d862f2d7fa2c713908ca3790f93270ac879b34be2f263907d4",
+      "disposition": "K1/off",
+      "our_applicability_and_conflicts": "NVFP4 code dependency carried by K1; NEVER enable, distribution regression.",
+      "upstream_readme_verbatim": "| 0059 | NVFP4 KV records on GB10: FlashInfer's 384 B SM120 record (e2m1 with an e4m3 scale per 16, RoPE in BF16) for the window and the compressed KV, written with FlashInfer's own quantize-append; SWA indices padded to 512 for DSpark's 192-wide non-causal verify (`VLLM_DSV41_KV_NVFP4=1`) | off: KV pool +49.5 %, but KV-KLD 0.028 / top-1 95.0 % against FP8 records (see \"KV cache capacity\") |"
+    },
+    {
+      "id": "0060",
+      "patch": "patches/0060-dsv41-kv-three-pages.patch",
+      "sha256": "52b5528f2aa3eb4060c3e427466e9859b980fcb8be4ab5dcb367332146f65772",
+      "disposition": "K1",
+      "our_applicability_and_conflicts": "Three-page FP8 packing; scheduler/cache boundaries change, same target records.",
+      "upstream_readme_verbatim": "| 0060 | three 64-state kernel pages per manager block for the ratio-1 KV group: 3 \u00d7 46,080 B = the ratio-2 block stride, no padding left (`VLLM_DSV41_KV_PAIR=3`, on top of 0057) | **in use:** KV pool 1,346,928 \u2192 1,531,258 tokens (+13.7 %), live 2,187 \u2192 1,827 B per token, cost per round \u22120.5 %, T=0 identical 8/8, corruption test 0 hits |"
+    },
+    {
+      "id": "0061",
+      "patch": "patches/0061-dsv41-kv-fp8-window-nvfp4-compressed.patch",
+      "sha256": "9e066c19587155c3f1729cef67b602c3681305289369af48096f211052155121",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Compressed NVFP4 remains above KLD floor and loses accepted tokens; do not alter target quantization.",
+      "upstream_readme_verbatim": "| 0061 | FP8 sliding window + NVFP4 compressed KV (as vLLM's SM100 format does): two FlashInfer calls with `return_lse`, merged in Triton (base-2 LSE, sink in the merge) (`VLLM_DSV41_KV_NVFP4=2`) | off: KV pool 1,837,489 with 0060, but KV-KLD 0.0146 / top-1 96.6 % and tok/s \u22122.8 % (fewer drafts accepted) |"
+    },
+    {
+      "id": "0062",
+      "patch": "patches/0062-dsv41-exact-verify-sampling.patch",
+      "sha256": "1f8af80fd9420eb33aab4580c2097602407414cbcb2f54472039a66110909e34",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Unmeasured 0.03\u20130.25% sampling-only estimate; host mask/event sync and async process parked stream need separate design. No positive result justifies port.",
+      "upstream_readme_verbatim": "| 0062 | the DSpark verify step's sampling phase on the live rows only: the LM head (where it runs on exl3_mrow), the logits all-gather and the rejection sampler skip the rows past each request's depth, same tokens by construction (`VLLM_DSV41_EXACT_VERIFY=1`; `count` only logs the dead rows per round) | off, not in the image: expected 0.03\u20130.25 % per round, not measured; a forward of exact width does not fit this stack (see \"Tried\") |"
+    },
+    {
+      "id": "0063",
+      "patch": "patches/0063-dsv41-exl3-l2pf-verify-rows.patch",
+      "sha256": "791717f422abf64f3a564f84cd9aee7c7c6f4e2f15cd8eb0e98b3c5b2f38c2fd",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Measured regression at target verify rows 17\u201332; competes with routed expert reads. Remote drafter does not fix target bandwidth.",
+      "upstream_readme_verbatim": "| 0063 | the dense L2 prefetch also for 17\u201332-row verify windows (`EXL3_L2PF_MAX_ROWS=32`) | off, not in the image: tok/s \u22122.2 %, at 4 streams JSON \u22126.2 % and code \u22123.0 % |"
+    },
+    {
+      "id": "0064",
+      "patch": "patches/0064-dsv41-exl3-moe-smoe-split.patch",
+      "sha256": "88b5242cba4d417d12b2eaeec0c55e96b6db1d5026a62898ee5c5a2e01cd7a9c",
+      "disposition": "UP1 overlay",
+      "our_applicability_and_conflicts": "Target MoE 33\u201363 row split applies to mixed steps regardless of remote drafter. Changes rounding; affinity must be isolated.",
+      "upstream_readme_verbatim": "| 0064 | the routed experts of 33\u201363-row calls (mixed steps under load, short prompts, last prompt chunks) as exl3_smoe row chunks of \u2264 42 rows, instead of exllamav3's prefill tiers with a host read of the expert counts per layer (`VLLM_EXL3_MOE_SPLIT_MAX_TOKENS=63`) | **in use** (with `EXL3_CPU_PIN`): sustained 118 \u2192 129 tok/s (+9 %), cost per round \u22120.24 %, corruption test 0 hits; 33\u201363-row steps round as exl3_smoe does (deterministic) |"
+    },
+    {
+      "id": "0065",
+      "patch": "patches/0065-dsv41-pw-mixed-graphs.patch",
+      "sha256": "731a528e8e48aec237bb914f6b5223c1cb04461d4db68d468fe63d7d9e03f4e4",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "No sustained improvement; 446 MiB extra graphs, breaks memory budget and async graph assumptions.",
+      "upstream_readme_verbatim": "| 0065 | mixed prefill + decode steps of up to 32 tokens (40 with the coop limit raised) as breakable PIECEWISE CUDA graphs next to the FULL decode graphs (`cudagraph_mode` FULL_AND_PIECEWISE, `VLLM_DSV41_PW_SIZES`, `VLLM_DSV41_PW_TWINS`, `VLLM_DSV41_PW_MAX_ROWS`) | off, not in the image: sustained +0.0 % after 0064, first token of short arrivals \u221230 ms, 446 MiB less free on the head node |"
+    },
+    {
+      "id": "0066",
+      "patch": "patches/0066-dsv41-dspark-drafter-markov.patch",
+      "sha256": "66013fa6f7ee61168735aee96966ae5b88327294025ad76925c2f4db0a1634cb",
+      "disposition": "reject local path",
+      "our_applicability_and_conflicts": "Local DSpark fused/trim/prefetch never executes in remote capacity mode; x86host already has its own fused Markov. No SM121 code port to SM86.",
+      "upstream_readme_verbatim": "| 0066 | DSpark drafter: each greedy Markov step in three kernels and one all-gather instead of ~13 kernels, same drafts (`VLLM_DSV41_MARKOV_FUSED=1`); the Markov loop only as deep as the next step verifies (`VLLM_DSV41_MARKOV_TRIM=1`); L2 prefetch of the drafter's dense weights (`VLLM_DSV41_DRAFT_L2PF=next`) | `MARKOV_FUSED` **in use** (with 0067: cost per round \u22120.66 %, T=0 identical); `MARKOV_TRIM` \u22120.42 % alone but +0.04 % on top of `MARKOV_FUSED`, off; `DRAFT_L2PF` \u22120.01 %, off |"
+    },
+    {
+      "id": "0067",
+      "patch": "patches/0067-dsv41-vor-swa-fused.patch",
+      "sha256": "5ae800a0ca48fc84d866e3a488d0e925304801d1632706ae995de471208331c0",
+      "disposition": "UP1 overlay",
+      "our_applicability_and_conflicts": "Target SWA metadata and replay upload remain local; compose model_state with X1 0075, keep no local-drafter changes.",
+      "upstream_readme_verbatim": "| 0067 | the eager phase between the drafter graph and the target graph: the decode SWA metadata of all 15 sliding-window groups in one launch instead of 45, the `replay_start` upload only when it changes (`VLLM_DSV41_VOR_FUSED=1`); same bits | **in use**, measured together with 0066's `MARKOV_FUSED` |"
+    },
+    {
+      "id": "0071",
+      "patch": "patches/0071-dsv41-background-depth-cap.patch",
+      "sha256": "5bcc1a9ba5fd691c7092faecd8bc8da03553380fd79bad1e6a588df98d9356ad",
+      "disposition": "SO1",
+      "our_applicability_and_conflicts": "Remote depth cap needs remote policy; SO1 selected scheduler pause instead, so do not reintroduce local speculator.",
+      "upstream_readme_verbatim": "| 0071 | background verify-depth cap: while a foreground request decodes in the step, requests with `priority` \u2265 `VLLM_DSV41_BG_MIN_PRIO` (default 10) verify at most `VLLM_DSV41_BG_DEPTH` drafts, switchable live through the depth file (`bg=`, `bgprio=`); outputs unchanged | **in use** (`VLLM_DSV41_BG_DEPTH=0`): foreground decode next to one / two background streams +29\u2026+56 %, first token unchanged |"
+    },
+    {
+      "id": "0072",
+      "patch": "patches/0072-dsv41-background-decode-pause.patch",
+      "sha256": "58db790e3fbe4bcc171955d2b3cf7f696f82f71ebfb6cd810aa3dd0aee653ed3",
+      "disposition": "SO1",
+      "our_applicability_and_conflicts": "Priority-aware background pause adapted to our priority5 floor.",
+      "upstream_readme_verbatim": "| 0072 | background decode pause: while a request with `priority` < `VLLM_DSV41_BG_PAUSE_PRIO` runs, the scheduler skips decoding requests at or above it; they keep their KV blocks and drafts and continue once no foreground request runs; prefill chunks stay with 0031; live through the depth file (`bgpause=`); outputs unchanged | **in use** (`VLLM_DSV41_BG_PAUSE_PRIO=10`): foreground decode next to one / two background streams +25\u2026+56 % on top of 0071 `bg=0` (prose 34.4 \u2192 53.8, code 57.5 \u2192 83.2 tok/s next to two), first token unchanged |"
+    },
+    {
+      "id": "0073",
+      "patch": "patches/0073-dsv41-throttle-waiting-foreground.patch",
+      "sha256": "ce96b956aadf87ed72335d1178589e0faccdf14518feb50beee385082fe239c5",
+      "disposition": "SO1",
+      "our_applicability_and_conflicts": "Waiting foreground throttle in SO1 scheduler; no duplicate scheduler mount.",
+      "upstream_readme_verbatim": "| 0073 | the 0031 prefill throttle also holds while a foreground request (`priority` below `VLLM_PREFILL_THROTTLE_MIN_PRIO`) waits, so the step that admits it carries no background chunk (`VLLM_DSV41_FG_WAIT_THROTTLE=1`) | **in use**, measured together with the 0031 cadence 100000: foreground next to two 60K-token background prefills 22.5 \u2192 56.5 tok/s, first token 3.7\u20133.8 \u2192 1.3\u20132.4 s (shares not separated) |"
+    },
+    {
+      "id": "0074",
+      "patch": "patches/0074-dsv41-background-chunks-alone.patch",
+      "sha256": "3113a45409fcee933b4c72a5b726b24cbba732aafb64c9538893ba1788265388",
+      "disposition": "SO1",
+      "our_applicability_and_conflicts": "Solo background chunks in SO1 scheduler; compose 0075 hooks before combined test.",
+      "upstream_readme_verbatim": "| 0074 | background prefill chunks keep `--long-prefill-token-threshold` also when they are the only eligible request (vLLM drops it then); a foreground request alone still gets the whole budget (`VLLM_DSV41_BG_LPT_SOLO=1`) | **in use**: first token next to one background prefill 2.1\u20134.0 \u2192 1.4 s; a 60K-token background prompt alone prefills in 112 instead of 92 s |"
+    },
+    {
+      "id": "0075",
+      "patch": "patches/0075-dsv41-replay-skip-intermediate-chunks.patch",
+      "sha256": "9ff9ca4b882ca63b50a7dfad89d56cf074c28b189bb8c8430e7a736a26c3ab3c",
+      "disposition": "UP1 via X1",
+      "our_applicability_and_conflicts": "Use provenance-aware X1 port, never raw donor: remote partial-prefill taps must carry actual suffix length. Scheduler and worker sides inseparable.",
+      "upstream_readme_verbatim": "| 0075 | no decoder replay on intermediate prefill chunks: layers 20\u201339 ran again on each prefilling request's last 128 rows in every step, read by nothing unless the chunk is the last one (`VLLM_DSV41_REPLAY_SKIP=1`) | **in use** (v24): prefill of a 478K-token prompt +4.9 / +5.9 %, 949K tokens +6.5 %; first-token KL against the same image without it 0.0017 (two fresh computes: 0.0015); 26K-token prompts unchanged |"
+    },
+    {
+      "id": "0076",
+      "patch": "patches/0076-dsv41-head-memory.patch",
+      "sha256": "bf3ab06aae624f3e9ed68bdd76b94a4369787b366014f2dcb2588351b7c2663f",
+      "disposition": "K1",
+      "our_applicability_and_conflicts": "Memory switches/memprobe already carried by K1; preserve all K1 runner bytes.",
+      "upstream_readme_verbatim": "| 0076 | head-node memory: no MTP residual buffer for DSpark (`VLLM_DSV41_DROP_MTP_BUFFER=1`), TensorFold prompt scratch per call and aliased (`VLLM_EXL3_TF_PROMPT_TRANSIENT=1`, `VLLM_EXL3_TF_PROMPT_ALIAS=1`), memory probe (`VLLM_DSV41_MEMPROBE`), plus `VLLM_INDEXER_PREFILL_BUFFER_FACTOR=4` | **in use** (v24): +813 MiB free under a 478K-token needle, decode +0.03 %, T=0 identical; this makes 1M fit |"
+    },
+    {
+      "id": "0076c",
+      "patch": "patches/0076c-exl3-det-prefill-tiles-sidepath.patch",
+      "sha256": "fe2edd68feacebba5639904c38f90b934a014f8618121d09b86a9a4d85f157db",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Unused deterministic-prefill tile sidepath; TF_PROMPT=1 bypasses it at >=64 rows, <=63 handled by 0064; association changes without a positive measurement.",
+      "upstream_readme_verbatim": "No measured result or adoption claim in README; Dockerfile explicitly excludes 0076c."
+    },
+    {
+      "id": "0077",
+      "patch": "patches/0077-dsv41-kv-offload-two-nodes.patch",
+      "sha256": "6f818dddd4ecc16bc8e1745914459fd8dbc54a95e19b19bbde2687ac879374e4",
+      "disposition": "RP1",
+      "our_applicability_and_conflicts": "Two-node store/load requires identity/layout and byte-equality gates; independent of remote draft wire state.",
+      "upstream_readme_verbatim": "| 0077 | KV offload with TP across two nodes: one copy per chunk (every offloaded layer is one latent head, identical on both ranks: the two CPU tiers were byte-identical after the same stores), rank 0 stores, before each load the chunks go from rank 0's CPU tier to rank 1's over a gloo group (`VLLM_DSV41_OFFLOAD_MULTINODE=1`) | **in use** (v24): 75K-token prefixes from the file tier after a restart in 1.3\u20132.1 s instead of 33.8 s, first-token KL 0.0003\u20130.0035 against a fresh compute, decode +0.27 % |"
+    },
+    {
+      "id": "0078",
+      "patch": "patches/0078-dsv41-engram-prefill-reads.patch",
+      "sha256": "9d68da602a8a2babc10d3ddd9cf12f186e14c265beee5af3c233367aafec0a59",
+      "disposition": "DROP this round",
+      "our_applicability_and_conflicts": "S17: ungated C++ changes, hint-timeout escalation and row-split overhead. X1 code retained unmounted for reference only; no arm or new Engram JIT.",
+      "upstream_readme_verbatim": "| 0078 | Engram reads in prefill: lookahead reader for the next chunk's rows (`VLLM_DSV41_ENGRAM_LOOKAHEAD=4096`), reader pool CPUs (`VLLM_DSV41_ENGRAM_POOL_CPUS`) | lookahead **in use** (v24): prefill +9.4 % (131K tokens of new text), +8.3 % (32K repeated), decode \u22120.04 %; the pool on the A725 cores slows every decode round by 0.6\u20131.1 %: off |"
+    },
+    {
+      "id": "0079",
+      "patch": "patches/0079-dsv41-decode-fixed-costs.patch",
+      "sha256": "fc37eb0d5b540b33ee0993b0c5617dfd210b3ac15910ededbcb7b198fd9f9201",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Target mechanisms apply but measured within noise; cache lifetime/aliasing and K1 flashinfer composition risk without gain.",
+      "upstream_readme_verbatim": "| 0079 | decode fixed costs: global top-k indices reused across layers with the same inputs, no zero output for the shared expert (`VLLM_DSV41_GTOPK_REUSE=1`, `VLLM_EXL3_MOE_SHARED_ZEROS=1`) | off: decode \u22120.32 % (noise \u00b10.6 %), the estimated 0.35\u20130.6 % not measurable |"
+    },
+    {
+      "id": "0080",
+      "patch": "patches/0080-dsv41-startup-reservation.patch",
+      "sha256": "85559c5c63dfbba0fd68eaae48e3c369eebe617a78c89b60628f4d33981ef5f4",
+      "disposition": "reject",
+      "our_applicability_and_conflicts": "Dummy full-context startup reservation reduced lowest free memory by 280 MiB; remote parked streams add warmup hazards.",
+      "upstream_readme_verbatim": "| 0080 | reserve the late memory peaks at startup (dummy prefill at full context, mixed step, vision encoder; `VLLM_DSV41_PREALLOC=1`) | off: the floor does not become flat; lowest free memory under a 949K-token needle 1,970 instead of 2,250 MiB |"
+    },
+    {
+      "id": "0081",
+      "patch": "patches/0081-dsv41-kv-offload-load-cap.patch",
+      "sha256": "a982833bac6a264b2b119149f283297cdcf61ffa6f2a33c5fcb7f634a07a168a",
+      "disposition": "RP1",
+      "our_applicability_and_conflicts": "Load cap/I/O affinity; RP1 handles connector and headroom tests.",
+      "upstream_readme_verbatim": "| 0081 | KV offload: per-request load cap from the CPU tier size (a prefix needing more chunks than the CPU tier holds evicted its own promoted chunks and waited forever) and the file tier's I/O threads off the decode cores (`VLLM_DSV41_OFFLOAD_LOAD_FRACTION=0.45`, `VLLM_DSV41_OFFLOAD_IO_CPUS=0-4,10-13`) | **in use** (v24): with a 256 MiB CPU tier (~148K tokens) at most 66,432 tokens per request come from the file tier; a 252K-token prefix: 84.3 s instead of 111.2 s, no hang |"
+    }
+  ],
+  "changed_paths": [
+    {
+      "path": "README.md",
+      "status": "M",
+      "old_sha256": "8c3fe2825576b7563d096927c82a733658541fea3fedb1b6de5fa498cfa4625c",
+      "new_sha256": "d966378fcb0b2120637b01c76e52e3e0e82409692b2da19bec1ee460ba004c19",
+      "owners": [],
+      "classification": "documentation: measurements, limitations, topology incident, licensing/credits; never a local measurement"
+    },
+    {
+      "path": "docker/Dockerfile",
+      "status": "M",
+      "old_sha256": "6ff1f6fbf9e46bcac0fa09c59e77c9c96ef42530fde921cce70b07992f995807",
+      "new_sha256": "a1a50623a6d50ef644e1b96286d64ac61925f7e4d306cdffb4424059606c5426",
+      "owners": [],
+      "classification": "v24 COPY image composition; do not upgrade image/base or execute donor builds"
+    },
+    {
+      "path": "docker/files/vllm/config/vllm.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "fc90a9e8e8fc9d79ae70a52a487e9e8df006b71dd5e251d6d131425bfe72e66c",
+      "owners": [
+        "0058"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "f276f0399ac6d2123799dd7b1f4773c3be1b8809a10c2b392f7891495f443931",
+      "owners": [
+        "0077"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "f9a3f65b62f61ec926dc1ddcf780819982c21d84473aa807d47b051169737d4b",
+      "owners": [
+        "0081"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "1f51e2bfa4f8f370ac5dbfb4f4161243dcec572b1c484f3747cff832b043dbd6",
+      "owners": [
+        "0077"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/attention.py",
+      "status": "M",
+      "old_sha256": "91983486fc3504ae183e8bfc79c18354cca86ba4f8633b16b2afab7c5a39798f",
+      "new_sha256": "d5f1ef3cac491f199be758130d47e426450e1773b4872a6493421570fcd10168",
+      "owners": [
+        "0051",
+        "0057",
+        "0059",
+        "0060",
+        "0061",
+        "0065"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/common/engram.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "d5facc553b1c3b77a899dcdc5f884afaeb09f9ca7e2c698ae1e653bb7702a451",
+      "owners": [
+        "0078"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "46554939227f051a2afeea16e66f30cb217a2cb7777205eb5e15f6d0dd5dc6ed",
+      "owners": [
+        "0059"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "f1195654774029ce831d83837fdd159ee9cfc70c1732096d00889c7c591983b3",
+      "owners": [
+        "0059",
+        "0061"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/common/ops/swa_fused.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "3deeeb8cd82b49acaa405bff7a1827c97984ea12e75c71af5986cdc46f1bc5be",
+      "owners": [
+        "0067"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/nvidia/dspark.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "35c52c83c4696505cb4159ecc9c2d94a3ca12e5b999b484982c49a69c05feda9",
+      "owners": [
+        "0059",
+        "0066"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+      "status": "M",
+      "old_sha256": "7dc15a16043820329a6e5150c85dd7ebe707f14e8130879d2b9474d7ea65671c",
+      "new_sha256": "9a3c5dafa209b54522042e365f8fa2d8f732319038c7e08f39dcf93b9ff5ed8f",
+      "owners": [
+        "0059",
+        "0061",
+        "0079"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/nvidia/model.py",
+      "status": "M",
+      "old_sha256": "66005a8edde825612bbb9e041a5a218132cf97123bba9b401890122de6314a89",
+      "new_sha256": "bc3aa8b06ff40c65e93f31e11c3cad38fcb4fb6425946e61829f041bac283d3f",
+      "owners": [
+        "0076"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/nvidia/model_state.py",
+      "status": "M",
+      "old_sha256": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+      "new_sha256": "f953c2e278df18ddc25f7ddb48df4e177cd22fc58a495b4eebea083ae3278790",
+      "owners": [
+        "0067",
+        "0075"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/nvidia/ops/markov_step.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "89d8e80a4a7379ca5138e320548ad12bed32a5eab776728bf4196f7ca28ea503",
+      "owners": [
+        "0066"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/models/deepseek_v41/replay_skip.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "3989c0eecc0eb9ca6757afaf20575f2cac8dc47738a392baa4ad3edcb6ad72c5",
+      "owners": [
+        "0075"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/attention/backends/mla/sparse_swa.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "1995997b763d57fcbb4b1028dc6f5831dd26294d6911a4c485801856f2321173",
+      "owners": [
+        "0067"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/core/kv_cache_utils.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "e47c5af891544772ca3ab2a63d4e689f685afaae75f7f13904b9173424a0c4ed",
+      "owners": [
+        "0057",
+        "0059"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/core/sched/output.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "5f1039cbc2d9172c24bdccef9973846e2d336bdd25e8a4c1d6be1f6b44ef23d1",
+      "owners": [
+        "0071"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/core/sched/scheduler.py",
+      "status": "M",
+      "old_sha256": "54beb2a2060941c2747e5906d694e4495e333adf50cd990b56a54622cd1bdf97",
+      "new_sha256": "8e24bfe9493d9e1efd15bc24b95b3b5478ce01f6cf23434bf1cba8a8fd5b015b",
+      "owners": [
+        "0072",
+        "0073",
+        "0074",
+        "0075"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/kv_cache_interface.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "36ebd7e679c0771a5568026dc530546a0e7ce2ec85e8eeec29a50cf00f6c8755",
+      "owners": [
+        "0057",
+        "0060"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/kv_offload/tiering/fs/io.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "26f613b00b0ed05cc69917e5e2f1b4e1e0299596ee5143d58bae0e01cbe3c09d",
+      "owners": [
+        "0056"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/kv_offload/tiering/fs/thread_pool.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "da807568162e24bb01a2011c9547d8477a4684b55c181ff8a9d64a8bbd96bc47",
+      "owners": [
+        "0081"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu/dsv41_engram_lookahead.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "bbf84839e9f98935d56d2bc172d529b6739136b120ac0bb513e315f5b119b3ea",
+      "owners": [
+        "0078"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu/dsv41_memprobe.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "cce01329665cc3f6eef04745d5c8bcb9bdc99ff5768899c9a9d74baaf263bd64",
+      "owners": [
+        "0076"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu/dsv41_prealloc.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "7a1b79a863c323187496d7c453a3961b3299935ba3d8c0d22f23dedc4d558c7e",
+      "owners": [
+        "0080"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu/model_runner.py",
+      "status": "M",
+      "old_sha256": "af9be025ff8a17a5aabd452fc3e4b987abe64fb28d852c569e1372d6f1e4d3a6",
+      "new_sha256": "1e78b84fd987d3c156603771f05f7ad8b8f85ebbcd3684e74a4735804b2c50d3",
+      "owners": [
+        "0054",
+        "0062",
+        "0065",
+        "0071",
+        "0076",
+        "0078"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu/spec_decode/depth_policy.py",
+      "status": "M",
+      "old_sha256": "10aa179c7b4cf5ac5b35160eb5c762666484ecffe50594aebecdbe49c601a025",
+      "new_sha256": "94edc277a4e057a2943d009a1c7178e4ccf12f585639d1ab09831b172db1edbd",
+      "owners": [
+        "0071"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu/spec_decode/dflash/speculator.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "12bcdb149b7b342397355db97fce96ac4367999c4af8377e26759834787e34cf",
+      "owners": [
+        "0066"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu/spec_decode/dspark/speculator.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "6f3e5a35adbb4a0e67de0e8b8057c2ed49a1d4ee15ce4d0bf897a45f270da57d",
+      "owners": [
+        "0055",
+        "0066"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/gpu_worker.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "334cef90e73c78e406791631efc4ab551a383c204c5d2bfb96200f7883201e0e",
+      "owners": [
+        "0066",
+        "0080"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm/v1/worker/utils.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "163c6d58f4dc7bc83672ff93a2e4786666672b73c2dec9ee1b6e6521c70528e5",
+      "owners": [
+        "0053",
+        "0057"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/config.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "086726aad455d8341e668be1fcf2ff93b8ee751058d9eab078e52b5e5f452ac8",
+      "owners": [
+        "0066"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/dense.py",
+      "status": "M",
+      "old_sha256": "582f61da4b78fd7fcd1b9b6fed6c31b4e67baf8bc0d8cef46fbabbd1ffebd31e",
+      "new_sha256": "286f43b849fde3f41f0990ae47b6af2c9c5f678e8a89ff0bcb1e41dc3efa02e6",
+      "owners": [
+        "0066"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/display_kv.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "17d0e4a9dfcc7d18bdafe6ce6d657b1b7efb9a15e6ef778a7aae51ce233bbe9a",
+      "owners": [
+        "0053"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/forward.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "c06ba9b66e6349fc4c0bad93a74e62c22d489f1a9d54596a5d10fd0fcb7c8966",
+      "owners": [
+        "0064",
+        "0076c"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/l2pf_draft.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "6921acbb382d1d0772b99a1f8ce819363b45e95a6e75f9f398ede33994a6c91d",
+      "owners": [
+        "0066"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/moe_method.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "89e17a807fbd61c40f1e0c877ad7b9395bf5ec43538f585dc9ef79f2d63a5de4",
+      "owners": [
+        "0066",
+        "0079"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/smoe.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "954976235fb0064204112b4b5388a6b04a1f0ebf092bf6ce6666584ac99b1497",
+      "owners": [
+        "0064"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/tf_experts.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "bde1d0b48b87394aeff364ac51d6bab209d21c422690e557778fa81c5922024d",
+      "owners": [
+        "0076"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "docker/files/vllm_exl3_moe/tf_prompt.py",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "8d66ae29656575b1ab38a6b7a8fa03d9bc4cc2b10565efdc966af07b30268456",
+      "owners": [
+        "0076"
+      ],
+      "classification": "installed-source mirror; includes recipe baseline for newly tracked files"
+    },
+    {
+      "path": "patches/0040-dsv41-dynamic-sd-config.md",
+      "status": "M",
+      "old_sha256": "d7a17f15c30b8cb5bea793afd8dfec93842619e6cce8eb52d19b84952cc75398",
+      "new_sha256": "d382bc109aba8bcf5a58858a0181decd43a5f635a4daa6ad7c372f04b8f87fa2",
+      "owners": [
+        "0040"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0051-dsv41-indexer-defer.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "055677b5ad2667ce92aeff0af040f1929aedbffbbf1ed793a9c4e026f87a81c3",
+      "owners": [
+        "0051"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0053-dsv41-display-kv.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "5a676d0ceddb705a90d595b431ebbc81881639372b3da7f6a23eb381abfbd8a9",
+      "owners": [
+        "0053"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0054-dsv41-display-tensors.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "7ea2deb07e307fc5a866d4b9ba7897c8bc85a047ab5f1383a3878727b0ac6420",
+      "owners": [
+        "0054"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0055-dsv41-hybrid-draft.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "9affd2a869ef344be901ed5fa9b444544ebff48f714b78c930101392467a05f5",
+      "owners": [
+        "0055"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0056-dsv41-kv-offload-crc.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "d1073571912d229b65af8c070ee0657ad3caa7cce66aa82af20a19fb06a322e4",
+      "owners": [
+        "0056"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0057-dsv41-kv-pair-blocks.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "6058242fbd5909d50507baf4876082b4dedbff068795c97de3fa5f939fb9cb3b",
+      "owners": [
+        "0057"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0058-dsv41-offload-expandable-segments.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "6fb50e3a1b0e4dbf92901011599e0b01b546f7b1a2c532b8cbacd4a569e854ed",
+      "owners": [
+        "0058"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0059-dsv41-kv-nvfp4.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "9f7f8a87f013b0d862f2d7fa2c713908ca3790f93270ac879b34be2f263907d4",
+      "owners": [
+        "0059"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0060-dsv41-kv-three-pages.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "52b5528f2aa3eb4060c3e427466e9859b980fcb8be4ab5dcb367332146f65772",
+      "owners": [
+        "0060"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0061-dsv41-kv-fp8-window-nvfp4-compressed.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "9e066c19587155c3f1729cef67b602c3681305289369af48096f211052155121",
+      "owners": [
+        "0061"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0062-dsv41-exact-verify-sampling.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "1f8af80fd9420eb33aab4580c2097602407414cbcb2f54472039a66110909e34",
+      "owners": [
+        "0062"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0063-dsv41-exl3-l2pf-verify-rows.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "791717f422abf64f3a564f84cd9aee7c7c6f4e2f15cd8eb0e98b3c5b2f38c2fd",
+      "owners": [
+        "0063"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0064-dsv41-exl3-moe-smoe-split.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "88b5242cba4d417d12b2eaeec0c55e96b6db1d5026a62898ee5c5a2e01cd7a9c",
+      "owners": [
+        "0064"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0065-dsv41-pw-mixed-graphs.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "731a528e8e48aec237bb914f6b5223c1cb04461d4db68d468fe63d7d9e03f4e4",
+      "owners": [
+        "0065"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0066-dsv41-dspark-drafter-markov.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "66013fa6f7ee61168735aee96966ae5b88327294025ad76925c2f4db0a1634cb",
+      "owners": [
+        "0066"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0067-dsv41-vor-swa-fused.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "5ae800a0ca48fc84d866e3a488d0e925304801d1632706ae995de471208331c0",
+      "owners": [
+        "0067"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0071-dsv41-background-depth-cap.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "5bcc1a9ba5fd691c7092faecd8bc8da03553380fd79bad1e6a588df98d9356ad",
+      "owners": [
+        "0071"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0072-dsv41-background-decode-pause.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "58db790e3fbe4bcc171955d2b3cf7f696f82f71ebfb6cd810aa3dd0aee653ed3",
+      "owners": [
+        "0072"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0073-dsv41-throttle-waiting-foreground.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "ce96b956aadf87ed72335d1178589e0faccdf14518feb50beee385082fe239c5",
+      "owners": [
+        "0073"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0074-dsv41-background-chunks-alone.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "3113a45409fcee933b4c72a5b726b24cbba732aafb64c9538893ba1788265388",
+      "owners": [
+        "0074"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0075-dsv41-replay-skip-intermediate-chunks.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "9ff9ca4b882ca63b50a7dfad89d56cf074c28b189bb8c8430e7a736a26c3ab3c",
+      "owners": [
+        "0075"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0076-dsv41-head-memory.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "bf3ab06aae624f3e9ed68bdd76b94a4369787b366014f2dcb2588351b7c2663f",
+      "owners": [
+        "0076"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0076c-exl3-det-prefill-tiles-sidepath.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "fe2edd68feacebba5639904c38f90b934a014f8618121d09b86a9a4d85f157db",
+      "owners": [
+        "0076c"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0077-dsv41-kv-offload-two-nodes.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "6f818dddd4ecc16bc8e1745914459fd8dbc54a95e19b19bbde2687ac879374e4",
+      "owners": [
+        "0077"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0078-dsv41-engram-prefill-reads.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "9d68da602a8a2babc10d3ddd9cf12f186e14c265beee5af3c233367aafec0a59",
+      "owners": [
+        "0078"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0079-dsv41-decode-fixed-costs.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "fc37eb0d5b540b33ee0993b0c5617dfd210b3ac15910ededbcb7b198fd9f9201",
+      "owners": [
+        "0079"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0080-dsv41-startup-reservation.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "85559c5c63dfbba0fd68eaae48e3c369eebe617a78c89b60628f4d33981ef5f4",
+      "owners": [
+        "0080"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "patches/0081-dsv41-kv-offload-load-cap.patch",
+      "status": "A",
+      "old_sha256": null,
+      "new_sha256": "a982833bac6a264b2b119149f283297cdcf61ffa6f2a33c5fcb7f634a07a168a",
+      "owners": [
+        "0081"
+      ],
+      "classification": "patch source/config documentation"
+    },
+    {
+      "path": "serve/serve_example.sh",
+      "status": "M",
+      "old_sha256": "812debe838797485bc333b3423025d5e51f425e9d80fd5685faa33585df43afc",
+      "new_sha256": "70d40740d316ed6a1f5906f718d31c369b12e59bd62cec8ed5d484f9669146fb",
+      "owners": [],
+      "classification": "configuration: see CATALOGUE.md non-patch table; never run donor launcher"
+    }
+  ]
+}
