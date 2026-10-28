@@ -1,0 +1,18 @@
+{
+  "status": "experimental_offline_screen_only",
+  "default_enabled": false,
+  "native_source_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "architecture": "sm_86",
+  "activation": "BF16 representation of caller-applied official E4M3 group32 QDQ",
+  "accumulator": "FP32",
+  "output": "FP32 before caller-applied native BF16 boundary",
+  "top_k": 3,
+  "maximum_routed_slots": 64,
+  "shape_choices": [
+    {"input": 5120, "output": 1152, "operation": "gate_up", "kernel": "regfed", "fused": true},
+    {"input": 1152, "output": 5120, "operation": "down", "kernel": "regfed"}
+  ],
+  "qualification_scope": "native packed projection values and standalone graph-safe kernels; model/TP2 integration and captured-tap fidelity require N1/V1",
+  "padding_control": "masked Triton explicit caller selection, never a silent runtime fallback",
+  "performance_evidence": "/opt/dsv41/campaigns/DSV41-OFFLOAD/KX-MXFP4-evidence/regfed-bench.json"
+}

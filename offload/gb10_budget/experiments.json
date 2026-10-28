@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "status": "ESTIMATED hypotheses; not GB10 results or deployment authorization",
+  "baseline": "Reviewed current async process-proxy FP8/EXL3 configuration; freeze pins, clocks and sampling",
+  "already_owned": ["K1", "RP1", "UP1 0064/0067/0075/K5/dual-ring/cpu-pin", "D2", "native drafter"],
+  "experiments": [
+    {
+      "rank": 1,
+      "id": "prefill-grouped-kernel",
+      "mechanism": "Tune existing TF prompt tiling, grouping/reconstruct and short-lived scratch for SM121; avoid full expert reconstruction",
+      "estimated_gain_pct": [0, 8],
+      "metric": "cold prefill throughput",
+      "basis": "Illustrative routed bucket 0.9s/1.9s; reducing it 5-15% gives about 2-8% throughput, conditional on trace",
+      "cost": "high: GB10 microbench, compile window, numerical qualification",
+      "exactness_risk": "medium/high if tile reduction or rounding order changes",
+      "prove": "Same 4096-row chunk/context: per-rank TF kernel critical path and DRAM bytes lower; paired cold 32K/150K TTFT improves; logits and memory gates pass"
+    },
+    {
+      "rank": 2,
+      "id": "decode-smoe-bandwidth",
+      "mechanism": "Sweep PIPE/OBI/runflags and CTA-tail scheduling on actual legal-v2a K histogram and routed-row widths",
+      "estimated_gain_pct": [0, 4],
+      "metric": "decode throughput",
+      "basis": "5-8% speedup of a 40-60% exposed MoE share; public 225/273 GB/s leaves limited headroom",
+      "cost": "high: isolated SM121 build/microbench, then full serve",
+      "exactness_risk": "low only if same FP chain, expert ordering and fp32 sum order are preserved",
+      "prove": "B1/B4 at 32K/150K: lower MoE critical path, fewer tail idle intervals, unchanged per-row bits and global target gates"
+    },
+    {
+      "rank": 3,
+      "id": "chunk-threshold-grid",
+      "mechanism": "Make MAX_BATCH overrideable in a reviewed future launcher change; independently vary chunk budget and priority-aware threshold",
+      "estimated_gain_pct": [0, 5],
+      "metric": "solo prefill throughput; mixed latency may improve more",
+      "basis": "Trade repeated suffix/metadata overhead for TF reuse and scratch; no measured local setting comparison",
+      "cost": "low code, moderate controlled benchmark time",
+      "exactness_risk": "medium numerical partition sensitivity plus fairness/headroom risk",
+      "prove": "Actual qlen histogram, paired 2048/4096 (8192 only after headroom gate), B1/B4 cold TTFT plus decoder p95 gaps and foreground admission"
+    },
+    {
+      "rank": 4,
+      "id": "clocks-and-cooling",
+      "mechanism": "First inspect both ranks' thermal/power clock telemetry; coordinator may test airflow and reversible clock cap in its own window",
+      "estimated_gain_pct": [0, 2],
+      "metric": "decode throughput; estimated prefill gain 0-10%",
+      "basis": "Donor clock sweep at 2000-2400 MHz claimed 2.2% round improvement and 12% TTFT reduction; existing cap 2150 and unknown actual sustained clocks reduce transferable gain",
+      "cost": "low measurement, operational change owned by coordinator",
+      "exactness_risk": "low numerical risk; thermal and reliability regressions possible",
+      "prove": "Both-rank clocks/temperature/throttle reasons at 1s cadence across long prefill; fixed other settings, no new thermal throttle"
+    },
+    {
+      "rank": 5,
+      "id": "remaining-host-gaps",
+      "mechanism": "Cache immutable SWA/metadata outside current UP1 coverage; remove only trace-proven sync/dispatch gaps; preserve torch-free process proxy",
+      "estimated_gain_pct": [0, 2],
+      "metric": "decode throughput",
+      "basis": "Donor idle/host only 0.4ms; local submit p50 0.15ms. A new >0.5ms gap would justify work",
+      "cost": "medium, asynchronous lifecycle tests required",
+      "exactness_risk": "medium: stale metadata, cancellation and proxy-watchdog ordering",
+      "prove": "After UP1 0067 baseline, CPU trace reduces uncovered GPU idle >0.5ms without changing rows, acceptance, watchdog or fairness"
+    },
+    {
+      "rank": 6,
+      "id": "collective-boundary-fusion",
+      "mechanism": "Fuse sum output with its immediate consumer or reduce host-staging traffic; attention and MoE reductions cannot simply be combined across their dependency",
+      "estimated_gain_pct": [0, 2],
+      "metric": "decode throughput",
+      "basis": "80 x 14.4us about 1.15ms donor total; wire-only 0.2-0.7ms. 0.2-0.7ms savings plausible only if exposed",
+      "cost": "high C++/CUDA/RDMA integration; target dual-function config is already UP1-owned",
+      "exactness_risk": "medium/high rank-order fp32 reduction, graph lifetime and timeout safety",
+      "prove": "Count 80 reductions plus gathers; split ready-to-send, transfer, peer-wait, sum durations on both ranks; lower exposed sum/consumer boundary time and identical bits"
+    },
+    {
+      "rank": 7,
+      "id": "verify-coverage-and-width",
+      "mechanism": "Audit existing FULL decode coverage first; only address a real eager hole or tail around head/sampler; width must not require an expensive depth host sync",
+      "estimated_gain_pct": [0, 2],
+      "metric": "decode throughput",
+      "basis": "Pure decode already FULL; donor exact sampling trim estimated only 0.03-0.25%; mixed piecewise graphs claimed zero sustained gain with 446MiB cost",
+      "cost": "medium audit; high redesign if dynamic width",
+      "exactness_risk": "high if device depth and host qlen diverge; greedy distributions and async parked-stream ordering matter",
+      "prove": "Each B1/B4 step has expected cudaGraphLaunch and scheduled/live row counts; quantify every uncovered CUDA launch, metadata wait and graph padding row"
+    },
+    {
+      "rank": 8,
+      "id": "depth-policy-recalibration",
+      "mechanism": "After current K5/D2/native measurements, fit actual remote cost and marginal acceptance per position, context and B; change policy only on stable gain",
+      "estimated_gain_pct": [0, 3],
+      "metric": "accepted-token throughput, not steps per second",
+      "basis": "Existing adaptive policy already strong; shorter windows can lose more accepted tokens than they save time",
+      "cost": "moderate, reuse existing acceptance/cost telemetry",
+      "exactness_risk": "low target distribution risk with exact verifier, medium contract/RNG/numerical-path risk",
+      "prove": "Paired k/depth windows: (1+accepted)/round_ms per workload; compare full task time with same reasoning and sampler"
+    },
+    {
+      "rank": 9,
+      "id": "expert-parallel-split",
+      "mechanism": "Prototype only if profiles show TP-MoE staging bottleneck: expert ownership with dispatch/combine and retained attention TP",
+      "estimated_gain_pct": [0, 5],
+      "metric": "B4 decode throughput, speculative ceiling only; B1 regression expected possible",
+      "basis": "EP does not halve average expert bytes/rank relative to TP2; it changes communication and load balance",
+      "cost": "very high: EXL3 bank layout, loader, all-to-all, graphs and numerical path",
+      "exactness_risk": "high summation order, uneven expert load and graph state",
+      "prove": "Full per-rank expert-byte distribution plus dispatch/combine/straggler tail; B1 and B4 exact outputs/distribution and full memory budget"
+    },
+    {
+      "rank": 10,
+      "id": "kv-dtype-change",
+      "mechanism": "Keep existing FP8 target records and K1 exact packing; do not promote a lossy lower dtype for speed",
+      "estimated_gain_pct": [0, 0],
+      "metric": "no justified deployable speed gain",
+      "basis": "Donor NVFP4 changed logits and reduced accepted drafts; current sparse work makes generic KV-byte savings poor evidence for latency",
+      "cost": "high numerical qualification; presently reject",
+      "exactness_risk": "high; changes model inputs",
+      "prove": "Would require target-logit distribution within same-build floor and actual accepted-token/time gain, not just more KV slots"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "image:vllm/config/scheduler.py": "82bc6805ecf30a9b3d1b678d3270dad919abed011782ad16f1e805a78aa6c241",
+  "image:vllm/v1/request.py": "dd7c30bf8b0894dc123a739c299c0133566f8cc075b081e45905f1c29506e69d",
+  "image:vllm/v1/core/sched/scheduler.py": "54beb2a2060941c2747e5906d694e4495e333adf50cd990b56a54622cd1bdf97",
+  "image:vllm/v1/core/sched/request_queue.py": "db8d25daf9580d581f18c6b631a6576dfaa7d1474398cd8dc4db1d29745c214d",
+  "image:vllm/v1/core/sched/async_scheduler.py": "38d296e77e4d612e696241c67298eb1ca9b6a48b483cd33d35495bf31691032e",
+  "image:vllm/v1/core/sched/output.py": "f0f1f278efb48f0ccd5190451d75374e47c752cb7ae26d8a8704c4538719a877",
+  "donor:patches/0071-dsv41-background-depth-cap.patch": "5bcc1a9ba5fd691c7092faecd8bc8da03553380fd79bad1e6a588df98d9356ad",
+  "donor:patches/0072-dsv41-background-decode-pause.patch": "58db790e3fbe4bcc171955d2b3cf7f696f82f71ebfb6cd810aa3dd0aee653ed3",
+  "donor:patches/0073-dsv41-throttle-waiting-foreground.patch": "ce96b956aadf87ed72335d1178589e0faccdf14518feb50beee385082fe239c5",
+  "donor:patches/0074-dsv41-background-chunks-alone.patch": "3113a45409fcee933b4c72a5b726b24cbba732aafb64c9538893ba1788265388",
+  "image:vllm/v1/core/sched/utils.py": "b6583424b6da15000545cd926ec887ee591bae8a56e6734b8ddf8f9e8f90cc4b"
+}

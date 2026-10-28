@@ -1,0 +1,126 @@
+--- a/offload/dspark/spark/remote_dspark/round.py
++++ b/offload/dspark/spark/remote_dspark/round.py
+@@ -18,7 +18,7 @@
+ import threading
+ import time
+ from dataclasses import dataclass
+-from typing import Callable
++from typing import Any, Callable
+ 
+ import numpy as np
+ import torch
+@@ -35,6 +35,7 @@
+                          monotonic_ms, unmerge_snapshot, write_json_atomic)
+ from .shmregion import (C_DESC_HEAD, C_DESC_TAIL, C_DONE, C_ENGINE_SEQ, C_FLUSH_ACK, C_FLUSH_REQ, C_HEARTBEAT, C_PID,
+                         C_START, C_STATE, C_STOP, C_WD, F_ENQUEUE_FAILED, R_PENDING, S_STARTING, RegionLayout)
++from .suffix_provenance import Snapshot, SuffixAudit, SuffixRow, agree
+ from .state import SlotTable
+ from .stats import Stats
+ from .streamsync import FAR_AHEAD, release_hand_off
+@@ -174,6 +175,10 @@
+         stream_sync=None,
+         n_out_by_reqs: list[int] | None = None,
+     ):
++        self._suffix_audit: SuffixAudit | None = None
++        self._suffix_agree: Callable[[Snapshot], None] | None = None
++        if os.environ.get("VLLM_DSV41_REPLAY_AUDIT", "0") == "1":
++            self._suffix_audit = SuffixAudit(hello.window, hello.max_slots)
+         self.cfg = cfg
+         self.hello = hello
+         self.device = torch.device(device)
+@@ -388,6 +393,8 @@
+             num_rejected: torch.Tensor, last_sampled: torch.Tensor,
+             next_prefill_tokens: torch.Tensor) -> RoundResult:
+         n = input_batch.num_reqs
++        if self._suffix_audit is not None:
++            self._audit_suffix(input_batch, num_sampled, num_rejected, last_sampled, next_prefill_tokens)
+         res = RoundResult(n=n, bcast=self.bcast, layout=self.layout)
+         if self.proxy is not None:
+             self._submit_process(input_batch, aux_hidden_states, num_sampled, num_rejected,
+@@ -425,6 +432,33 @@
+         if self.broadcast_fn is not None:
+             self.broadcast_fn(self.bcast)
+         return res
++
++    def _audit_suffix(self, input_batch: Any, num_sampled: torch.Tensor, num_rejected: torch.Tensor,
++                      last_sampled: torch.Tensor, next_prefill_tokens: torch.Tensor) -> None:
++        # QUALIFICATION ONLY: synchronizes device metadata on both ranks, then a
++        # CPU-group agreement. Disabled in headline timings; no tensor/text log.
++        assert self._suffix_audit is not None
++        error: str | None = None
++        rows: tuple[SuffixRow, ...] = ()
++        try:
++            bv = batch_view_from_input_batch(input_batch)
++            rows = self._suffix_audit.observe(
++                bv.req_ids, bv.slots.tolist(), bv.qsl.tolist(),
++                None if bv.tap_lens is None else bv.tap_lens.tolist(),
++                input_batch.positions[:int(bv.qsl[-1])].cpu().tolist(),
++                num_rejected[:bv.n].cpu().tolist(), num_sampled[:bv.n].cpu().tolist(),
++                last_sampled.reshape(-1).cpu().tolist(), next_prefill_tokens[0].cpu().tolist(),
++                bv.need_draft.tolist())
++        except (ValueError, IndexError) as exc:
++            error = type(exc).__name__  # exchange failures; don't strand a peer collective
++        snapshot = (error, rows)
++        if self._suffix_agree is None:
++            if self.tp_rank != 0 or self.broadcast_fn is not None:
++                raise RuntimeError("0075 rank provenance agreement callback missing")
++            agree([snapshot])
++        else:
++            self._suffix_agree(snapshot)
++        self.stats.inc("replay_provenance_audited_rounds")
+ 
+     def _bcast_copied(self) -> None:
+         if self._bcast_ev is not None:
+--- a/offload/dspark/spark/remote_dspark/roundcore.py
++++ b/offload/dspark/spark/remote_dspark/roundcore.py
+@@ -14,6 +14,7 @@
+ from __future__ import annotations
+ 
+ import logging
++import os
+ import time
+ from dataclasses import dataclass
+ 
+@@ -32,6 +33,7 @@
+                 STATUS_ROUND_FAILED: "round_failed"}
+ # async: the gather metadata of round t lives in slot t % META_SLOTS, so a proxy that reaches round t after the
+ # watchdog completed it (and the stream went on) still reads round t's own metadata, never a later round's
++_REPLAY_SUFFIX_REQUIRED = os.environ.get("VLLM_DSV41_REPLAY_SKIP", "0") == "1"
+ META_SLOTS = 64
+ WATCHDOG_EVENTS_KEPT = 64
+ 
+@@ -176,6 +178,11 @@
+             st = slots[s]
+             v = int(g.valid[i])
+             anchor_pos = int(anchors_pos[i])
++            if (_REPLAY_SUFFIX_REQUIRED and bv.need_draft[i]
++                and st.rng.rows_for_anchor(anchor_pos) != st.rng.expected_rows(anchor_pos)):
++                # Reconnect/resync cannot synthesize missing rows. Never ask the
++                # worker for even PARTIAL_WINDOW drafts after a skipped gap.
++                return self._fail_round(bv, "replay_suffix_incomplete")
+             flags = wire.RF_NEED_DRAFT if bv.need_draft[i] else 0
+             first, k = int(g.first_pos[i]), v
+             if st.dirty or not st.announced:
+--- a/offload/dspark/spark/remote_dspark/speculator.py
++++ b/offload/dspark/spark/remote_dspark/speculator.py
+@@ -144,6 +144,20 @@
+     rnd = make_remote_round(cfg, hello, device=device, tp_rank=rank,
+                             broadcast_fn=bcast if tp.world_size > 1 else None, stats=stats,
+                             background=not strict, stream_sync=sync, n_out_by_reqs=n_out)
++    if rnd._suffix_audit is not None:
++        from .suffix_provenance import Snapshot, agree
++
++        def suffix_agree(snapshot: Snapshot) -> None:
++            snapshots: list[Snapshot | None] = [None] * tp.world_size
++            if tp.world_size > 1:
++                torch.distributed.all_gather_object(snapshots, snapshot, group=tp.cpu_group)
++            else:
++                snapshots = [snapshot]
++            if any(s is None for s in snapshots):
++                raise RuntimeError("0075 rank provenance participant missing")
++            agree([s for s in snapshots if s is not None])
++
++        rnd._suffix_agree = suffix_agree
+     if rnd.proxy is not None:
+         # the proxy process owns the client; a strict start already connected there (or raised)
+         stats.set("n_out_reason", n_out_why)

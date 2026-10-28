@@ -1,0 +1,2 @@
+3c139086f4c77347442f383870d384a188de2a434cb13980ee087e102d43e0d8 vllm/models/deepseek_v41/nvidia/model.py
+20344b89a09555986bbb20f87006ba9a6cfff05a508c5d42bc529cfb430dbe8a vllm/models/deepseek_v41/sp_prefill.py

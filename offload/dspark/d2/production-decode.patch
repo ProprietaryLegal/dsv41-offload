@@ -1,0 +1,11 @@
+# REVIEW TEMPLATE: zero SHA is a placeholder; use decode_apply to render the actual reviewed source.
+--- a/dsv41.env
++++ b/dsv41.env
+@@ -42,3 +42,7 @@
+ # K1 packing at the unchanged cap; S18 window 6 PROMOTE.
+ PROD_K1=1
+ PROD_K1_PROFILE=327680
++
++# D2 reviewed decode-capture derivative; original K1 profile unchanged.
++OFFLOAD_DOCKER_ENV="$OFFLOAD_DOCKER_ENV VLLM_DSPARK_DECODE_CAPTURE_DIR=/d2-decode"
++OFFLOAD_DOCKER_ARGS="$OFFLOAD_DOCKER_ARGS -v \$HOME/dsv41-decode/0000000000000000000000000000000000000000/capture/speculator_replay.py:/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/dspark/speculator.py:ro -v \$HOME/dsv41-decode/0000000000000000000000000000000000000000/capture/decode_capture.py:/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/dspark/decode_capture.py:ro -v \$HOME/dsv41-decode/0000000000000000000000000000000000000000/spark/remote_dspark/speculator.py:/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/remote_dspark/speculator.py:ro -v \$HOME/dsv41-offload-run/d2-decode-REVIEWED_RUN:/d2-decode:rw"
