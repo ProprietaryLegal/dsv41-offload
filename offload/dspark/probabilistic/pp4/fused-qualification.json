@@ -1,0 +1,182 @@
+{
+  "schema": "pp4.fused-qualification.v1",
+  "complete": true,
+  "classification": "MEASURED synthetic solo",
+  "uuid": "GPU-bc62df2a-59cf-9828-7d43-558d1355bab7",
+  "torch": "2.12.1+cu130",
+  "rows": [
+    {
+      "batch": 1,
+      "depth": 4,
+      "sampled_rows": 1,
+      "exact_position_checks": 8,
+      "graph_replays": 100,
+      "selector_median_ms": 1.1089919805526733,
+      "selector_p95_ms": 1.117184042930603,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 1,
+      "depth": 4,
+      "sampled_rows": 1,
+      "exact_position_checks": 8,
+      "graph_replays": 100,
+      "selector_median_ms": 1.0219520330429077,
+      "selector_p95_ms": 1.1110399961471558,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 1,
+      "depth": 5,
+      "sampled_rows": 1,
+      "exact_position_checks": 10,
+      "graph_replays": 100,
+      "selector_median_ms": 1.346560001373291,
+      "selector_p95_ms": 1.3516160249710083,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 1,
+      "depth": 5,
+      "sampled_rows": 1,
+      "exact_position_checks": 10,
+      "graph_replays": 100,
+      "selector_median_ms": 1.346560001373291,
+      "selector_p95_ms": 1.351680040359497,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 2,
+      "depth": 4,
+      "sampled_rows": 2,
+      "exact_position_checks": 16,
+      "graph_replays": 100,
+      "selector_median_ms": 1.7274880409240723,
+      "selector_p95_ms": 1.73363196849823,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 2,
+      "depth": 4,
+      "sampled_rows": 1,
+      "exact_position_checks": 16,
+      "graph_replays": 100,
+      "selector_median_ms": 1.7285120487213135,
+      "selector_p95_ms": 1.73363196849823,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 2,
+      "depth": 5,
+      "sampled_rows": 2,
+      "exact_position_checks": 20,
+      "graph_replays": 100,
+      "selector_median_ms": 2.3070719242095947,
+      "selector_p95_ms": 2.316256046295166,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 2,
+      "depth": 5,
+      "sampled_rows": 1,
+      "exact_position_checks": 20,
+      "graph_replays": 100,
+      "selector_median_ms": 2.2804479598999023,
+      "selector_p95_ms": 2.2968320846557617,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 3,
+      "depth": 4,
+      "sampled_rows": 3,
+      "exact_position_checks": 24,
+      "graph_replays": 100,
+      "selector_median_ms": 2.0142080783843994,
+      "selector_p95_ms": 2.045952081680298,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 3,
+      "depth": 4,
+      "sampled_rows": 2,
+      "exact_position_checks": 24,
+      "graph_replays": 100,
+      "selector_median_ms": 2.017280101776123,
+      "selector_p95_ms": 2.0336320400238037,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 3,
+      "depth": 5,
+      "sampled_rows": 3,
+      "exact_position_checks": 30,
+      "graph_replays": 100,
+      "selector_median_ms": 2.6767361164093018,
+      "selector_p95_ms": 2.718719959259033,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 3,
+      "depth": 5,
+      "sampled_rows": 2,
+      "exact_position_checks": 30,
+      "graph_replays": 100,
+      "selector_median_ms": 2.6562559604644775,
+      "selector_p95_ms": 2.663424015045166,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 4,
+      "depth": 4,
+      "sampled_rows": 4,
+      "exact_position_checks": 32,
+      "graph_replays": 100,
+      "selector_median_ms": 2.6869759559631348,
+      "selector_p95_ms": 2.7095038890838623,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 4,
+      "depth": 4,
+      "sampled_rows": 2,
+      "exact_position_checks": 32,
+      "graph_replays": 100,
+      "selector_median_ms": 2.7054080963134766,
+      "selector_p95_ms": 2.7238399982452393,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 4,
+      "depth": 5,
+      "sampled_rows": 4,
+      "exact_position_checks": 40,
+      "graph_replays": 100,
+      "selector_median_ms": 3.5788800716400146,
+      "selector_p95_ms": 3.5829761028289795,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    },
+    {
+      "batch": 4,
+      "depth": 5,
+      "sampled_rows": 2,
+      "exact_position_checks": 40,
+      "graph_replays": 100,
+      "selector_median_ms": 3.5788800716400146,
+      "selector_p95_ms": 3.6188158988952637,
+      "scope": "MEASURED two logical TP2 shards on solo; selector including Markov, excludes backbone/pair"
+    }
+  ],
+  "source_sha256": "af61cc6932ff04f526212bd61a5e1638923bf49c6cc6b2da25c06d02bba85135",
+  "fused_sha256": "9b832b6dd15343544120ac30b2f6c85e4468b655018cc485f3d3155e88821f99",
+  "peer_specializations_compile_only": true,
+  "edges": {
+    "lower_id_ties": true,
+    "signed_zero": true,
+    "mixed_t0_no_draw": true,
+    "invalid_intermediate_safe_continuation": true,
+    "nan_inf_all_masked_refused": true
+  },
+  "maxrss_kib": 979392,
+  "gpu_peak_bytes": 264765440,
+  "elapsed_s": 5.0231585660003475
+}

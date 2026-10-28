@@ -1,0 +1,12 @@
+15c15
+< export FAB_IF=${FAB_IF:-enp1s0f0np0} FAB_HCA=${FAB_HCA:-rocep1s0f0}   # fabric netdev and its RoCE device (DGX Spark names)
+---
+> export FAB_IF=${FAB_IF:-enp1s0f1np1} FAB_HCA=${FAB_HCA:-rocep1s0f1}   # sparkhead/sparkworker: port f1 is the cabled one (f0 DOWN)   # fabric netdev and its RoCE device (DGX Spark names)
+17c17
+< export MODEL_DIR=$HOME/models/DeepSeek-V4.1-Flash-1017-EXL3-2.75bpw-DGX-Spark   # incl. the two 1017 Engram shards (scripts/download_model.sh)
+---
+> export MODEL_DIR=${MODEL_DIR:-/srv/dsv41/model}   # node-local NVMe on both (head: symlink to ~/models/...; worker: real dir; ~/models on sparkworker is NFS)   # incl. the two 1017 Engram shards (scripts/download_model.sh)
+39c39
+< NCCL_IB_HCA=rocep1s0f0,roceP2p1s0f0 EXL3_RDMA_DEVICES=rocep1s0f0 NCCL_PROTO=^LL128 NCCL_CUMEM_ENABLE=0 \
+---
+> NCCL_IB_HCA=rocep1s0f1,roceP2p1s0f1 EXL3_RDMA_DEVICES=rocep1s0f1 NCCL_PROTO=^LL128 NCCL_CUMEM_ENABLE=0 \

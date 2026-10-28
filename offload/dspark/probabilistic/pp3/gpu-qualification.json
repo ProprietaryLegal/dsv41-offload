@@ -1,0 +1,106 @@
+{
+  "schema": "pp3.gpu-qualification.v1",
+  "complete": true,
+  "classification": "MEASURED solo SM86; actual prepared image kernels, engine not loaded",
+  "cases": [
+    {
+      "case": "full_overlap",
+      "counts": [
+        2498,
+        4973,
+        5005,
+        7524
+      ],
+      "chi_square_df3": 0.22920000000000001,
+      "p_value": 0.9727432015948274,
+      "accepted": 12564
+    },
+    {
+      "case": "sparse_tail",
+      "counts": [
+        2519,
+        4962,
+        5015,
+        7504
+      ],
+      "chi_square_df3": 0.48033333333333333,
+      "p_value": 0.9231903547581215,
+      "accepted": 7481
+    },
+    {
+      "case": "disjoint",
+      "counts": [
+        2502,
+        5021,
+        5069,
+        7408
+      ],
+      "chi_square_df3": 2.1705333333333336,
+      "p_value": 0.5377756819822737,
+      "accepted": 0
+    },
+    {
+      "case": "equal",
+      "counts": [
+        2598,
+        4982,
+        4864,
+        7556
+      ],
+      "chi_square_df3": 8.023733333333332,
+      "p_value": 0.045523747296466584,
+      "accepted": 20000
+    },
+    {
+      "case": "invalidated",
+      "counts": [
+        2440,
+        5037,
+        4991,
+        7532
+      ],
+      "chi_square_df3": 1.8665333333333334,
+      "p_value": 0.6005646439213208,
+      "accepted": 0
+    }
+  ],
+  "trials_per_case": 20000,
+  "family_alpha": 1e-05,
+  "torch": "2.12.1+cu130",
+  "triton": "3.7.1",
+  "uuid": "GPU-bc62df2a-59cf-9828-7d43-558d1355bab7",
+  "source_sha256": "a2e32f6ae20f2b217574b62ff3116f38ca227eebb59139e02f7561bb184cb6dd",
+  "dependency_sha256": {
+    "vllm/v1/watermarking/prfs/base.py": "1228cc2d7245c4df4e0ef13b922655f5c22d659f6839f29c02fc43ed909c2072",
+    "vllm/v1/watermarking/prfs/philox.py": "9468a4bb045008d4507ae5757da1fdcccd2730b9328ebf8ff909d89109bc8620",
+    "vllm/v1/worker/gpu/sample/gumbel.py": "c14a5fa1899a9ff320c62f29bd161be4a4f0fa124ecf26a28681f0f3d143868e",
+    "vllm/v1/worker/gpu/sample/watermark.py": "4fb33ff698c604ce77a388ea2d0e4ed1c76eb7db1d0f52e25e6326c0c4c0da21",
+    "vllm/v1/worker/gpu/model_runner.py": "d0abfc3be7876577f23c9fe6ab09e4b9a23cfc664a9e2c03b43b317e0138aab9",
+    "vllm/v1/worker/gpu/spec_decode/rejection_sampler_utils.py": "1468ec723b116013912911625c6d489acc69aedc7a0dffc540d9dd42605c58de"
+  },
+  "producer_sha256": "5f83ef3105953a92404bb6aff281e622b031d76914b73168a303d99494647036",
+  "maxrss_kib": 1037176,
+  "gpu_peak_bytes": 39993856,
+  "producer_edges": "PASS ties/signed-zero/reordering/NaN/+inf/all-masked/tau0",
+  "dense_p_verifier": {
+    "median_ms": 0.01401599943637848,
+    "p95_ms": 0.014028799533843995
+  },
+  "greedy_q_verifier": {
+    "median_ms": 0.012902399897575379,
+    "p95_ms": 0.0130048006772995
+  },
+  "sparse1280_d2h": {
+    "median_ms": 0.0034464001655578613,
+    "p95_ms": 0.003859199956059456
+  },
+  "sparse1280_h2d": {
+    "median_ms": 0.003481600061058998,
+    "p95_ms": 0.004307200014591217
+  },
+  "dense_q_expansion": {
+    "median_ms": 0.004403200000524521,
+    "p95_ms": 0.0045056000351905824
+  },
+  "greedy_identity_requests": 100000
+}

@@ -1,0 +1,801 @@
+{
+ "meta": {
+  "python": "3.13.15",
+  "pytest": "9.0.2",
+  "mypy": "2.3.1",
+  "date": "2026-10-28"
+ },
+ "by_branch": {
+  "main": {
+   "source": "27d3ca2b78b1",
+   "totals": {
+    "failed": 556,
+    "passed": 2559,
+    "skipped": 300,
+    "warnings": 463,
+    "errors": 223,
+    "subtests passed": 17
+   },
+   "failing_ids": 714,
+   "environment": 339,
+   "passes_alone": 14,
+   "host_data": 353,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "acc_split": {
+     "files": 5,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 11,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "production": {
+   "source": "596ba1cf4e3b",
+   "totals": {
+    "failed": 96,
+    "passed": 420,
+    "skipped": 54,
+    "warnings": 3,
+    "errors": 21,
+    "subtests passed": 7
+   },
+   "failing_ids": 117,
+   "environment": 111,
+   "passes_alone": 0,
+   "host_data": 5,
+   "caused_by_snapshot": 1,
+   "snapshot_reasons": {
+    "excluded_data": 1
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/nbw-win2": {
+   "source": "e120ccf31c33",
+   "totals": {
+    "failed": 571,
+    "passed": 2742,
+    "skipped": 319,
+    "warnings": 463,
+    "errors": 223,
+    "subtests passed": 17
+   },
+   "failing_ids": 727,
+   "environment": 339,
+   "passes_alone": 16,
+   "host_data": 364,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/pc1-win2": {
+   "source": "8f155598b902",
+   "totals": {
+    "failed": 629,
+    "passed": 2921,
+    "skipped": 319,
+    "warnings": 463,
+    "errors": 224,
+    "subtests passed": 17
+   },
+   "failing_ids": 784,
+   "environment": 404,
+   "passes_alone": 16,
+   "host_data": 356,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/pp4": {
+   "source": "c4ccc05a3a42",
+   "totals": {
+    "failed": 596,
+    "passed": 2890,
+    "skipped": 308,
+    "warnings": 463,
+    "errors": 267,
+    "subtests passed": 17
+   },
+   "failing_ids": 798,
+   "environment": 396,
+   "passes_alone": 16,
+   "host_data": 378,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "gb10_budget": {
+     "files": 11,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/pp4-promote": {
+   "source": "1d3b5b749548",
+   "totals": {
+    "failed": 652,
+    "passed": 3170,
+    "skipped": 340,
+    "warnings": 463,
+    "errors": 267,
+    "subtests passed": 17
+   },
+   "failing_ids": 834,
+   "environment": 432,
+   "passes_alone": 16,
+   "host_data": 378,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/pp4-win2": {
+   "source": "81969f70009a",
+   "totals": {
+    "failed": 595,
+    "passed": 3132,
+    "skipped": 341,
+    "warnings": 463,
+    "errors": 267,
+    "subtests passed": 17
+   },
+   "failing_ids": 797,
+   "environment": 398,
+   "passes_alone": 13,
+   "host_data": 378,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/sp-prefill": {
+   "source": "d3070736b078",
+   "totals": {
+    "failed": 575,
+    "passed": 2651,
+    "skipped": 306,
+    "warnings": 463,
+    "errors": 223,
+    "subtests passed": 17
+   },
+   "failing_ids": 733,
+   "environment": 339,
+   "passes_alone": 13,
+   "host_data": 373,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/tv1": {
+   "source": "25faa8473297",
+   "totals": {
+    "failed": 650,
+    "passed": 2695,
+    "skipped": 308,
+    "warnings": 463,
+    "errors": 254,
+    "subtests passed": 17
+   },
+   "failing_ids": 839,
+   "environment": 357,
+   "passes_alone": 14,
+   "host_data": 460,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "gb10_budget": {
+     "files": 11,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/up2-adopt": {
+   "source": "924fc834a091",
+   "totals": {
+    "failed": 707,
+    "passed": 3079,
+    "skipped": 319,
+    "warnings": 463,
+    "errors": 245,
+    "subtests passed": 17
+   },
+   "failing_ids": 880,
+   "environment": 482,
+   "passes_alone": 13,
+   "host_data": 377,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/up3-win2": {
+   "source": "d413fa5322ea",
+   "totals": {
+    "failed": 587,
+    "passed": 3021,
+    "skipped": 324,
+    "warnings": 463,
+    "errors": 263,
+    "subtests passed": 17
+   },
+   "failing_ids": 783,
+   "environment": 359,
+   "passes_alone": 13,
+   "host_data": 403,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 7,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 13,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/upfix": {
+   "source": "42fe86a7f954",
+   "totals": {
+    "failed": 568,
+    "passed": 2780,
+    "skipped": 319,
+    "warnings": 463,
+    "errors": 223,
+    "subtests passed": 17
+   },
+   "failing_ids": 724,
+   "environment": 339,
+   "passes_alone": 15,
+   "host_data": 362,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/upx": {
+   "source": "d88d2cbf90c5",
+   "totals": {
+    "failed": 608,
+    "passed": 2797,
+    "skipped": 324,
+    "warnings": 463,
+    "errors": 224,
+    "subtests passed": 17
+   },
+   "failing_ids": 756,
+   "environment": 358,
+   "passes_alone": 13,
+   "host_data": 377,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/win2": {
+   "source": "06b505a3656d",
+   "totals": {
+    "failed": 559,
+    "passed": 2823,
+    "skipped": 320,
+    "warnings": 463,
+    "errors": 227,
+    "subtests passed": 17
+   },
+   "failing_ids": 721,
+   "environment": 339,
+   "passes_alone": 15,
+   "host_data": 357,
+   "caused_by_snapshot": 10,
+   "snapshot_reasons": {
+    "withheld_prompts": 6,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "win2_r3": {
+     "files": 7,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 13,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/census": {
+   "source": "54baa89a94fc",
+   "totals": {
+    "failed": 578,
+    "passed": 2796,
+    "skipped": 319,
+    "warnings": 463,
+    "errors": 223,
+    "subtests passed": 17
+   },
+   "failing_ids": 732,
+   "environment": 339,
+   "passes_alone": 16,
+   "host_data": 369,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "census": {
+     "files": 22,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "win2_r3": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 12,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/lsuite": {
+   "source": "1a7e70088e76",
+   "totals": {
+    "failed": 556,
+    "passed": 2761,
+    "skipped": 311,
+    "warnings": 463,
+    "errors": 226,
+    "subtests passed": 17
+   },
+   "failing_ids": 717,
+   "environment": 339,
+   "passes_alone": 13,
+   "host_data": 353,
+   "caused_by_snapshot": 12,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 8
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "lsuite": {
+     "files": 14,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 11,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/matter-cache": {
+   "source": "0962424b2df2",
+   "totals": {
+    "failed": 106,
+    "passed": 474,
+    "skipped": 54,
+    "warnings": 3,
+    "errors": 22,
+    "subtests passed": 7
+   },
+   "failing_ids": 128,
+   "environment": 119,
+   "passes_alone": 1,
+   "host_data": 7,
+   "caused_by_snapshot": 1,
+   "snapshot_reasons": {
+    "excluded_data": 1
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "matter": {
+     "files": 4,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/dw1": {
+   "source": "58d770f73f97",
+   "totals": {
+    "failed": 556,
+    "passed": 2553,
+    "skipped": 300,
+    "warnings": 463,
+    "errors": 223,
+    "subtests passed": 17
+   },
+   "failing_ids": 714,
+   "environment": 339,
+   "passes_alone": 14,
+   "host_data": 353,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "dw1_dp5": {
+     "files": 5,
+     "errors": 53,
+     "private_errors": 53
+    },
+    "gb10_budget": {
+     "files": 11,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "lane/dp5": {
+   "source": "dbaaafc1d2dc",
+   "totals": {
+    "failed": 557,
+    "passed": 2551,
+    "skipped": 300,
+    "warnings": 463,
+    "errors": 223,
+    "subtests passed": 17
+   },
+   "failing_ids": 715,
+   "environment": 351,
+   "passes_alone": 3,
+   "host_data": 353,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "withheld_prompts": 4,
+    "excluded_data": 4
+   },
+   "other_ids": [],
+   "scripts_not_collected": 3,
+   "mypy": {
+    "dw1_dp5": {
+     "files": 3,
+     "errors": 24,
+     "private_errors": 24
+    },
+    "gb10_budget": {
+     "files": 11,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 12,
+     "errors": 1,
+     "private_errors": 1
+    }
+   }
+  },
+  "focus:dsv41-window-harness": {
+   "source": "subset of lane/win2",
+   "totals": {
+    "failed": 2,
+    "passed": 391,
+    "skipped": 20,
+    "errors": 43
+   },
+   "failing_ids": 45,
+   "environment": 39,
+   "passes_alone": 0,
+   "host_data": 4,
+   "caused_by_snapshot": 2,
+   "snapshot_reasons": {
+    "withheld_prompts": 2
+   },
+   "other_ids": [],
+   "scripts_not_collected": 0,
+   "mypy": {
+    "win2_r3": {
+     "files": 7,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 7,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 1
+    }
+   }
+  },
+  "focus:dsv41-sampled-drafting": {
+   "source": "subset of lane/pp4-win2",
+   "totals": {
+    "failed": 75,
+    "passed": 529,
+    "skipped": 28,
+    "errors": 75
+   },
+   "failing_ids": 146,
+   "environment": 84,
+   "passes_alone": 0,
+   "host_data": 54,
+   "caused_by_snapshot": 8,
+   "snapshot_reasons": {
+    "needs_full_tree": 8
+   },
+   "other_ids": [],
+   "scripts_not_collected": 0,
+   "mypy": {
+    "win2_r3": {
+     "files": 1,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "gb10_budget": {
+     "files": 4,
+     "errors": 0,
+     "private_errors": 0
+    },
+    "bench": {
+     "files": 2,
+     "errors": 0,
+     "private_errors": 1
+    }
+   }
+  }
+ }
+}

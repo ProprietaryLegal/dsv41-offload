@@ -1,0 +1,266 @@
+{
+ "schema": "pli-dsv41-build-record-v1",
+ "as_of": "2026-10-27",
+ "production": {
+  "branch": "production",
+  "private_commit": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "tag": "prod-k1-327-ops1-20261026"
+ },
+ "image": {
+  "name": "ghcr.io/henryous/deepseek-v41-1017-dgx-spark:v5",
+  "repo_digest": "sha256:8fc2c99a3562e99d81d2a05b8345d12726def0a027410d14d0eb0763de8309e4",
+  "image_id": "sha256:435a5236ce3a7db9d45f5a2c483817d60ea629c4ea0a0b3af33da2ef8122334b",
+  "vllm": "0.31.1.dev0+g6e517b15.dsv41gb10",
+  "torch": "2.13.0+cu130",
+  "cuda": "13.0.2"
+ },
+ "launcher": {
+  "repo": "sudoingX/dgx-spark-deepseek-v41",
+  "commit": "cc59c36"
+ },
+ "weights": {
+  "repo": "ProprietaryLegal/DeepSeek-V4.1-Flash-1017-EXL3-2.75bpw-LegalWeighted-DGX-Spark",
+  "variant": "legal-v2a",
+  "baseline_rev": "86f852533ec94d1a537fea41fd9c01d6b0f6eb50",
+  "base_rev": "1bae0e1088993b9b82de08f59de5be5a34e42170"
+ },
+ "drafter": {
+  "method": "dspark",
+  "placement": "remote, TP2 on two NVLinked RTX 3090s (x86host)",
+  "worker_commit": "fb68c52",
+  "num_speculative_tokens": 5,
+  "per_batch_size": [
+   [
+    1,
+    2,
+    5
+   ],
+   [
+    3,
+    4,
+    4
+   ]
+  ],
+  "depth_policy": "conf",
+  "adaptive_verify_window": true
+ },
+ "serving": {
+  "max_model_len": 327680,
+  "max_num_seqs": 4,
+  "max_num_batched_tokens": 4096,
+  "long_prefill_token_threshold": 1024,
+  "kv_bytes_per_rank": 6442450944,
+  "kv_tokens": 2502600,
+  "scheduling_policy": "priority",
+  "k1_env": {
+   "VLLM_DSV41_KV_PAIR": "3",
+   "VLLM_DSV41_DROP_MTP_BUFFER": "1",
+   "VLLM_EXL3_TF_PROMPT_TRANSIENT": "1",
+   "VLLM_EXL3_TF_PROMPT_ALIAS": "1",
+   "VLLM_INDEXER_PREFILL_BUFFER_FACTOR": "4"
+  },
+  "gpu_clock_mhz": {
+   "repository_default": 2150,
+   "production_host_setting_since_2026_10_27": 2300
+  }
+ },
+ "hosts": {
+  "sparks": {
+   "os": "DGX OS 7.6.0",
+   "kernel": "7.0.0-1019-nvidia",
+   "driver": "580.178.04",
+   "connectx7_fw": "28.50.1002"
+  }
+ },
+ "restore_script_w8_sha256": "d1c4479dbfbd90bc2036c7bf1561db5b564c2b162a7cde4a121e46bfb9f86a49",
+ "measured": {
+  "source": "control archive (aggregates only)",
+  "runs": 149,
+  "windows": 11,
+  "dates": [
+   "20261026",
+   "20261027"
+  ],
+  "commit": "596ba1c",
+  "clock_cap_mhz": 2150,
+  "sampling": {
+   "temperature": 1,
+   "top_p": 1,
+   "seed": 42
+  },
+  "cells": {
+   "150k-b1@512": {
+    "accepted_per_round": {
+     "median": 1.025,
+     "n": 14
+    },
+    "decode_tps": {
+     "median": 51.651,
+     "n": 14
+    },
+    "ms_per_round": {
+     "median": 40.237,
+     "n": 14
+    },
+    "ttft_s": {
+     "median": 69.247,
+     "n": 14
+    }
+   },
+   "32k-b1@512": {
+    "accepted_per_round": {
+     "median": 1.006,
+     "n": 38
+    },
+    "decode_tps": {
+     "median": 51.834,
+     "n": 38
+    },
+    "ms_per_round": {
+     "median": 38.928,
+     "n": 38
+    },
+    "ttft_s": {
+     "median": 14.514,
+     "n": 38
+    }
+   },
+   "32k-b1@1500": {
+    "accepted_per_round": {
+     "median": 0.94,
+     "n": 5
+    },
+    "decode_tps": {
+     "median": 50.855,
+     "n": 5
+    },
+    "ms_per_round": {
+     "median": 38.245,
+     "n": 5
+    },
+    "ttft_s": {
+     "median": 16.479,
+     "n": 5
+    }
+   },
+   "32k-b2@1500": {
+    "accepted_per_round": {
+     "median": 1.065,
+     "n": 5
+    },
+    "decode_tps": {
+     "median": 35.505,
+     "n": 5
+    },
+    "ms_per_round": {
+     "median": 58.086,
+     "n": 5
+    },
+    "ttft_s": {
+     "median": 35.075,
+     "n": 5
+    }
+   },
+   "32k-b3@512": {
+    "accepted_per_round": {
+     "median": 1.104,
+     "n": 12
+    },
+    "decode_tps": {
+     "median": 30.184,
+     "n": 12
+    },
+    "ms_per_round": {
+     "median": 80.755,
+     "n": 12
+    },
+    "ttft_s": {
+     "median": 51.454,
+     "n": 12
+    }
+   },
+   "32k-b3@1500": {
+    "accepted_per_round": {
+     "median": 1.086,
+     "n": 5
+    },
+    "decode_tps": {
+     "median": 29.482,
+     "n": 5
+    },
+    "ms_per_round": {
+     "median": 72.254,
+     "n": 5
+    },
+    "ttft_s": {
+     "median": 51.553,
+     "n": 5
+    }
+   },
+   "32k-b4@512": {
+    "accepted_per_round": {
+     "median": 1.107,
+     "n": 5
+    },
+    "decode_tps": {
+     "median": 24.836,
+     "n": 5
+    },
+    "ms_per_round": {
+     "median": 92.051,
+     "n": 5
+    },
+    "ttft_s": {
+     "median": 64.603,
+     "n": 5
+    }
+   },
+   "short-b1@512": {
+    "accepted_per_round": {
+     "median": 1.268,
+     "n": 38
+    },
+    "decode_tps": {
+     "median": 57.523,
+     "n": 38
+    },
+    "ms_per_round": {
+     "median": 39.606,
+     "n": 38
+    },
+    "ttft_s": {
+     "median": 0.797,
+     "n": 38
+    }
+   },
+   "short-b1@1500": {
+    "accepted_per_round": {
+     "median": 1.105,
+     "n": 5
+    },
+    "decode_tps": {
+     "median": 53.611,
+     "n": 5
+    },
+    "ms_per_round": {
+     "median": 39.117,
+     "n": 5
+    },
+    "ttft_s": {
+     "median": 1.956,
+     "n": 5
+    }
+   }
+  },
+  "speculation_on_vs_off_2026_10_22": {
+   "short": [
+    56.0,
+    41.9
+   ],
+   "32k": [
+    64.6,
+    41.0
+   ]
+  }
+ }
+}

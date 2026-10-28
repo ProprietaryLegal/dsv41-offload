@@ -1,0 +1,11 @@
+{
+  "abi": "pp3-dyadic24-standard-v1",
+  "source_sha256": {
+    "vllm/v1/worker/gpu/spec_decode/rejection_sampler_utils.py": "ef1d40bf31140eb644a8f3b7a003373209d6a8e297f059e70ea66cf4972d8d90",
+    "vllm/v1/worker/gpu/model_runner.py": "af9be025ff8a17a5aabd452fc3e4b987abe64fb28d852c569e1372d6f1e4d3a6"
+  },
+  "output_sha256": {
+    "vllm/v1/worker/gpu/spec_decode/rejection_sampler_utils.py": "1468ec723b116013912911625c6d489acc69aedc7a0dffc540d9dd42605c58de",
+    "vllm/v1/worker/gpu/model_runner.py": "d0abfc3be7876577f23c9fe6ab09e4b9a23cfc664a9e2c03b43b317e0138aab9"
+  }
+}

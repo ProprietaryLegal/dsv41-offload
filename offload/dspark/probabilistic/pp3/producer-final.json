@@ -1,0 +1,117 @@
+{
+  "schema": "pp3.producer.v1",
+  "classification": "MEASURED solo synthetic logits",
+  "complete": true,
+  "torch": "2.12.1+cu130",
+  "uuid": "GPU-bc62df2a-59cf-9828-7d43-558d1355bab7",
+  "source_sha256": "7a4561276a69059a4d541f3d4c2d5aa3b4a9d99b661b108908e291cb9e9c2e8c",
+  "producer_sha256": "5f83ef3105953a92404bb6aff281e622b031d76914b73168a303d99494647036",
+  "rows": [
+    {
+      "batch": 1,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.14315520524978637,
+        "p95_ms": 0.14325759410858155
+      },
+      "argmax": {
+        "median_ms": 0.12042239904403687,
+        "p95_ms": 0.12103040218353271
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 1,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.15544320344924928,
+        "p95_ms": 0.1555456042289734
+      },
+      "argmax": {
+        "median_ms": 0.13096959590911866,
+        "p95_ms": 0.13148159980773927
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 2,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.1419263958930969,
+        "p95_ms": 0.14202879667282103
+      },
+      "argmax": {
+        "median_ms": 0.10680320262908935,
+        "p95_ms": 0.10721280574798583
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 2,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.1773568034172058,
+        "p95_ms": 0.17745920419692993
+      },
+      "argmax": {
+        "median_ms": 0.13332480192184448,
+        "p95_ms": 0.13383040428161622
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 3,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.15022079944610595,
+        "p95_ms": 0.15032320022583007
+      },
+      "argmax": {
+        "median_ms": 0.10670080184936523,
+        "p95_ms": 0.10700800418853759
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 3,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.18769919872283936,
+        "p95_ms": 0.18778560161590577
+      },
+      "argmax": {
+        "median_ms": 0.1333184003829956,
+        "p95_ms": 0.13352960348129272
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 4,
+      "depth": 4,
+      "sampled": {
+        "median_ms": 0.1669119954109192,
+        "p95_ms": 0.16711039543151857
+      },
+      "argmax": {
+        "median_ms": 0.1074112057685852,
+        "p95_ms": 0.10762239694595337
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    },
+    {
+      "batch": 4,
+      "depth": 5,
+      "sampled": {
+        "median_ms": 0.2085887908935547,
+        "p95_ms": 0.20869119167327882
+      },
+      "argmax": {
+        "median_ms": 0.13414399623870848,
+        "p95_ms": 0.13445119857788085
+      },
+      "scope": "logit selection only; excludes Markov, TP exchange, wire"
+    }
+  ],
+  "maxrss_kib": 959436,
+  "gpu_peak_bytes": 27052032
+}
