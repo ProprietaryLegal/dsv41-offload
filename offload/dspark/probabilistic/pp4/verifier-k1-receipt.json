@@ -1,0 +1,15 @@
+{
+  "abi": "pp3-dyadic24-standard-v1",
+  "source_sha256": {
+    "vllm/v1/worker/gpu/model_runner.py": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+    "vllm/v1/worker/gpu/spec_decode/rejection_sampler_utils.py": "ef1d40bf31140eb644a8f3b7a003373209d6a8e297f059e70ea66cf4972d8d90"
+  },
+  "production_k1_sha256": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+  "output_sha256": {
+    "vllm/v1/worker/gpu/model_runner.py": "e0a11b89a99db93e34f586c03162bb9a4fb3325b6572e88b76f7b14f1a837a97",
+    "vllm/v1/worker/gpu/spec_decode/rejection_sampler_utils.py": "1468ec723b116013912911625c6d489acc69aedc7a0dffc540d9dd42605c58de",
+    "vllm/v1/worker/gpu/dsv41_pp4_round_trace.py": "5b9165adfa6a065497aa3d1fe78f468484d25ecab22230dd6aaa09cf3a44a4d3"
+  },
+  "round_scope": "execute_model through sample_tokens completed wall/CUDA",
+  "profiled_only": true
+}

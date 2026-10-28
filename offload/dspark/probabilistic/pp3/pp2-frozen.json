@@ -1,0 +1,111 @@
+{
+  "schema": "pp3.pp2-frozen.v1",
+  "source_commit": "e1befc9aaa081a4f6cccbb11423a747fcd392503",
+  "source_sha256": {
+    "heldout-summary.json": "e95d0b35095db74b6886a2c52e84589391fa87144eb3e8f61414dbbe88311197",
+    "cost-inputs.json": "e2033d95ffd241fe00a5d68d85cbb3f514b0f1a9c83986ce795e09e6a3bb2c7a"
+  },
+  "views": {
+    "all": {
+      "rounds": 1710,
+      "source_clusters": 24,
+      "greedy_EA": 2.091812865497076,
+      "sampled_EA": 2.3055144183257505,
+      "delta_EA": 0.21370155282867476,
+      "CI95_delta": [
+        0.17536962538770962,
+        0.2544344155783623
+      ]
+    },
+    "family:chronology": {
+      "rounds": 802,
+      "source_clusters": 12,
+      "greedy_EA": 2.1334164588528677,
+      "sampled_EA": 2.3695267294869105,
+      "delta_EA": 0.23611027063404277,
+      "CI95_delta": [
+        0.16316342853479984,
+        0.30157807241611817
+      ]
+    },
+    "family:motion_outline": {
+      "rounds": 908,
+      "source_clusters": 12,
+      "greedy_EA": 2.055066079295154,
+      "sampled_EA": 2.2489749100093954,
+      "delta_EA": 0.19390883071424136,
+      "CI95_delta": [
+        0.16218746176069568,
+        0.23309337320225615
+      ]
+    },
+    "context:16-32K": {
+      "rounds": 545,
+      "source_clusters": 12,
+      "greedy_EA": 2.2238532110091747,
+      "sampled_EA": 2.3763755332215233,
+      "delta_EA": 0.15252232221234863,
+      "CI95_delta": [
+        0.10382912743606565,
+        0.20052669076899177
+      ]
+    },
+    "context:8-16K": {
+      "rounds": 679,
+      "source_clusters": 19,
+      "greedy_EA": 2.0780559646539025,
+      "sampled_EA": 2.3196853100138957,
+      "delta_EA": 0.24162934535999314,
+      "CI95_delta": [
+        0.1816603668086756,
+        0.3104964738295701
+      ]
+    },
+    "context:<8K": {
+      "rounds": 420,
+      "source_clusters": 14,
+      "greedy_EA": 1.9238095238095239,
+      "sampled_EA": 2.1824900834117034,
+      "delta_EA": 0.2586805596021795,
+      "CI95_delta": [
+        0.16197031912005402,
+        0.36856286780395014
+      ]
+    },
+    "context:>=32K": {
+      "rounds": 66,
+      "source_clusters": 1,
+      "greedy_EA": 2.212121212121212,
+      "sampled_EA": 2.3574671090750323,
+      "delta_EA": 0.14534589695382039,
+      "CI95_delta": null
+    }
+  },
+  "w8_historical_adaptive": [
+    {
+      "cell": "short-B1-C2",
+      "dense_wire_only_minimum_added_accepts": 0.027695475619504396,
+      "historical_accepted_per_round": 1.01,
+      "historical_step_p50_ms": 37.53,
+      "sparse32_wire_only_minimum_added_accepts": 1.3710631494804154e-05
+    },
+    {
+      "cell": "32k-B1-C2",
+      "dense_wire_only_minimum_added_accepts": 0.03239317735849057,
+      "historical_accepted_per_round": 1.49,
+      "historical_step_p50_ms": 39.75,
+      "sparse32_wire_only_minimum_added_accepts": 1.6036226415094342e-05
+    },
+    {
+      "cell": "150k-B1-C2",
+      "dense_wire_only_minimum_added_accepts": 0.028562239596469106,
+      "historical_accepted_per_round": 1.19,
+      "historical_step_p50_ms": 39.65,
+      "sparse32_wire_only_minimum_added_accepts": 1.4139722572509457e-05
+    }
+  ],
+  "fixed5_archived_price_ms": 48.08,
+  "wire_gbps": 40,
+  "scope": "one-round expectation on fixed target-history anchors, terminal suffix censored; not long-run throughput",
+  "family_uncertainty": "two held-out task families: report both; source-cluster CIs are conditional on these families"
+}

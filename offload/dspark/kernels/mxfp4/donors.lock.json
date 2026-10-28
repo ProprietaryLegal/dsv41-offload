@@ -1,0 +1,18 @@
+{
+  "strata": {
+    "sha": "015b075079c51a7aec670ee24924f920f5e7bb2b",
+    "files": {
+      "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "kernels/cuda/detail/backend_kernels.cuh": "683a73bec9d30ecf2460be7c9e04743bf5077a1310bf7e57f5c85dcda9f09d2e",
+      "vendor/marlin/README.md": "85894eb834bfdc89c7d55d2e35d7ab3c00daf40a6e47b73d5262fd2f94c1bbf0"
+    }
+  },
+  "vllm": {
+    "sha": "2d40c0609fd672e845ddfef0324ab6d8dd616af4",
+    "files": {
+      "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "vllm/model_executor/layers/quantization/utils/marlin_utils_fp4.py": "bfb038ca5c0fb576a478ce7ef28a401792299a04c22d166a62b1e3e0b94a20d0",
+      "csrc/quantization/marlin/dequant.h": "39c4640d2de39374ef5d96e7fa27701a675922113c3f5b05d45369321090e728"
+    }
+  }
+}

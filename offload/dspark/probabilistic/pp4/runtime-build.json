@@ -1,0 +1,35 @@
+{
+  "label": "MEASURED",
+  "scope": "CPU build and ABI import only; no pair/GPU execution",
+  "python": "3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:13:31) [GCC 14.3.0]",
+  "torch": "2.12.1+cu130",
+  "triton": "3.7.1",
+  "modules": {
+    "dspark_p2p": {
+      "path": "/opt/dsv41/x86host-data/pp4/runtime/p2p/08e1903b0a43feff/dspark_p2p.so",
+      "sha256": "32a3475a0ebeeca9d344ed16973e0616bf28e6c5e53e12e500fec135797c287c"
+    },
+    "exllamav3_ext": {
+      "path": "/opt/dsv41/x86host-data/pp4/runtime/exllamav3/exllamav3_ext.cpython-313-x86_64-linux-gnu.so",
+      "sha256": "a5c1f12b64a29c9c2d8f960c1b7dd757ffcce106a3ad404d0fde8636e1b8b937"
+    },
+    "exllamav3_ext_facc": {
+      "path": "/opt/dsv41/x86host-data/pp4/runtime/exllamav3-facc/exllamav3_ext_facc.cpython-313-x86_64-linux-gnu.so",
+      "sha256": "144af5c600272e3a2964c46b4a4cc46e7eefc7b44a632e31fb55196bac4b607f"
+    }
+  },
+  "p2p_source_sha256": "08e1903b0a43feffa5ee5fb465ea163bbe6725bc05290d05f2f837042a6844b9",
+  "source_tree_sha256": {
+    "exllamav3": "8701eb8ad373f654f8daa4a9c5f12ee0b42831173a053036fbb449c5dfaacb52",
+    "exllamav3-facc": "c27e3fdd2abd8a7d0e34d5f01abc053306d5a15001b6e53a41223da1b3ee37f3"
+  },
+  "reuse_manifest_sha256": "6dcaa81d9505024efbe59fcc1839bd948110d5e4278c252536ccc5387f84a0cf",
+  "reused_objects": 82,
+  "rebuilt_objects": 108,
+  "compiler_wheels": {
+    "nvidia_cuda_cccl-13.0.85-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl": "e0da7ad981f3a8aff08241b5bfc1af868742a63e2762f53a5171c492ef242649",
+    "nvidia_cuda_crt-13.0.88-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl": "2c8043c7c9e02492716426e9919fc78d2c5b3b2a7a768a88e952676b08aa55a4",
+    "nvidia_cuda_nvcc-13.0.88-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl": "56fe502eb77625a12f25172caa3cdddb4e4c8ba2c8c17dba44b164761b380f03",
+    "nvidia_nvvm-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl": "c5f41ffeb6466944a026dfa5317d7d85355c119bbec279205d22f1869d1054e0"
+  }
+}
