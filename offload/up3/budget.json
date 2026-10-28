@@ -1,0 +1,153 @@
+{
+  "classification": "ESTIMATED planning from MEASURED historical startup/cold cells; no UP3 hardware result",
+  "production": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "cells": {
+    "short-b1": {
+      "observations": [
+        {
+          "source": "NBW-W-20261026T231445Z/s1-K-short-b1.json",
+          "sha256": "deac0950c403b7415ce7e61310d718d4b8b9fb149c3cefa6d24f1678575cd25c",
+          "max_ttft_s": 1.7645618190290406,
+          "max_decode_span_s": 26.50626343896147,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s3-K-short-b1.json",
+          "sha256": "daa891adf4cf907a5cd3418b36b01aaf97cfd0fcb801994785b59061eef1ee3d",
+          "max_ttft_s": 2.331858152989298,
+          "max_decode_span_s": 28.47160706698196,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s5-K-short-b1.json",
+          "sha256": "3ecc7c888b506b8c618902b7745c32b0675b49e4e221cbbf6ca2b76dc0afbc84",
+          "max_ttft_s": 2.4093480160227045,
+          "max_decode_span_s": 27.960649574000854,
+          "measured_output_tokens": 1500
+        }
+      ],
+      "scaled_512_estimate_s": 19.115146022178664,
+      "allowance_per_group_s": 20,
+      "groups_per_start": 4,
+      "requests_per_start": 4,
+      "classification": "ESTIMATED from MEASURED NBW-W3 controls"
+    },
+    "32k-b1": {
+      "observations": [
+        {
+          "source": "NBW-W-20261026T231445Z/s1-K-32k-b1.json",
+          "sha256": "c5331d3465fb12b15d5ba4690fba9da45769236787bdb53cd0650c959861234d",
+          "max_ttft_s": 14.812975562002975,
+          "max_decode_span_s": 29.4779839469702,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s3-K-32k-b1.json",
+          "sha256": "979e7337ba5b75f4888dc0bfd403a2cb301a537f3990cf9d03f55431bd9bca82",
+          "max_ttft_s": 16.56382137304172,
+          "max_decode_span_s": 29.47603059199173,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s5-K-32k-b1.json",
+          "sha256": "0aaff802c13c57a5dc551b30b7be7b0287f060894110e92d0397dac26da8d24f",
+          "max_ttft_s": 16.617130869999528,
+          "max_decode_span_s": 27.4701354339486,
+          "measured_output_tokens": 1500
+        }
+      ],
+      "scaled_512_estimate_s": 33.66599664511745,
+      "allowance_per_group_s": 35,
+      "groups_per_start": 4,
+      "requests_per_start": 4,
+      "classification": "ESTIMATED from MEASURED NBW-W3 controls"
+    },
+    "32k-b3": {
+      "observations": [
+        {
+          "source": "NBW-W-20261026T231445Z/s1-K-32k-b3.json",
+          "sha256": "87c9c91c212076d1feabb9bf3ab66002eefa3ae7726d46496827203704e5b767",
+          "max_ttft_s": 51.37888995197136,
+          "max_decode_span_s": 58.99707188201137,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s3-K-32k-b3.json",
+          "sha256": "a5879c7ac17144b1e1081683007375af797ffd231f9a42ce9d9f713288314fa2",
+          "max_ttft_s": 51.72109578800155,
+          "max_decode_span_s": 58.419027732044924,
+          "measured_output_tokens": 1500
+        },
+        {
+          "source": "NBW-W-20261026T231445Z/s5-K-32k-b3.json",
+          "sha256": "1de0febd3966a4a7b062b3f501676c22ac92e9684e1487a7133417a236db9bc5",
+          "max_ttft_s": 51.6934184510028,
+          "max_decode_span_s": 61.36587655596668,
+          "measured_output_tokens": 1500
+        }
+      ],
+      "scaled_512_estimate_s": 79.64035057125636,
+      "allowance_per_group_s": 80,
+      "groups_per_start": 2,
+      "requests_per_start": 6,
+      "classification": "ESTIMATED from MEASURED NBW-W3 controls"
+    },
+    "32k-b4": {
+      "classification": "ESTIMATED, not a measured B4 cell",
+      "formula": "B3 max TTFT and max decode span each multiplied4/3; only decode scaled511/1499; +7s",
+      "scaled_512_estimate_s": 103.85380076167516,
+      "allowance_per_group_s": 105,
+      "groups_per_start": 1,
+      "requests_per_start": 4,
+      "limitation": "one simultaneous group, conditional no-regression only; cannot drive a winning target"
+    },
+    "mixed150k-2decode": {
+      "classification": "ESTIMATED, not a measured UP3 mixed cell",
+      "allowance_per_group_s": 145,
+      "groups_per_start": 2,
+      "requests_per_start": 6,
+      "basis": "RS1 reports about70s cold150K prefill; add two32K decoder arrival/prefill and512-token decode plus scheduling/publication reserve.145s per group is an explicit planning allowance, not a bound from GB10 measurements.",
+      "limitation": "all3 admitted while both512-token decoders live; no whole150K-prefill runway requirement or sustained-throughput claim; absent overlap STOP"
+    }
+  },
+  "formula": "max measured TTFT + max measured decode span*511/1499 +2s publication+5s overhead; round up to5s. B4/mixed/host-evidence/greedy estimates explicitly separate.",
+  "startup_observations_s": [
+    388,
+    404
+  ],
+  "startup_allowance_s": 404,
+  "startup_sources": [
+    {
+      "path": "S49.report.md",
+      "sha256": "9564a6621221c6d594835395a6853aad1ac7f575806cf71fea9abaf128475636",
+      "locator": "Spark X start to ready388s"
+    },
+    {
+      "path": "LANES.md",
+      "sha256": "de40e965c15d3e0c5160947e67efff9d47daeda137c4de83e6868160e6869770",
+      "locator": "OPS1 start404s incl warmup at20:45; line427"
+    }
+  ],
+  "ops1_bound_s": 90,
+  "transition_allowance_s": 60,
+  "qualification_total_allowance_s": 30,
+  "qualification_rank_collector_cap_s": 15,
+  "qualification_classification": "ESTIMATED30s candidate-only host log/GID/affinity reads; no resident adapter for config-only arms; split/VOR parked",
+  "setup_allowance_s": 120,
+  "recovery_allowance_s": 720,
+  "control_block_s": 1389,
+  "candidate_block_s": 1419,
+  "selected_starts": [
+    "control",
+    "arm",
+    "control"
+  ],
+  "requests_per_start": 24,
+  "hold_estimate_minutes": 83.95,
+  "submit_abort_minutes": 73,
+  "restore_deadline_minutes": 85,
+  "post_close_watch_minutes_outside_hold": 15,
+  "limitations": "only candidate start, no restart replication; constant decode-gap scaling assumed; B4, mixed, changed startup, greedy diagnostics and host-evidence costs unmeasured;83-85min plans have little slack; admission/deadline refusal is mandatory; no cold-prefill scaling",
+  "greedy_allowance_per_start_s": 60,
+  "greedy_classification": "ESTIMATED six W5/K1 checks and any first-divergence top20 diagnostic; DEP1 used42s; UP3 reserves60s, hard process cap60s and original premeasurement ceiling"
+}

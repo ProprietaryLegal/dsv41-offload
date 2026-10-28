@@ -1,0 +1,17 @@
+{
+  "rdma": {
+    "template": "EXL3 RDMA all-reduce: rank %d of %d on %s, gid %d, proxy on cpu %d, up to %d KB (slots %d KB, all-gathers %s)",
+    "source": "/opt/dsv41/data/src-image/vllm_exl3_moe/rdma.py:108",
+    "sha256": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866"
+  },
+  "pin": {
+    "template": "vllm_exl3_moe: pid %d, %d threads pinned to CPUs %s (EXL3_CPU_PIN)",
+    "source": "/opt/dsv41/data/src-image/vllm_exl3_moe/__init__.py:53",
+    "sha256": "c34d4bf278073e5cda04fc285ab31f6a7683fd52cb5cd5c13562ee15f1652768"
+  },
+  "proxy": {
+    "template": "remote DSpark (%s policy) rank 0 -> %s through proxy process pid %d; rank-0 buffers: %.1f MiB device, %.1f MiB shared region",
+    "source": "596ba1c:offload/dspark/spark/remote_dspark/speculator.py:152",
+    "sha256": "441be6b7d245114974c5dcb307c2efebd29516b958cd363bc70e24bcd73bdcf3"
+  }
+}

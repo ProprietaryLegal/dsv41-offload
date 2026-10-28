@@ -1,0 +1,10 @@
+{
+  "production": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "arm": "split",
+  "inputs_sha256": "b3464b3ce325a9f24246f57c4680cb5dd9074c28840bdc780bee5eb60a356f33",
+  "files": {
+    "vllm_exl3_moe/forward.py": "c06ba9b66e6349fc4c0bad93a74e62c22d489f1a9d54596a5d10fd0fcb7c8966",
+    "vllm_exl3_moe/smoe.py": "954976235fb0064204112b4b5388a6b04a1f0ebf092bf6ce6666584ac99b1497"
+  },
+  "fuzz": 0
+}

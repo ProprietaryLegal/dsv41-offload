@@ -1,0 +1,5 @@
+(EngineCore pid=172) INFO 10-27 06:07:46 [rdma.py:188] EXL3 RDMA all-reduce: vLLM's TP all-reduce routed for bf16 tensors up to 256 KB
+(VllmWorker-0 pid=244) INFO 10-27 06:07:50 [rdma.py:188] EXL3 RDMA all-reduce: vLLM's TP all-reduce routed for bf16 tensors up to 256 KB
+(Worker pid=244) INFO 10-27 06:08:01 [speculator.py:216] remote DSpark async mode on (host-flag hand-off self-test passed; {'mechanism': 'host_flags', 'lib': '/opt/dsv41-ofl/libdsv41_hostflag.so', 'spin_us': 50, 'nap_us': 20, 'mlock': 'ok', 'watchdog_deadline_ms': None, 'device': 'cuda:0'})
+(Worker pid=244) INFO 10-27 06:08:03 [speculator.py:152] remote DSpark (capacity policy) rank 0 -> o1rdma://10.202.28.1:18620?bind=10.202.28.2 through proxy process pid 462; rank-0 buffers: 45.1 MiB device, 30.1 MiB shared region
+EXL3 RDMA all-reduce: rank 0 of 2 on rocep1s0f1, gid 3, proxy on cpu 14, up to 256 KB (slots 3072 KB, all-gathers up to 3072 KB)

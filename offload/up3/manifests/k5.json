@@ -1,0 +1,7 @@
+{
+  "production": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "arm": "k5",
+  "inputs_sha256": "b3464b3ce325a9f24246f57c4680cb5dd9074c28840bdc780bee5eb60a356f33",
+  "files": {},
+  "fuzz": 0
+}

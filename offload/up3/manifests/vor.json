@@ -1,0 +1,11 @@
+{
+  "production": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "arm": "vor",
+  "inputs_sha256": "b3464b3ce325a9f24246f57c4680cb5dd9074c28840bdc780bee5eb60a356f33",
+  "files": {
+    "vllm/models/deepseek_v41/nvidia/model_state.py": "81e1d3e3ce03cb5e855c14caf8a436a6090b6ab6503bba84f50ff524177655d8",
+    "vllm/models/deepseek_v41/common/ops/swa_fused.py": "3deeeb8cd82b49acaa405bff7a1827c97984ea12e75c71af5986cdc46f1bc5be",
+    "vllm/v1/attention/backends/mla/sparse_swa.py": "1995997b763d57fcbb4b1028dc6f5831dd26294d6911a4c485801856f2321173"
+  },
+  "fuzz": 0
+}

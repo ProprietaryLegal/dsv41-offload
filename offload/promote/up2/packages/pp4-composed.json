@@ -1,0 +1,38 @@
+{
+  "schema": "up2-promote-package-v1",
+  "name": "pp4-composed",
+  "id": "25d875445e93",
+  "bases": [
+    "pp4"
+  ],
+  "arm": null,
+  "evidence": "NONE: composed bytes never measured; a window for this id is required before any switch",
+  "files": {
+    "remote_dspark/__init__.py": "9467a2214fb05bc8a10a63d4dc2faa8c646af949d730c9e3613978a66c2b09cc",
+    "remote_dspark/breaker.py": "78bcc9c0504bc9c6dba3f48925408c48749a9ee88dba3498ac42d67e711e3887",
+    "remote_dspark/client.py": "c1d2481a6bd07b81f178df4458194c835531b8a5de67fe3ebd7ee7370ba7ca94",
+    "remote_dspark/config.py": "4052810b45333f4c0df6b7cd62c03c278e4984503b04417df2b7fc9b327c100a",
+    "remote_dspark/fused_gather.py": "6c42c28e5d6f1918081d939c1b31d6895af54ca5328ea346903a3f0ad3a98c6f",
+    "remote_dspark/gather.py": "1e2dae2cff52617685faa74f7c899654253f2011ba995ec7b8304817672fe543",
+    "remote_dspark/hostflag.py": "7e1ce6e645c1c25c8f33e305ca35a05379a8c6a85920c1e3f75462a9fa76b130",
+    "remote_dspark/mock_worker.py": "09dabb928d5f6c659553a1beac0259ab6590958683bb1800c37ac016af0013db",
+    "remote_dspark/o1_adapter.py": "ee0c171c2aadfd0cbc80d5cf036087b6a94fabbbe0e441e60c68b8c690943e38",
+    "remote_dspark/probability_buffers.py": "c4a47070ef048f7f949daa7606bbfc2027bcda16b89ab36d375869decbcd4dbb",
+    "remote_dspark/proxy_proc.py": "d872f79b89630e8695c5074f8da744fab71202308b162ce477bcb4d4a74fc9ca",
+    "remote_dspark/round.py": "3ce8d56eac1a907a6e911f499da1ab710d3d300b4b26adf179701438700f4921",
+    "remote_dspark/roundcore.py": "25366c0584e51af3056e7a6796487ba4b75f56a37aac1e42a889b29c82601bc1",
+    "remote_dspark/sampled_wire.py": "9fabaae101946c7addfe7f3c41f4c5e618d21d2a8b4488dff4a371947bc4558a",
+    "remote_dspark/shmregion.py": "496bc6abb62c434488b5e29f9f3d7fbb57b1e5bc86eb4a4d7a52c523d1119209",
+    "remote_dspark/speculator.py": "7ea06525dfc578e02ed6f8830ef341447c7515462ae27e2cd0f34d75c4a7d7c0",
+    "remote_dspark/state.py": "647b887e432911f81aee8adf153d9240e58dffc5140cbdbda17de288d3fb6d62",
+    "remote_dspark/stats.py": "9a58853a6254614918d0d2b2756cbca7e3d41ecae7c7b37c7d85a96959e20e61",
+    "remote_dspark/streamsync.py": "4d26e408f562659ed143405ef6e8977fcbda6735e192c941fa023db3cdc46cab",
+    "remote_dspark/suffix_provenance.py": "f45966212bdb01ad71b219a8a97082c58b3074af9c1edbb9679c070d791c2c22",
+    "remote_dspark/transport.py": "4b59d0764cb364103a2e3cb3ddf2b04108891a092a0269edd1d3e24be5e4977b",
+    "remote_dspark/wire.py": "ad10643b3e2f901e1250620643fc1d8315fa52e1e9f6cc6e106fb2601c37098b",
+    "vllm/models/deepseek_v41/nvidia/model_state.py": "cdf5cfd90d61b4c044b444d01ef9d8361baed9aec9029940adad18816dff0881",
+    "vllm/models/deepseek_v41/replay_skip.py": "cc6dcd79884d6726cd3b8cd0bd13f263408bd95289c2303dc823423a6b922b65",
+    "vllm/v1/core/sched/scheduler.py": "bff8b59438a839f1e4023166d9c2462b2468bc9c56a623f696b0be24f1a4e616",
+    "vllm/v1/worker/gpu/input_batch.py": "056f7eec511c71f25f82e6acb660fa5f405615efbf6d096ec8753f2f1c91462f"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "provenance": "2026-10-27 Round8 read-only docker inspect/exec cat; projected destinations only. Test transports combine these with separately dated prior captured launcher/process shapes, not a single observed snapshot.",
+  "sparkhead": {
+    "container": "7d06afc3fe3de8819f8996b1c385b679ca9ac69a6bf0be604003747ad0785331",
+    "running": true,
+    "installed_rdma_sha256": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+    "mount_destinations": [
+      "/opt/dsv41-ofl",
+      "/root/.cache",
+      "/serve.sh",
+      "/srv/dsv41/legal-v2a",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/attention.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/dspark.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/model.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/kv_cache_utils.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_cache_interface.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/dsv41_memprobe.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/model_runner.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/__init__.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/remote_dspark",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/utils.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_experts.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_prompt.py"
+    ]
+  },
+  "sparkworker-wired": {
+    "container": "19da8a4831904171182d76f3ff25062639171d61e77a6f9e77949d8e3de74a13",
+    "running": true,
+    "installed_rdma_sha256": "26e95c300a79aa1c33ceb759426343c06c1f2ce133b5f0bd4c673d1a158c3866",
+    "mount_destinations": [
+      "/opt/dsv41-ofl",
+      "/root/.cache",
+      "/serve.sh",
+      "/srv/dsv41/legal-v2a",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/attention.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/dspark.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/model.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/kv_cache_utils.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_cache_interface.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/dsv41_memprobe.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/model_runner.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/__init__.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/remote_dspark",
+      "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/utils.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_experts.py",
+      "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_prompt.py"
+    ]
+  }
+}

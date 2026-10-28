@@ -1,0 +1,9 @@
+UP3 ports the isolated HeNryous0064 and0067 patches from
+HeNryous/deepseek-v41-1017-dgx-spark commit afe4d5e41ec6fa4db17c5cc88758af439a106913.
+Apache-2.0; copyright2026 HeNryous; vLLM copyright contributors;
+sudoingX recipe/plugin. Existing source notices are retained.
+Full license: offload/spark_leads/licenses/Apache-2.0.txt.
+Production/K1 sources are referenced by pinned git objects, not changed.
+UP3 adds isolated builds, configuration, review-gated qualification contracts,
+CPU-tested window ownership/recovery, timing and decision infrastructure.
+No weights, private tensors, calibration data, prompts or generated text are included.

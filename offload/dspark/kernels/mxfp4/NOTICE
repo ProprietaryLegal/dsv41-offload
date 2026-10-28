@@ -1,0 +1,7 @@
+regfed.cu contains adapted portions of ro99/strata's kernels/cuda/detail/backend_kernels.cuh
+at commit 015b075079c51a7aec670ee24924f920f5e7bb2b, licensed under Apache-2.0.
+Source: https://github.com/ro99/strata . Original license included as LICENSE.strata.
+Changed for the DSV41-OFFLOAD standalone SM86 experiment: framework-independent binding,
+static graph-safe device routing schedule, direct BF16 activation loads, signed-zero
+preservation, caller-owned allocations, bounded expert IDs, per-slot outputs.
+No vLLM or Marlin engine is vendored or linked.

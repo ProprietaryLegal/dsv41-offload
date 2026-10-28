@@ -1,0 +1,10 @@
+{
+  "production": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799",
+  "arm": "cpu-pin",
+  "inputs_sha256": "b3464b3ce325a9f24246f57c4680cb5dd9074c28840bdc780bee5eb60a356f33",
+  "files": {
+    "vllm_exl3_moe/rdma.py": "ab16d11c47ce92e5de2cd7a66045be2e4b2f2613668a56dd1b3493aa9c88c008",
+    "vllm_exl3_moe/up3_rdma_pin.py": "4c6d138df4b0ab135b02ec7c26578b558432e570d75f241f4b84aecd720db73f"
+  },
+  "fuzz": 0
+}
