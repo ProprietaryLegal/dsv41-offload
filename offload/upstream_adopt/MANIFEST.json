@@ -1,0 +1,244 @@
+{
+  "donor_sha": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+  "inputs_lock_sha256": "d7aa91a929f7baf5dbc8d3fbccecd1baf2ae793ab3e1726684495cac7ab3e07a",
+  "steps": [
+    {
+      "kind": "repo",
+      "path": "offload/upstream_adopt/patches/0075-process.patch"
+    },
+    {
+      "kind": "donor",
+      "path": "patches/0064-dsv41-exl3-moe-smoe-split.patch"
+    },
+    {
+      "kind": "repo",
+      "path": "offload/upstream_adopt/patches/0067-after-x1.patch"
+    },
+    {
+      "kind": "repo",
+      "path": "offload/upstream_adopt/patches/0075-successor.patch"
+    },
+    {
+      "kind": "repo",
+      "path": "offload/upstream_adopt/patches/0075-suffix.patch"
+    },
+    {
+      "kind": "repo",
+      "path": "offload/upstream_adopt/patches/0075-ready-waiter.patch"
+    }
+  ],
+  "fuzz": 0,
+  "files": [
+    {
+      "path": "offload/dspark/spark/remote_dspark/__init__.py",
+      "sha256": "9467a2214fb05bc8a10a63d4dc2faa8c646af949d730c9e3613978a66c2b09cc",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/breaker.py",
+      "sha256": "78bcc9c0504bc9c6dba3f48925408c48749a9ee88dba3498ac42d67e711e3887",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/client.py",
+      "sha256": "a9222d4aab14abcf960c99dec0e37c80088210a532f5f91d6058583cc9cb3bd4",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/config.py",
+      "sha256": "64d9def9c3bcb488a3fd9c08b692388b01f2a3955e1753fb542a841d2dc9da0f",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/fused_gather.py",
+      "sha256": "6c42c28e5d6f1918081d939c1b31d6895af54ca5328ea346903a3f0ad3a98c6f",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/gather.py",
+      "sha256": "31eb8151aa5c7928dcfbd006a554fc5204dfefd26a90230be6ba227d1cfd40e7",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/hostflag.c",
+      "sha256": "10490b58aeabc1fbe45e22afcbe4d0a5ee25b1b9c677789da6949e0ee73c781a",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/hostflag.py",
+      "sha256": "7e1ce6e645c1c25c8f33e305ca35a05379a8c6a85920c1e3f75462a9fa76b130",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/mock_worker.py",
+      "sha256": "09dabb928d5f6c659553a1beac0259ab6590958683bb1800c37ac016af0013db",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/o1_adapter.py",
+      "sha256": "ee0c171c2aadfd0cbc80d5cf036087b6a94fabbbe0e441e60c68b8c690943e38",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/proxy_proc.py",
+      "sha256": "4dea5d9373197c5ded83b22e1144cc01350bfc19ec10a986c26f17f2724992dd",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/round.py",
+      "sha256": "4266f0cd20d78218802bcef2048b89d0c8d668f28df2ba2953b9c576557a14e5",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/roundcore.py",
+      "sha256": "705a01b48f00fba71f9fde8dd98bb0b22ac0711ae7245c5503287ea4c0708255",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/shmregion.py",
+      "sha256": "b29b5a13c6ecdfe92d3d0315eedc6b28b0a74adefbd2da79819cfd6129d583dd",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/speculator.py",
+      "sha256": "bd9ea9301934b7ff70196274ab173c5f21ec0e45024bcd7b4f3e64cdc4a65b10",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/state.py",
+      "sha256": "647b887e432911f81aee8adf153d9240e58dffc5140cbdbda17de288d3fb6d62",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/stats.py",
+      "sha256": "9a58853a6254614918d0d2b2756cbca7e3d41ecae7c7b37c7d85a96959e20e61",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/streamsync.py",
+      "sha256": "4d26e408f562659ed143405ef6e8977fcbda6735e192c941fa023db3cdc46cab",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/suffix_provenance.py",
+      "sha256": "f45966212bdb01ad71b219a8a97082c58b3074af9c1edbb9679c070d791c2c22",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/transport.py",
+      "sha256": "4b59d0764cb364103a2e3cb3ddf2b04108891a092a0269edd1d3e24be5e4977b",
+      "image_base_sha256": null
+    },
+    {
+      "path": "offload/dspark/spark/remote_dspark/wire.py",
+      "sha256": "bdcf6340f8f42fca4940889e18d3a80b652342e82eaa887dd25a29c47778ec2a",
+      "image_base_sha256": null
+    },
+    {
+      "path": "vllm/models/deepseek_v41/attention.py",
+      "sha256": "3b7d3c00a84c154c0e54af5b66724a1abf9208232e8b4c9262fc19b3b0e29074",
+      "image_base_sha256": "91983486fc3504ae183e8bfc79c18354cca86ba4f8633b16b2afab7c5a39798f"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+      "sha256": "46554939227f051a2afeea16e66f30cb217a2cb7777205eb5e15f6d0dd5dc6ed",
+      "image_base_sha256": "a3f81abbab1f507e441176222578f90056e6b4bc0063bb36681c230a84b3d969"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+      "sha256": "cc5ca7868f3d8067114ce46caf20795ab5a797d827c86ac0c9a17fc65846621d",
+      "image_base_sha256": null
+    },
+    {
+      "path": "vllm/models/deepseek_v41/common/ops/swa_fused.py",
+      "sha256": "3deeeb8cd82b49acaa405bff7a1827c97984ea12e75c71af5986cdc46f1bc5be",
+      "image_base_sha256": null
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/dspark.py",
+      "sha256": "46a4467bbb2171a860cc46041eafea14ee18c81be5f97a310def60b5d77f7b29",
+      "image_base_sha256": "3fe3c4942f496e65f7e7b6265d1e064af95ceb21f5680b991630deefd1a75e9a"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+      "sha256": "0b45a382234c4311c068d50a775bdff5314e13e9b25cad1bbb03ca21dbdcbb09",
+      "image_base_sha256": "7dc15a16043820329a6e5150c85dd7ebe707f14e8130879d2b9474d7ea65671c"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/model.py",
+      "sha256": "bc3aa8b06ff40c65e93f31e11c3cad38fcb4fb6425946e61829f041bac283d3f",
+      "image_base_sha256": "66005a8edde825612bbb9e041a5a218132cf97123bba9b401890122de6314a89"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/nvidia/model_state.py",
+      "sha256": "1e0ce91d2a810255b287e44d7e9f3c8f996c5cd32f00e20f0910bb93bdad069f",
+      "image_base_sha256": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec"
+    },
+    {
+      "path": "vllm/models/deepseek_v41/replay_skip.py",
+      "sha256": "cc6dcd79884d6726cd3b8cd0bd13f263408bd95289c2303dc823423a6b922b65",
+      "image_base_sha256": null
+    },
+    {
+      "path": "vllm/v1/attention/backends/mla/sparse_swa.py",
+      "sha256": "1995997b763d57fcbb4b1028dc6f5831dd26294d6911a4c485801856f2321173",
+      "image_base_sha256": "3585df3b635ac26ce6820e202bfd4e619eaa7142c84929bd445dd12e2090aafb"
+    },
+    {
+      "path": "vllm/v1/core/kv_cache_utils.py",
+      "sha256": "e47c5af891544772ca3ab2a63d4e689f685afaae75f7f13904b9173424a0c4ed",
+      "image_base_sha256": "6cd5a3def8f7c9af4006e4c7f9302b160413e8ee049d278ed4edf62215338f1f"
+    },
+    {
+      "path": "vllm/v1/core/sched/scheduler.py",
+      "sha256": "bff8b59438a839f1e4023166d9c2462b2468bc9c56a623f696b0be24f1a4e616",
+      "image_base_sha256": "54beb2a2060941c2747e5906d694e4495e333adf50cd990b56a54622cd1bdf97"
+    },
+    {
+      "path": "vllm/v1/kv_cache_interface.py",
+      "sha256": "36ebd7e679c0771a5568026dc530546a0e7ce2ec85e8eeec29a50cf00f6c8755",
+      "image_base_sha256": "ba1501273333a1f6dc2446f92b029f2f1b1efb24971cf0dbfa0114f68c3d84c6"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/dsv41_memprobe.py",
+      "sha256": "cce01329665cc3f6eef04745d5c8bcb9bdc99ff5768899c9a9d74baaf263bd64",
+      "image_base_sha256": null
+    },
+    {
+      "path": "vllm/v1/worker/gpu/input_batch.py",
+      "sha256": "056f7eec511c71f25f82e6acb660fa5f405615efbf6d096ec8753f2f1c91462f",
+      "image_base_sha256": "96163c486368f2cf0e539fe68eaa06f4df3ac814da8f7a92af2b04242e01bc6d"
+    },
+    {
+      "path": "vllm/v1/worker/gpu/model_runner.py",
+      "sha256": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+      "image_base_sha256": "af9be025ff8a17a5aabd452fc3e4b987abe64fb28d852c569e1372d6f1e4d3a6"
+    },
+    {
+      "path": "vllm/v1/worker/utils.py",
+      "sha256": "163c6d58f4dc7bc83672ff93a2e4786666672b73c2dec9ee1b6e6521c70528e5",
+      "image_base_sha256": "da97907a4a3906ff49349c45dcc8a888a3a8154ed11c501fe2f1878f37c4f0e1"
+    },
+    {
+      "path": "vllm_exl3_moe/forward.py",
+      "sha256": "c06ba9b66e6349fc4c0bad93a74e62c22d489f1a9d54596a5d10fd0fcb7c8966",
+      "image_base_sha256": "a51528643c2ec738861be0ed37e2cc1900cc69d48d5cd7c5b19aa24d02e6726c"
+    },
+    {
+      "path": "vllm_exl3_moe/smoe.py",
+      "sha256": "954976235fb0064204112b4b5388a6b04a1f0ebf092bf6ce6666584ac99b1497",
+      "image_base_sha256": "18847316806a0e98bced46f262c9ee3b3164b366a6a461c8688ddc9ea1a43b8a"
+    },
+    {
+      "path": "vllm_exl3_moe/tf_experts.py",
+      "sha256": "bde1d0b48b87394aeff364ac51d6bab209d21c422690e557778fa81c5922024d",
+      "image_base_sha256": "a74af3c58af8fd772caed04837f887247dc6ba1b9487418e3bca9af6029faabb"
+    },
+    {
+      "path": "vllm_exl3_moe/tf_prompt.py",
+      "sha256": "8d66ae29656575b1ab38a6b7a8fa03d9bc4cc2b10565efdc966af07b30268456",
+      "image_base_sha256": "e029add94af8ba593d8b9929c182a7df28e6abd6a7643da6b17527e27df10a99"
+    }
+  ],
+  "qualification": "CPU source composition and syntax only; no CUDA/JIT/GB10 execution or speed claim"
+}
