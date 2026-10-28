@@ -1,0 +1,380 @@
+diff --git a/offload/launch/OPERATIONS.md b/offload/launch/OPERATIONS.md
+new file mode 100644
+index 0000000..f2a0cd3
+--- /dev/null
++++ b/offload/launch/OPERATIONS.md
+@@ -0,0 +1,88 @@
++# Startup warm-up (OPS1, reviewed patch; not deployed)
++
++The old helper requested 32 tokens but did not require them. MEASURED:
++`/opt/dsv41/campaigns/DSV41-OFFLOAD/K1-production/start.log` records
++5.629 s, 5,041 prompt tokens and **1 completion token**. Its raw completion
++request has effective explicit max=32, default min=0, ignore_eos=false, no
++explicit stop. The installed completion protocol merges generation-config
++stop IDs. EOS or a default stop is a plausible explanation, **not a confirmed
++cause**: the old helper discarded finish_reason, stop_reason, text and metrics.
++
++Read-only `docker logs` on sparkhead (container started 20:46:08Z on October 23)
++confirms deepseek_v41 tokenizer, reasoning and tool parsers, TP2 target,
++max_model_len 327680, max_num_seqs 4, max_num_batched_tokens 4096, speculative
++k=5 for B1/B2 and k=4 for B3/B4, process proxy and remote pair connection.
++Raw `/v1/completions` does not apply chat templating or invoke chat reasoning/
++tool output parsers. The old response's raw token IDs, EOS/stop reason,
++reasoning count and attributable worker-round count are **unavailable**.
++Completion usage is not visible-answer usage or a worker-round count. Do not
++infer any of them from the nominal 32-token budget or unrelated request logs.
++
++The local read-only engine snapshot supports min_tokens and ignore_eos in
++`vllm/entrypoints/openai/completion/protocol.py:to_sampling_params`, and exposes
++finish_reason/stop_reason from the actual RequestOutput in completion/serving.py.
++Per-request speculative metrics are emitted only when enabled in the engine;
++missing metrics and reasoning counts are reported as null, never zero.
++
++## Patch and limits
++
++`warmup_serve.sh` keeps the current start.sh interface; its new stdlib-only
++`warmup.py` issues internal raw completions with **min=max=32**, ignore_eos=true,
++no explicit stops, greedy sampling, priority 20. The current main start.sh
++already invokes the wrapper after async startup. No start.sh/env edit or server
++sampling-default change is needed. Its one-token response is now an error,
++with sanitized counts and finish/stop reasons. Generated text/IDs are never
++printed or saved. There is no separate hidden reasoning budget: at most 32
++completion tokens per request, including any reasoning-like continuation.
++
++Four bounded waves request B1/B2/B3/B4 (ten requests, 320 completion tokens
++maximum). B1 has a unique synthetic prefix and roughly the previous 5K size
++(ESTIMATED); returned prompt count must exceed4096 and reported cached count
++must be zero. B2/B3/B4 use short synthetic prompts, so long serial prefills do
++not consume the whole32-token decode interval before other streams can join.
++Barrier-released clients target both live depth bands. Client concurrency is
++**not proof of engine batch shape**: request completion skew, chunked prefill
++and adaptive verification can produce smaller shapes or tail rows. Long-context
++attention, every verification depth and future B6/B8 are not covered by this
++startup sequence. HTTP socket timeout is 60 s per operation; the existing
++startup supervisor remains the overall bound. Ten minimum-token requests can
++extend startup; recheck the K1 outer startup allowance before applying.
++
++Before every wave, both request gauges must exist and be zero, otherwise the
++helper refuses. This is an additional guard, not a producer lock or a
++preemption guarantee. Coordinator must keep D2/local-law and other producers
++paused behind HOLD throughout startup and warm-up. An already submitted wave
++has a bounded token budget; no later wave starts if other work remains.
++The main caller preserves its existing WARN-on-failure behavior, so inspect
++warm-up completion records before releasing HOLD; service readiness alone does
++not establish warm-up success.
++
++## Qualification / application (coordinator only)
++
++1. Review/cherry-pick this item from offload/ops1 into the intended production
++   branch. This lane did not deploy, request, restart or benchmark anything.
++   Preserve K1's saved dsv41.env/start.sh hashes; this patch changes neither.
++2. CPU: `CUDA_VISIBLE_DEVICES='' python3 -m unittest discover -s offload/launch/tests -p test_warmup.py -v`;
++   `bash -n offload/launch/warmup_serve.sh`.
++3. In the next exclusive startup window, save fresh x86host worker status and
++   proxy counters **before** warm-up and immediately **after** it, with matching
++   pid/session, timestamps and no foreign traffic. Worker `steps` delta measures
++   actual worker RPC steps; `drafted_requests` delta counts per-request proposals.
++   Engine per-request `num_spec_steps` is a verification boundary, not necessarily
++   a worker RPC boundary. Do not mix them or rely on the proxy's 1024-round
++   periodic stats to resolve a 32-token request. Missing/stale data leaves that
++   check incomplete. Existing status is written on a timer; wait for a fresh
++   timestamp before reading each snapshot.
++4. Require all ten responses to return completion_tokens=32, finish_reason=length,
++   stop_reason=null; record actual prompt counts and cached tokens separately.
++   Correlate worker graph `(B,k,n_out)` and target verify-row dispatch/capture
++   records for B1/B2 k5 and B3/B4 k4, including smaller acceptance tails. If shapes
++   are not observed, add a bounded coordinator-only shape test; do not lengthen
++   hidden reasoning or claim the wave size proves capture coverage.
++5. Compare the first subsequent short/32K request and B3/B4 burst with later
++   warm bursts (TTFT, visible-answer timing, worker rounds, failure/watchdog
++   deltas). Existing semantics/greedy regressions still apply. Reject startup
++   timeout regressions. Keep long-prefill first-use qualification separate.
++6. Roll back only `offload/launch/warmup_serve.sh` and the added helper to the
++   parent revision if needed; K1 manage.py restore and service changes are
++   coordinator-only and not part of this patch.
+diff --git a/offload/launch/tests/test_warmup.py b/offload/launch/tests/test_warmup.py
+new file mode 100644
+index 0000000..845258d
+--- /dev/null
++++ b/offload/launch/tests/test_warmup.py
+@@ -0,0 +1,105 @@
++"""CPU-only request/early-stop and no-output-disclosure regressions."""
++from __future__ import annotations
++
++from contextlib import redirect_stdout
++import importlib.util
++import io
++import json
++from pathlib import Path
++import unittest
++from unittest.mock import patch
++
++SPEC = importlib.util.spec_from_file_location("warmup", Path(__file__).parents[1] / "warmup.py")
++assert SPEC and SPEC.loader
++warmup = importlib.util.module_from_spec(SPEC)
++SPEC.loader.exec_module(warmup)
++
++
++def reply(count: int = 32, reason: str = "length") -> str:
++    return json.dumps({"usage": {"prompt_tokens": 5041, "completion_tokens": count},
++                       "choices": [{"text": "DO NOT DISCLOSE", "finish_reason": reason,
++                                    "stop_reason": None}]})
++
++
++class WarmupTest(unittest.TestCase):
++    def test_internal_budget(self) -> None:
++        body = warmup.payload('quoted"model', "salt", 1, 0)
++        self.assertEqual(json.loads(json.dumps(body)), body)
++        self.assertEqual(body["min_tokens"], body["max_tokens"])
++        self.assertTrue(body["ignore_eos"])
++        self.assertEqual(body["priority"], 20)
++        self.assertNotIn("messages", body)
++
++    def test_one_token_and_wrong_reason_fail(self) -> None:
++        for raw in (reply(1, "stop"), reply(32, "stop"), '{"error": "DO NOT DISCLOSE"}'):
++            with self.assertRaises(ValueError) as err:
++                warmup.summary(raw)
++            self.assertNotIn("DO NOT DISCLOSE", str(err.exception))
++
++    def test_missing_metrics_are_unknown(self) -> None:
++        record = warmup.summary(reply())
++        self.assertIsNone(record["speculative_metrics"])
++        self.assertIsNone(record["reasoning_tokens"])
++        self.assertNotIn("DO NOT DISCLOSE", json.dumps(record))
++
++    def test_decode_waves_do_not_serialize_long_prefills(self) -> None:
++        long = warmup.payload("test", "salt", 1, 0)
++        short = warmup.payload("test", "salt", 4, 0)
++        self.assertGreater(len(str(long["prompt"])), 20000)
++        self.assertLess(len(str(short["prompt"])), 200)
++
++    def test_report_actual_spec_counts_without_text(self) -> None:
++        data = json.loads(reply())
++        data["metrics"] = {"speculative_decoding": {"num_spec_steps": 12,
++                           "num_accepted_draft_tokens": 19, "num_draft_tokens": 60}}
++        data["usage"]["prompt_tokens_details"] = {"cached_tokens": 0}
++        result = warmup.summary(json.dumps(data))
++        self.assertEqual(result["speculative_metrics"]["num_spec_steps"], 12)
++        self.assertEqual(result["cached_tokens"], 0)
++
++    def test_idle_fails_closed(self) -> None:
++        for raw in ("", "vllm:num_requests_running 0", "vllm:num_requests_running NaN\nvllm:num_requests_waiting 0",
++                    "vllm:num_requests_running 1\nvllm:num_requests_waiting 0"):
++            with self.assertRaises(ValueError):
++                warmup.idle(raw)
++
++    def test_all_shapes_without_network(self) -> None:
++        bodies: list[dict[str, object]] = []
++
++        def read(path: str, body: dict[str, object] | None) -> str:
++            if body is None:
++                self.assertEqual(path, "/metrics")
++                return 'vllm:num_requests_running{model_name="test"} 0\nvllm:num_requests_waiting 0'
++            bodies.append(body)
++            return reply()
++
++        output = io.StringIO()
++        with patch.object(warmup, "urlopen", side_effect=AssertionError("network forbidden")), redirect_stdout(output):
++            warmup.run("test", read)
++        self.assertEqual(len(bodies), 10)
++        self.assertEqual(len({str(body["prompt"]) for body in bodies}), 10)
++        self.assertEqual([json.loads(line)["requested_concurrency"] for line in output.getvalue().splitlines()], [1, 2, 3, 4])
++        self.assertNotIn("DO NOT DISCLOSE", output.getvalue())
++
++    def test_foreign_work_stops_before_post(self) -> None:
++        def read(path: str, body: dict[str, object] | None) -> str:
++            self.assertIsNone(body)
++            return "vllm:num_requests_running 1\nvllm:num_requests_waiting 0"
++        with self.assertRaises(ValueError):
++            warmup.run("test", read)
++
++    def test_long_prefill_requires_real_uncached_full_chunk(self) -> None:
++        for prompt_tokens, cached_tokens in ((4096, 0), (5041, 64)):
++            def read(path: str, body: dict[str, object] | None) -> str:
++                if body is None:
++                    return "vllm:num_requests_running 0\nvllm:num_requests_waiting 0"
++                data = json.loads(reply())
++                data["usage"]["prompt_tokens"] = prompt_tokens
++                data["usage"]["prompt_tokens_details"] = {"cached_tokens": cached_tokens}
++                return json.dumps(data)
++            with self.assertRaises(ValueError):
++                warmup.run("test", read)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/offload/launch/warmup.py b/offload/launch/warmup.py
+new file mode 100644
+index 0000000..9ac6dd2
+--- /dev/null
++++ b/offload/launch/warmup.py
+@@ -0,0 +1,134 @@
++"""Bounded, aggregate-only internal warm-up; importing this module sends nothing."""
++from __future__ import annotations
++
++import argparse
++from concurrent.futures import ThreadPoolExecutor
++import json
++import math
++import re
++from threading import Barrier
++import time
++from typing import Callable, cast
++from urllib.request import Request, urlopen
++import uuid
++
++BUDGET = 32
++SHAPES = (1, 2, 3, 4)
++TIMEOUT = 60
++Reader = Callable[[str, dict[str, object] | None], str]
++
++
++def obj(value: object) -> dict[str, object]:
++    if not isinstance(value, dict):
++        raise ValueError("expected JSON object")
++    return cast(dict[str, object], value)
++
++
++def payload(model: str, salt: str, wave: int, index: int) -> dict[str, object]:
++    # Distinct prefix per stream avoids warming only a cached suffix. Raw
++    # completion bypasses chat/reasoning/tool parsers, with at most 32 tokens.
++    prompt = f"Internal startup {salt} wave {wave} stream {index}.\n"
++    prompt += "".join(
++        f"Paragraph {i}. The system reads a numbered record and checks each entry against its stored value. "
++        for i in range(240 if wave == 1 else 1)
++    )
++    return {"model": model, "prompt": prompt, "temperature": 0, "n": 1,
++            "max_tokens": BUDGET, "min_tokens": BUDGET, "ignore_eos": True,
++            "stop": [], "stop_token_ids": [], "stream": False, "priority": 20}
++
++
++def summary(raw: str) -> dict[str, object]:
++    data = obj(json.loads(raw))
++    usage = obj(data.get("usage"))
++    count = usage.get("completion_tokens")
++    choices = data.get("choices")
++    if not isinstance(choices, list) or len(choices) != 1:
++        raise ValueError("warm-up requires exactly one completion per request")
++    choice = obj(choices[0])
++    reason = choice.get("finish_reason")
++    stop = choice.get("stop_reason")
++    # Never print text, token IDs, arbitrary error bodies or unexpected strings.
++    result: dict[str, object] = {
++        "prompt_tokens": usage.get("prompt_tokens"), "completion_tokens": count,
++        "cached_tokens": obj(usage.get("prompt_tokens_details") or {}).get("cached_tokens"),
++        "finish_reason": reason if reason in ("length", "stop") else "unexpected",
++        "stop_reason": stop if type(stop) is int or stop is None else "string-present",
++        "reasoning_tokens": obj(usage.get("completion_tokens_details") or {}).get("reasoning_tokens"),
++        "parser": "raw-completion; no chat/reasoning/tool parser",
++    }
++    metrics = obj(data.get("metrics") or {})
++    spec = obj(metrics.get("speculative_decoding") or {})
++    # Installed fork may omit per-request metrics. Missing is UNKNOWN, never 0.
++    result["speculative_metrics"] = {
++        key: value for key, value in spec.items()
++        if re.fullmatch(r"[a-z_]+", key) and type(value) in (int, float)
++        and math.isfinite(cast(float, value))
++    } or None
++    if type(count) is not int or count != BUDGET or reason != "length" or stop is not None:
++        raise ValueError("warm-up output contract failed: " + json.dumps(result, sort_keys=True))
++    return result
++
++
++def idle(raw: str) -> None:
++    for name in ("vllm:num_requests_running", "vllm:num_requests_waiting"):
++        values = []
++        for line in raw.splitlines():
++            fields = line.split()
++            if len(fields) >= 2 and fields[0].split("{")[0] == name:
++                values.append(float(fields[1]))
++        if not values or any(not math.isfinite(v) or v != 0 for v in values):
++            raise ValueError(f"warm-up refused: {name} missing, invalid or nonzero")
++
++
++def run(model: str, read: Reader) -> None:
++    salt = uuid.uuid4().hex
++    for size in SHAPES:
++        idle(read("/metrics", None))
++        gate = Barrier(size)
++
++        def one(index: int) -> dict[str, object]:
++            request = payload(model, salt, size, index)
++            gate.wait(timeout=5)
++            result = summary(read("/v1/completions", request))
++            if size == 1:
++                tokens = result["prompt_tokens"]
++                if type(tokens) is not int or tokens <= 4096:
++                    raise ValueError("warm-up did not exercise full+partial 4096-token prefill")
++                cached = result["cached_tokens"]
++                if cached is not None and cached != 0:
++                    raise ValueError("warm-up long prefill unexpectedly reused cached tokens")
++            return result
++
++        start = time.monotonic()
++        with ThreadPoolExecutor(max_workers=size) as pool:
++            results = list(pool.map(one, range(size)))
++        print(json.dumps({"warmup": "completed", "requested_concurrency": size,
++                          "actual_graph_shapes": "requires engine/worker trace; not inferred",
++                          "elapsed_s": round(time.monotonic() - start, 3),
++                          "requests": results}, sort_keys=True), flush=True)
++
++
++def main() -> None:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--port", type=int, default=8000)
++    parser.add_argument("--model", required=True)
++    args = parser.parse_args()
++    if not 1 <= args.port <= 65535:
++        parser.error("invalid port")
++
++    def read(path: str, body: dict[str, object] | None) -> str:
++        request = Request(f"http://localhost:{args.port}{path}",
++                          data=None if body is None else json.dumps(body).encode(),
++                          headers={"Content-Type": "application/json"})
++        with urlopen(request, timeout=TIMEOUT) as response:
++            return response.read(1 << 20).decode()
++
++    try:
++        run(args.model, read)
++    except Exception as exc:
++        # HTTP error strings contain status, not the response body/prompt.
++        parser.exit(1, f"warm-up FAILED ({type(exc).__name__}): {exc}\n")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/offload/launch/warmup_serve.sh b/offload/launch/warmup_serve.sh
+index cde8c85..29b302f 100755
+--- a/offload/launch/warmup_serve.sh
++++ b/offload/launch/warmup_serve.sh
+@@ -1,26 +1,8 @@
+ #!/usr/bin/env bash
+-# One warm-up request once the serve answers (R3-PROMOTE; configuration D-async keeps CUDA_MODULE_LOADING=LAZY because
+-# EAGER costs ~18 min per start). The first request after a start pays the lazy module loads of the kernels it is the
+-# first to use (window 4, COMPARISON.md: 0.55 s on a short request, ~1.1 s at 32K). This request pays them instead: a
+-# ~6,000-token prompt (one full 4,096-token prefill chunk and a partial one) and 32 greedy tokens (decode, the remote
+-# draft round, the proxy process's first rounds). The output is discarded; the elapsed time is printed.
+-#   offload/launch/warmup_serve.sh [port] [served-model-name]     (defaults: PORT / SERVED from dsv41.env)
+-# start.sh runs it after serve.sh when OFFLOAD_DSPARK_ENV sets VLLM_DSPARK_REMOTE_ASYNC=1; a failure is a warning there.
++# Internal startup requests only. The coordinator holds/drains producers first.
++# No changes to server defaults or production sampling. See OPERATIONS.md.
+ set -euo pipefail
+ cd "$(dirname "$0")/../.."
+ if [ -f dsv41.env ]; then set -a; . ./dsv41.env; set +a; fi
+-port=${1:-${PORT:-8000}}
+-model=${2:-${SERVED:?served model name (argument 2 or SERVED in dsv41.env)}}
+-base=http://localhost:$port
+-curl -sf -m 10 "$base/v1/models" >/dev/null || { echo "warm-up: no serve answering on :$port" >&2; exit 1; }
+-text=""
+-for i in $(seq 1 240); do
+-  text+="Paragraph $i. The court considers the record before it, the testimony of each witness and the exhibits. "
+-done
+-payload=$(printf '{"model": "%s", "prompt": "%s", "max_tokens": 32, "temperature": 0}' "$model" "$text")
+-t0=$(date +%s%N)
+-out=$(curl -sf -m 600 -H 'Content-Type: application/json' -d "$payload" "$base/v1/completions") \
+-  || { echo "warm-up: the request failed" >&2; exit 1; }
+-ms=$(( ($(date +%s%N) - t0) / 1000000 ))
+-usage=$(printf '%s' "$out" | grep -o '"prompt_tokens": *[0-9]*\|"completion_tokens": *[0-9]*' | tr -d ' "' | tr '\n' ' ')
+-echo "warm-up request: $((ms / 1000)).$(printf %03d $((ms % 1000))) s (${usage:-no usage in the reply})"
++exec python3 offload/launch/warmup.py --port "${1:-${PORT:-8000}}" \
++  --model "${2:-${SERVED:?served model name (argument 2 or SERVED)}}"

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+deepseek-v41-1017-dgx-spark/
+data/*.jsonl
+logs/
+HOLD

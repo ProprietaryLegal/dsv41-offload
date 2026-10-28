@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/deepseek-ai/DeepSpec",
+  "revision": "005e03b81cec38b7da6399833d609ee89a2587f2",
+  "files": [
+    {
+      "path": "deepspec/modeling/dspark/loss.py",
+      "sha256": "2e91efcaff780eec0748ef3f6f0a31374f119f609c664cc79289fdd922335328"
+    },
+    {
+      "path": "config/dspark/dspark_qwen3_4b.py",
+      "sha256": "ee3305068f63da2911f2a11a62ba6563b45ef9e8767219d29c3ea4357520de47"
+    },
+    {
+      "path": "deepspec/eval/dspark/draft_ops.py",
+      "sha256": "9d07a301fa643ee3b558a093647ff3db2918a47c96267d3546081eb9df44b799"
+    }
+  ]
+}

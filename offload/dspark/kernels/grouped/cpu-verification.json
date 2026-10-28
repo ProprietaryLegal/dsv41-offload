@@ -1,0 +1,8 @@
+{
+  "complete": true,
+  "tensors": 1177,
+  "experts": 1152,
+  "n1_formats_sha256": "7af5205b0feec1f96b22b68a42aa219cf8f836350fe01630d2998de3580b7f8d",
+  "all_reference_bit_exact": true,
+  "all_native_bf16_fp16_exact": true
+}
