@@ -1,0 +1,168 @@
+--- a/vllm/model_executor/layers/sparse_attn_indexer.py
++++ b/vllm/model_executor/layers/sparse_attn_indexer.py
+@@ -425,6 +425,7 @@
+     candidate_block_size: int = 0,
+     candidate_write: bool = False,
+     topk_backend: str = "auto",
++    tv1_layer: int = -1,
+ ) -> torch.Tensor:
+     # careful! this will be None in dummy run
+     forward_context = get_forward_context()
+@@ -821,6 +822,27 @@
+                 decode_metadata.schedule_metadata,
+                 max_model_len,
+             )
++        elif (
++            __import__("os").environ.get("VLLM_TV1_CANDIDATE", "0") == "1"
++            and candidate_blocks is not None and not candidate_write
++            and not needs_padded_path and decode_metadata.indices is None
++            and num_decode_tokens > 0
++        ):
++            if use_fp4_cache or dcp_world_size != 1 or use_pcp:
++                raise ValueError("TV1 candidate scorer requires replicated FP8 indexer")
++            from vllm_exl3_moe.tv1_candidate_metadata import score_decode, check_actual
++            logits = score_decode(
++                padded_q_quant_cast, kv_cache, weights[:num_padded_tokens],
++                seq_lens, decode_metadata.block_table, candidate_blocks,
++                max_model_len, candidate_block_size,
++            )
++            check_actual(
++                logits, padded_q_quant_cast, kv_cache, weights, seq_lens,
++                decode_metadata.block_table, candidate_blocks,
++                decode_metadata.schedule_metadata, max_model_len,
++                attn_metadata_narrowed.max_seq_len, tv1_layer,
++                decode_metadata.per_req_decode_lens.shape[0], topk_tokens, topk_backend,
++            )
+         else:
+             logits = fp8_fp4_paged_mqa_logits(
+                 (padded_q_quant_cast, padded_q_scale),
+@@ -927,6 +949,7 @@
+     candidate_block_size: int = 0,
+     candidate_write: bool = False,
+     topk_backend: str = "auto",
++    tv1_layer: int = -1,
+ ) -> torch.Tensor:
+     return topk_indices_buffer
+ 
+@@ -1106,6 +1129,12 @@
+             candidate_block_size=self.candidate_block_size,
+             candidate_write=self.candidate_write,
+             topk_backend=self.topk_backend,
++            tv1_layer=(
++                __import__("vllm_exl3_moe.tv1_candidate_metadata", fromlist=["consumer_layer"]).consumer_layer(self)
++                if __import__("os").environ.get("VLLM_TV1_CANDIDATE", "0") == "1"
++                and self.candidate_blocks is not None and not self.candidate_write
++                else -1
++            ),
+         )
+ 
+     def forward_xpu(
+--- a/vllm/v1/worker/gpu/model_runner.py
++++ b/vllm/v1/worker/gpu/model_runner.py
+@@ -19,5 +19,6 @@
+ import functools
+ import gc
++import os
+ import time
+ from contextlib import AbstractContextManager
+ from copy import deepcopy
+@@ -1378,8 +1379,25 @@
+                 (prefill_runs_as_decode_np | ~is_prefilling_np).all()
+             )
+ 
++        # TV1 preserves the scheduler's reservation for CPU rollback. Actual GPU
++        # query/logit/rejection counts shrink as one per-request causal prefix.
++        tv1_compacted = False
++        if (os.environ.get("VLLM_TV1_COMPACT", "0") == "1" and draft_tokens
++                and not has_prefill and not scheduler_output.has_structured_output_requests):
++            from vllm.distributed import get_tp_group
++            from vllm_exl3_moe.tv1_compact import compact_counts
++            assert num_draft_tokens_np is not None
++            chosen = self.tv1_compact.choose(req_ids, num_draft_tokens_np,
++                                            lambda t: get_tp_group().broadcast(t, src=0))
++            num_scheduled_tokens = compact_counts(num_scheduled_tokens, num_draft_tokens_np, chosen)
++            tv1_compacted = bool(np.any(chosen != num_draft_tokens_np))
++            num_draft_tokens_np = chosen
++            num_toks = int(num_scheduled_tokens.sum())
++            max_query_len = int(num_scheduled_tokens.max())
++
+         batch_state = BatchReqState(
+             req_ids=req_ids,
++            tv1_compacted=tv1_compacted,
+             num_scheduled_tokens=num_scheduled_tokens,
+             num_tokens=num_toks,
+             num_draft_tokens_np=num_draft_tokens_np,
+@@ -1814,6 +1832,24 @@
+                     scheduler_output, empty_output
+                 )
+ 
++        # TV1: a separate, opt-in confidence-only compact verifier. Never profile
++        # a local draft estimator in remote capacity mode. Default path is unchanged.
++        if not dummy_run and os.environ.get("VLLM_TV1_COMPACT", "0") == "1":
++            if not hasattr(self, "tv1_compact"):
++                from vllm_exl3_moe.tv1_compact import CompactWidths, require_depth_policy
++                require_depth_policy(self.depth_policy)
++                if (self.pcp_manager is not None or self.dcp_size != 1 or self.dp_size != 1
++                        or self.pp_handler is not None or self.adaptive_verification is not None
++                        or self.lora_config is not None
++                        or getattr(self, "batch_sharder", None) is not None
++                        or self.speculator is None
++                        or self.speculator.__class__.__name__ != "RemoteDSparkCapacitySpeculator"):
++                    raise ValueError("TV1 compact requires remote capacity TP, no CP/DP/PP/LoRA/batch sharding")
++                self.tv1_compact = CompactWidths(self.device, float(os.environ.get("VLLM_TV1_COMPACT_TAU", "0.5")))
++            self.tv1_compact.forget(scheduler_output.finished_req_ids)
++            self.tv1_compact.forget(scheduler_output.preempted_req_ids or ())
++            self.tv1_compact.forget(r.req_id for r in scheduler_output.scheduled_new_reqs)
++
+         # Get batch descriptor and sync across DP ranks.
+         num_reqs = len(scheduler_output.num_scheduled_tokens)
+         num_toks = scheduler_output.total_num_scheduled_tokens
+@@ -1846,6 +1882,17 @@
+             # when encoder inputs are scheduled, because this step updates
+             # cross-attention cache with dynamic encoder outputs.
+             skip_compiled = True
++
++        # Candidate qualification must see real eager metadata even when the
++        # production dispatcher would replay a FULL graph. Checked buckets
++        # immediately resume the unchanged graph dispatcher before timing.
++        if (not dummy_run and os.environ.get("VLLM_TV1_CANDIDATE", "0") == "1"
++                and batch_req_state is not None and not batch_req_state.has_prefill):
++            from vllm_exl3_moe.tv1_candidate_metadata import needs_eager_qualification
++            idx = batch_req_state.idx_mapping_np
++            tv1_max_seq_len = int((self.req_states.num_computed_tokens_np[idx]
++                                  + batch_req_state.num_scheduled_tokens).max())
++            skip_compiled = skip_compiled or needs_eager_qualification(num_reqs, tv1_max_seq_len)
+ 
+         if short_ctx.BOUNDS:
+             # Short-context twins (short_ctx.py): the batch's longest sequence after
+@@ -1871,7 +1918,9 @@
+             self.dp_size,
+             self.dp_rank,
+             max_query_len=max_query_len,
+-            need_eager=is_profile or skip_compiled,
++            need_eager=is_profile or skip_compiled or (
++                batch_req_state is not None and batch_req_state.tv1_compacted
++            ),
+             num_active_loras=num_active_loras,
+             parallel_config=self.parallel_config,
+             allow_ubatching=(
+@@ -2402,6 +2451,11 @@
+                     lookup_from=lookup_from,
+                 )
+ 
++        if (os.environ.get("VLLM_TV1_COMPACT", "0") == "1" and self.speculator is not None
++                and hasattr(self, "tv1_compact")):
++            self.tv1_compact.record(input_batch.req_ids,
++                self.speculator.draft_token_confidence_probs[:input_batch.num_reqs])
++
+         if self.num_speculative_steps > 0:
+             # Spec-decode and diffusion LLMs both use draft tokens but the latter does
+             # not have a speculator (i.e. self.speculator is None)
+@@ -2571,6 +2625,7 @@
+     has_prefill: bool
+     prefill_runs_as_decode_np: np.ndarray | None  # [num_reqs]
+     decode_graph_eligible: bool
++    tv1_compacted: bool = False
+ 
+ 
+ def sort_batch_req_ids(

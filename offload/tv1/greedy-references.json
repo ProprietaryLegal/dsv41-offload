@@ -1,0 +1,36 @@
+{
+  "source": "/opt/dsv41/campaigns/DSV41-OFFLOAD/K1-production/greedy-post.jsonl",
+  "source_sha256": "9eb09e0765489a74cee5b450d9b44338f4c2b30ccb06ad1c8d9fcd58c95028b5",
+  "references": [
+    {
+      "i": 0,
+      "text_sha256": "66bc6a60c960819280903f3b85152743fa64e90fb29ae755bd389c402dfc4ced",
+      "completion_tokens": 169
+    },
+    {
+      "i": 1,
+      "text_sha256": "fd63e4bb37c7de857627d3057f0dc60e0475b226ce48298636dcf7abe8dc22ef",
+      "completion_tokens": 88
+    },
+    {
+      "i": 2,
+      "text_sha256": "4394a1dbb1dbcf8e6a494970adb107d17628a090b8d9d4bf3abc3ba61c894041",
+      "completion_tokens": 237
+    },
+    {
+      "i": 3,
+      "text_sha256": "087960c3e95bd2450d72a12e084ac946452e8a68d4dd3d8a0d2faf80ea408667",
+      "completion_tokens": 252
+    },
+    {
+      "i": 4,
+      "text_sha256": "578d177295882838a6e0276fce9c6a7e764f5f2718acbeacbe13d41fa2cea294",
+      "completion_tokens": 24
+    },
+    {
+      "i": 5,
+      "text_sha256": "7662ce67d57abc9680d449a1ff508d066e9bb0879a13f6b7c2e7e7125ea05d5f",
+      "completion_tokens": 300
+    }
+  ]
+}

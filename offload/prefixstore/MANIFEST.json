@@ -1,0 +1,72 @@
+{
+  "image": "ghcr.io/henryous/deepseek-v41-1017-dgx-spark:v5",
+  "donor_sha": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+  "patch_fuzz": 0,
+  "k1_manifest_sha256": "559c5867ba42aa7daa7b4a7c8231d15ee1d35be40ae5b715b013f973193c58de",
+  "patches": [
+    {
+      "name": "0056-dsv41-kv-offload-crc.patch",
+      "sha256": "d1073571912d229b65af8c070ee0657ad3caa7cce66aa82af20a19fb06a322e4"
+    },
+    {
+      "name": "0058-dsv41-offload-expandable-segments.patch",
+      "sha256": "6fb50e3a1b0e4dbf92901011599e0b01b546f7b1a2c532b8cbacd4a569e854ed"
+    },
+    {
+      "name": "0077-dsv41-kv-offload-two-nodes.patch",
+      "sha256": "6f818dddd4ecc16bc8e1745914459fd8dbc54a95e19b19bbde2687ac879374e4"
+    },
+    {
+      "name": "0081-dsv41-kv-offload-load-cap.patch",
+      "sha256": "a982833bac6a264b2b119149f283297cdcf61ffa6f2a33c5fcb7f634a07a168a"
+    },
+    {
+      "name": "local/0100-rp1-safety.patch",
+      "sha256": "7eda96950223eeb3ba0cf9afd81ee28221aa0294de36318fea10d25fa16be487"
+    }
+  ],
+  "files": [
+    {
+      "path": "vllm/config/vllm.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/config/vllm.py",
+      "base_sha256": "92e9b31dd01de77aad7b19fc60ae3e6b406f7f902e07da838b6028bb74d3996b",
+      "overlay_sha256": "fc90a9e8e8fc9d79ae70a52a487e9e8df006b71dd5e251d6d131425bfe72e66c"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/config.py",
+      "base_sha256": "59119ba44f4fbc79506d37194c2d4a5007885fa8d469b86e7d661a0f1080bcfc",
+      "overlay_sha256": "0e4e73dfabcea82c30973284a183e23b23b9eae95e156bf0e85d399904c9b837"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "base_sha256": "ca61db86f61b4b2638102ebb04d8a6cf20947203926a31a9f0cccf284ce2bcf8",
+      "overlay_sha256": "1f51e2bfa4f8f370ac5dbfb4f4161243dcec572b1c484f3747cff832b043dbd6"
+    },
+    {
+      "path": "vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py",
+      "base_sha256": "402789c09537e081adef23ef12bf53f572ad883ab299623fc0d83ca0eb297c9f",
+      "overlay_sha256": "0f2cb1597c5a2135b0748f00e197d81a7542788a772615f9780a9ab80f0e9e06"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/io.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/io.py",
+      "base_sha256": "c12156b15a39f928262954e5c2aa7fea1e8b99caf7a596b2e647457bec4a7d33",
+      "overlay_sha256": "26f613b00b0ed05cc69917e5e2f1b4e1e0299596ee5143d58bae0e01cbe3c09d"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/manager.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/manager.py",
+      "base_sha256": "7bbcecd31991ed85a39bc232d9b1a8b78dc43b6c4f345d63bc0d423bcead1e0d",
+      "overlay_sha256": "1f87fb064a4b8dc971e0df9bc19be926e196496baa0c75bcfffbaee132e8af42"
+    },
+    {
+      "path": "vllm/v1/kv_offload/tiering/fs/thread_pool.py",
+      "container_path": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_offload/tiering/fs/thread_pool.py",
+      "base_sha256": "8891ad969658c61a8b902e70d673292bf481504c4b8347b3801b45b257a20cab",
+      "overlay_sha256": "da807568162e24bb01a2011c9547d8477a4684b55c181ff8a9d64a8bbd96bc47"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "vllm/model_executor/layers/sparse_attn_indexer.py": "75d14da5e2b8c237f7fc0a807d2b72677660a945c70d23825da3517801d9ca10",
+  "vllm/v1/worker/gpu/model_runner.py": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+  "vllm_exl3_moe/tv1_candidate.py": "bb0c1018b135e7e7221ce74ad09841954ecbf2ac5c6031b75a78bfd211d3b2fd",
+  "vllm_exl3_moe/tv1_candidate_kernel.py": "570d4c67b5eb1514d354887c6f57a500590d67cc57c0ed07f0319466f5538876",
+  "vllm_exl3_moe/tv1_compact.py": "e7090ffb791b89e675bd7bd5756f07da2a94b8c26006d4163548e823cfb31d2b",
+  "patch:candidate": "a1bcc9fc56a0f72db7f3e0d9bcbd5daaacba12193f06d6288f202e363b17c345",
+  "patch:compact": "a09f6f7a3bc7133933c99d4e7f0fdc03b7a0774eef3420f9e8e2bf01e0e34f8f",
+  "vllm_exl3_moe/tv1_candidate_cases.py": "0798c26283c7b8e5c0e632e0c9c3da296220c553c7bd22230db29ff00406a361",
+  "vllm_exl3_moe/tv1_candidate_metadata.py": "138f075177f179c5d5bae4c382062b459f4a45988c9c68d1beec7e02e4567801",
+  "patch:candidate-compact": "5e5114a26b81fca965a683378016609b9dfa9b7cd5eec39343b1fdec85bd28f8"
+}

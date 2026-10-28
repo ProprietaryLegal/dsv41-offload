@@ -1,0 +1,10 @@
+{
+  "donor": "afe4d5e41ec6fa4db17c5cc88758af439a106913",
+  "bases": {
+    "vllm/models/deepseek_v41/nvidia/model_state.py": "613ad0ff427072d3efc1a032c2da7a8c5aef6cbc1a57fa7f86023506d095c3ec",
+    "vllm/models/deepseek_v41/replay_skip.py": null,
+    "vllm/v1/core/sched/scheduler.py": "54beb2a2060941c2747e5906d694e4495e333adf50cd990b56a54622cd1bdf97",
+    "vllm/v1/worker/gpu/input_batch.py": "96163c486368f2cf0e539fe68eaa06f4df3ac814da8f7a92af2b04242e01bc6d",
+    "offload/dspark/spark/remote_dspark/gather.py": "a0d78da9da86c0e2a48fe221d2be51ae671639b083d88d49aa9251450c619112"
+  }
+}

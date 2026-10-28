@@ -1,0 +1,60 @@
+--- a/vllm/model_executor/layers/sparse_attn_indexer.py
++++ b/vllm/model_executor/layers/sparse_attn_indexer.py
+@@ -1,6 +1,8 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ """Custom Sparse Attention Indexer layers."""
++
++import os
+ 
+ import torch
+ import torch.distributed as dist
+@@ -286,6 +288,29 @@
+     return q_fp8, weights_out
+ 
+ 
++# PF1: keep the legacy layout unless explicitly enabled for a measured A/B.
++_DSV41_INDEXER_REQUEST_WORKSPACE = (
++    os.environ.get("VLLM_DSV41_INDEXER_REQUEST_WORKSPACE", "0") == "1"
++)
++
++
++def _prefill_workspace_rows(reserved_rows: int, chunk_rows: list[int]) -> int:
++    """Host-known maximum gather extent, including query-continuation chunks.
++
++    The profile reservation stays unchanged. All views are made once before
++    the loop so skip_kv_gather continuations reuse the same values AND scales.
++    No device scalar read, reallocation, altered split or changed kernel shape.
++    """
++    if reserved_rows < 0 or any(rows < 0 for rows in chunk_rows):
++        raise ValueError("Indexer prefill workspace row counts must be nonnegative")
++    rows = max(chunk_rows, default=0)
++    if rows > reserved_rows:
++        raise ValueError(
++            f"Indexer prefill gather needs {rows} rows, reservation is {reserved_rows}"
++        )
++    return rows
++
++
+ def _gather_workspace_shapes(
+     total_seq_lens: int,
+     head_dim: int,
+@@ -573,8 +598,17 @@
+         # MXFP4 (head_dim/2 bytes packed + head_dim/MXFP4_BLOCK_SIZE ue8m0
+         # scales) based on use_fp4_cache.
+         workspace_manager = current_workspace_manager()
++        # PF1: on the served TP-only path, use the actual largest gather
++        # for the workspace views and scale offset, independent of model cap.
++        # Keep PCP/DCP and the dummy/profile reservation on the legacy layout.
++        gather_rows = total_seq_lens
++        if _DSV41_INDEXER_REQUEST_WORKSPACE and not use_pcp and dcp_world_size == 1:
++            gather_rows = _prefill_workspace_rows(
++                total_seq_lens,
++                [chunk.max_local_total_seq_lens for chunk in prefill_metadata.chunks],
++            )
+         values_spec, scales_spec = _gather_workspace_shapes(
+-            total_seq_lens, head_dim, fp8_dtype, use_fp4_cache
++            gather_rows, head_dim, fp8_dtype, use_fp4_cache
+         )
+         # PCP + DCP needs two more pairs: the rank-major all-gather destination
+         # and the de-interleaved result.

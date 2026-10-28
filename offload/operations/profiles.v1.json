@@ -1,0 +1,680 @@
+{
+  "schema": "dsv41-production-profiles-v1",
+  "recorded_utc": "2026-10-23",
+  "number_labels": "Capacities/configuration identities are MEASURED in cited campaign evidence or configured contracts, not new performance results. No UPSTREAM/PUBLISHED speed claim is a local measurement.",
+  "shared": {
+    "image_id": "sha256:435a5236ce3a7db9d45f5a2c483817d60ea629c4ea0a0b3af33da2ef8122334b",
+    "engine_reported": "0.31.1.dev0+g6e517b15.dsv41gb10",
+    "target": "/srv/dsv41/legal-v2a",
+    "target_manifest_status": "legal-v2a CANDIDATE_MANIFEST.json is local-only; digest NOT re-read by OPS1 (remote model reads prohibited); alias is not proof",
+    "official_revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+    "quant_revision": "86f852533ec94d1a537fea41fd9c01d6b0f6eb50",
+    "production_worker_current": "fb68c52",
+    "production_worker_commit": "fb68c5291792ab90c0f468bd94010917967799f3",
+    "worker_drafter_tree": "f098bb0a35ccc825800aafca365c7dedc4081821",
+    "base_spark_tree": "3bbc8c6c7822dbd39affbe874bdfcee972fe94df",
+    "engram_tree": "06614c5c06d5fd0c2ded9d3100423763f4407544",
+    "k1_paths": [
+      "vllm/models/deepseek_v41/attention.py",
+      "vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+      "vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+      "vllm/models/deepseek_v41/nvidia/dspark.py",
+      "vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+      "vllm/models/deepseek_v41/nvidia/model.py",
+      "vllm/v1/core/kv_cache_utils.py",
+      "vllm/v1/kv_cache_interface.py",
+      "vllm/v1/worker/utils.py",
+      "vllm/v1/worker/gpu/model_runner.py",
+      "vllm/v1/worker/gpu/dsv41_memprobe.py",
+      "vllm_exl3_moe/tf_prompt.py",
+      "vllm_exl3_moe/tf_experts.py"
+    ],
+    "manifests": {
+      "K1": {
+        "path": "offload/kvpack/MANIFEST.json",
+        "sha256": "559c5867ba42aa7daa7b4a7c8231d15ee1d35be40ae5b715b013f973193c58de"
+      },
+      "native": {
+        "path": "offload/dspark/native/NATIVE_MANIFEST.json",
+        "sha256": "870fd155242b33e9d0026813365ccfdf1f803c92ec38ed40660353d116ccca3c"
+      }
+    },
+    "units": {
+      "tp2": "dsv41-dspark-worker-tp2-prod.service",
+      "one_card": "dsv41-dspark-worker.service",
+      "engram": "dsv41-engram.service"
+    },
+    "gpu_uuids": [
+      "GPU-c4e7a371-d8a8-ebf0-918c-da3e38c87a93",
+      "GPU-7744b44b-8a13-b06d-a67e-f958fd74b8fc"
+    ]
+  },
+  "rollback_runbook": "offload/operations/README.md",
+  "rollback_refs": {
+    "baseline-20261022": {
+      "tag_object": "d3035b970ab2790d62417573eec3a5322c05a9d9",
+      "commit": "d3035b970ab2790d62417573eec3a5322c05a9d9"
+    },
+    "prod-d-20261023": {
+      "tag_object": "e908f403e8bbeead9ce067bf53d31cc62401f1ea",
+      "commit": "6aa71cac5cb866a781e71c285009670051d82d0b"
+    },
+    "prod-async-20261023": {
+      "tag_object": "67fd657ac0bf5bd9bc790e264e2f82d6f5ef6278",
+      "commit": "3c1dc6b902861603701ab150e213ba293fea14a9"
+    },
+    "prod-k1-327-20261023": {
+      "tag_object": "54db31f59de39cd11ec61a1d3dc89b68cb145a67",
+      "commit": "21bed313ac803d38327c4de1ff2e5235f329c716"
+    },
+    "prod-k1-327-ops1-20261026": {
+      "tag_object": "6cb7bedc29db2aae93057d76e2ce341a89a68293",
+      "commit": "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799"
+    }
+  },
+  "pending_record": {
+    "tag": "prod-k1-327-20261023",
+    "state": "RECORDED",
+    "production_head": "21bed313ac803d38327c4de1ff2e5235f329c716",
+    "files": [
+      "dsv41.env",
+      "start.sh"
+    ],
+    "note": "21bed31 commits exactly the applied diff observed 2026-10-23 (git diff ad2a4a0 21bed31 -- dsv41.env start.sh sha256 e7ef68d6...); checker now expects a clean tree"
+  },
+  "profiles": [
+    {
+      "name": "A",
+      "status": "HISTORICAL",
+      "label": "legal-v2a target; local checkpoint drafter",
+      "config": {
+        "path": "offload/launch/configs/A-local.env",
+        "sha256": "85e6311fcc3479ff3edb8910db6855bf8748b5914f84b5bdfcc012cbcaaeb193",
+        "source_commit": "f4bc392ad88da4b4ddf794a99b56c2a9a41ce694"
+      },
+      "rollback_section": "A",
+      "identity": {
+        "worker_release": "not-applicable",
+        "worker_source_commit": null,
+        "drafter_sha256": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+        "markov_sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "adapter": null,
+        "overlay_manifest": "base_spark_tree"
+      },
+      "evidence": [
+        "offload/results/COMPARISON.md",
+        "documents/plans/2026-10-23-expert-continuation.md"
+      ],
+      "match": {
+        "env": {
+          "VLLM_DSPARK_REMOTE": null,
+          "VLLM_ENGRAM_REMOTE": null,
+          "VLLM_DSPARK_REMOTE_ASYNC": null,
+          "VLLM_DSV41_KV_PAIR": null
+        },
+        "launch": {
+          "max_model_len": 327680,
+          "max_num_seqs": 4,
+          "max_num_batched_tokens": 4096,
+          "kv_cache_memory_bytes": 4026531840
+        },
+        "kv_tokens": 989460,
+        "worker_tp": null
+      },
+      "source_control": {
+        "allowed_heads": [
+          "d3035b970ab2790d62417573eec3a5322c05a9d9"
+        ],
+        "dirty": [],
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "D",
+      "status": "HISTORICAL",
+      "label": "legal-v2a target; existing EXL3 K2 drafter",
+      "config": {
+        "path": "offload/launch/configs/D-kv6-prod.env",
+        "sha256": "c4a5d46be65b88e2cc39e57021f8595be189c8bb5623aaca7e6d84d47ed4c1aa",
+        "source_commit": "f4bc392ad88da4b4ddf794a99b56c2a9a41ce694"
+      },
+      "rollback_section": "D",
+      "identity": {
+        "worker_release": "d275f6b",
+        "worker_source_commit": "d275f6b",
+        "drafter_sha256": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+        "markov_sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "adapter": null,
+        "overlay_manifest": "base_spark_tree"
+      },
+      "evidence": [
+        "offload/results/COMPARISON.md",
+        "documents/plans/2026-10-23-expert-continuation.md"
+      ],
+      "match": {
+        "env": {
+          "VLLM_DSPARK_REMOTE": "o1rdma://10.202.28.1:18620",
+          "VLLM_DSPARK_REMOTE_POLICY": "capacity",
+          "VLLM_DSPARK_REMOTE_IDENTITY": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+          "VLLM_DSPARK_REMOTE_MARKOV_IDENTITY": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+          "VLLM_DSPARK_REMOTE_ASYNC": null,
+          "VLLM_DSV41_KV_PAIR": null,
+          "VLLM_ENGRAM_REMOTE": "rdma://10.202.28.1:18610@10.202.28.2,rdma://10.202.29.1:18610@10.202.29.2",
+          "VLLM_ENGRAM_REMOTE_REQUIRED": "0"
+        },
+        "launch": {
+          "max_model_len": 327680,
+          "max_num_seqs": 4,
+          "max_num_batched_tokens": 4096,
+          "kv_cache_memory_bytes": 6442450944
+        },
+        "kv_tokens": 1604926,
+        "worker_tp": 1
+      },
+      "source_control": {
+        "allowed_heads": [
+          "6aa71cac5cb866a781e71c285009670051d82d0b"
+        ],
+        "dirty": [],
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "async",
+      "status": "HISTORICAL",
+      "label": "legal-v2a target; existing EXL3 K2 drafter",
+      "config": {
+        "path": "offload/launch/configs/D-kv6-async-process-nap-lazy.env",
+        "sha256": "9c70476bf6f4497f2bf381cf8d1d90ac9d1eebf945f7fb8a02d8e584613a933a",
+        "source_commit": "f4bc392ad88da4b4ddf794a99b56c2a9a41ce694"
+      },
+      "rollback_section": "async",
+      "identity": {
+        "worker_release": "d275f6b",
+        "worker_source_commit": "d275f6b",
+        "drafter_sha256": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+        "markov_sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "adapter": null,
+        "overlay_manifest": "base_spark_tree"
+      },
+      "evidence": [
+        "offload/results/COMPARISON.md",
+        "documents/plans/2026-10-23-expert-continuation.md"
+      ],
+      "match": {
+        "env": {
+          "VLLM_DSPARK_REMOTE": "o1rdma://10.202.28.1:18620",
+          "VLLM_DSPARK_REMOTE_POLICY": "capacity",
+          "VLLM_DSPARK_REMOTE_IDENTITY": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+          "VLLM_DSPARK_REMOTE_MARKOV_IDENTITY": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+          "VLLM_DSPARK_REMOTE_ASYNC": "1",
+          "VLLM_DSV41_KV_PAIR": null,
+          "VLLM_ENGRAM_REMOTE": "rdma://10.202.28.1:18610@10.202.28.2,rdma://10.202.29.1:18610@10.202.29.2",
+          "VLLM_ENGRAM_REMOTE_REQUIRED": "0",
+          "VLLM_DSPARK_REMOTE_ASYNC_PROXY": "process",
+          "VLLM_DSPARK_REMOTE_ASYNC_SPIN_US": "50",
+          "VLLM_DSPARK_REMOTE_ASYNC_NAP_US": "20",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWNS": "3",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWN_RESET_S": "3600"
+        },
+        "launch": {
+          "max_model_len": 327680,
+          "max_num_seqs": 4,
+          "max_num_batched_tokens": 4096,
+          "kv_cache_memory_bytes": 6442450944
+        },
+        "kv_tokens": 1604926,
+        "worker_tp": 1
+      },
+      "source_control": {
+        "allowed_heads": [
+          "3c1dc6b902861603701ab150e213ba293fea14a9"
+        ],
+        "dirty": [],
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "TP2+async",
+      "status": "QUALIFIED_PRE_K1",
+      "label": "legal-v2a target; existing EXL3 K2 drafter",
+      "config": {
+        "path": "offload/launch/configs/D-kv6-async-process-nap-lazy.env",
+        "sha256": "9c70476bf6f4497f2bf381cf8d1d90ac9d1eebf945f7fb8a02d8e584613a933a",
+        "source_commit": "f4bc392ad88da4b4ddf794a99b56c2a9a41ce694"
+      },
+      "rollback_section": "TP2+async",
+      "identity": {
+        "worker_release": "fb68c52",
+        "worker_source_commit": "fb68c5291792ab90c0f468bd94010917967799f3",
+        "drafter_sha256": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+        "markov_sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "adapter": null,
+        "overlay_manifest": "base_spark_tree"
+      },
+      "evidence": [
+        "offload/results/COMPARISON.md",
+        "documents/plans/2026-10-23-expert-continuation.md"
+      ],
+      "match": {
+        "env": {
+          "VLLM_DSPARK_REMOTE": "o1rdma://10.202.28.1:18620",
+          "VLLM_DSPARK_REMOTE_POLICY": "capacity",
+          "VLLM_DSPARK_REMOTE_IDENTITY": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+          "VLLM_DSPARK_REMOTE_MARKOV_IDENTITY": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+          "VLLM_DSPARK_REMOTE_ASYNC": "1",
+          "VLLM_DSV41_KV_PAIR": null,
+          "VLLM_ENGRAM_REMOTE": "rdma://10.202.28.1:18610@10.202.28.2,rdma://10.202.29.1:18610@10.202.29.2",
+          "VLLM_ENGRAM_REMOTE_REQUIRED": "0",
+          "VLLM_DSPARK_REMOTE_ASYNC_PROXY": "process",
+          "VLLM_DSPARK_REMOTE_ASYNC_SPIN_US": "50",
+          "VLLM_DSPARK_REMOTE_ASYNC_NAP_US": "20",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWNS": "3",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWN_RESET_S": "3600"
+        },
+        "launch": {
+          "max_model_len": 327680,
+          "max_num_seqs": 4,
+          "max_num_batched_tokens": 4096,
+          "kv_cache_memory_bytes": 6442450944
+        },
+        "kv_tokens": 1604926,
+        "worker_tp": 2
+      },
+      "source_control": {
+        "allowed_heads": [
+          "3c1dc6b902861603701ab150e213ba293fea14a9",
+          "ad2a4a07f5da5d81d46a838882f1c02bc932e14b"
+        ],
+        "dirty": [],
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "K1-327680",
+      "status": "RECORDED_PRODUCTION",
+      "label": "legal-v2a target; existing EXL3 K2 drafter",
+      "config": {
+        "path": "offload/promote/k1/dsv41.env.327680.patch",
+        "sha256": "06df37dd6b0bd02ec21d0c175fa05e2e74c4e2ee5c6412d6e5a31e919c08aefe",
+        "source_commit": "f4bc392ad88da4b4ddf794a99b56c2a9a41ce694"
+      },
+      "rollback_section": "K1",
+      "identity": {
+        "worker_release": "fb68c52",
+        "worker_source_commit": "fb68c5291792ab90c0f468bd94010917967799f3",
+        "drafter_sha256": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+        "markov_sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "adapter": null,
+        "overlay_manifest": "K1"
+      },
+      "evidence": [
+        "offload/results/COMPARISON.md",
+        "documents/plans/2026-10-23-expert-continuation.md",
+        "/opt/dsv41/campaigns/DSV41-OFFLOAD/S18.report.md",
+        "/opt/dsv41/campaigns/DSV41-OFFLOAD/S22.report.md"
+      ],
+      "match": {
+        "env": {
+          "VLLM_DSPARK_REMOTE": "o1rdma://10.202.28.1:18620",
+          "VLLM_DSPARK_REMOTE_POLICY": "capacity",
+          "VLLM_DSPARK_REMOTE_IDENTITY": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+          "VLLM_DSPARK_REMOTE_MARKOV_IDENTITY": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+          "VLLM_DSPARK_REMOTE_ASYNC": "1",
+          "VLLM_DSV41_KV_PAIR": "3",
+          "VLLM_ENGRAM_REMOTE": "rdma://10.202.28.1:18610@10.202.28.2,rdma://10.202.29.1:18610@10.202.29.2",
+          "VLLM_ENGRAM_REMOTE_REQUIRED": "0",
+          "VLLM_DSPARK_REMOTE_ASYNC_PROXY": "process",
+          "VLLM_DSPARK_REMOTE_ASYNC_SPIN_US": "50",
+          "VLLM_DSPARK_REMOTE_ASYNC_NAP_US": "20",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWNS": "3",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWN_RESET_S": "3600",
+          "VLLM_DSV41_DROP_MTP_BUFFER": "1",
+          "VLLM_EXL3_TF_PROMPT_TRANSIENT": "1",
+          "VLLM_EXL3_TF_PROMPT_ALIAS": "1",
+          "VLLM_INDEXER_PREFILL_BUFFER_FACTOR": "4"
+        },
+        "launch": {
+          "max_model_len": 327680,
+          "max_num_seqs": 4,
+          "max_num_batched_tokens": 4096,
+          "kv_cache_memory_bytes": 6442450944
+        },
+        "kv_tokens": 2502600,
+        "worker_tp": 2,
+        "mounts": [
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/remote_dspark",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-offload-prod/dspark/remote_dspark"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/__init__.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-offload-prod/dspark/spec_decode__init__.py"
+          },
+          {
+            "destination": "/serve.sh",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-deploy/run/dsv41-serve.sh"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py"
+          },
+          {
+            "destination": "/srv/dsv41/legal-v2a",
+            "rw": false,
+            "source": "/srv/dsv41/legal-v2a"
+          },
+          {
+            "destination": "/root/.cache",
+            "rw": true,
+            "source": "/home/rank0user/.cache/dsv41-serve"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/dspark.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/nvidia/dspark.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_cache_interface.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/kv_cache_interface.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/model.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/nvidia/model.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/utils.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/worker/utils.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_experts.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm_exl3_moe/tf_experts.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/kv_cache_utils.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/core/kv_cache_utils.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/attention.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/attention.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_prompt.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm_exl3_moe/tf_prompt.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/model_runner.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/worker/gpu/model_runner.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/dsv41_memprobe.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/worker/gpu/dsv41_memprobe.py"
+          },
+          {
+            "destination": "/opt/dsv41-ofl",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-offload-prod/dspark/ofl"
+          }
+        ]
+      },
+      "source_control": {
+        "allowed_heads": [
+          "21bed313ac803d38327c4de1ff2e5235f329c716",
+          "596ba1cf4e3b11be29b41a57e7f69a5d8efa4799"
+        ],
+        "dirty": [],
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "K1-524288",
+      "status": "HOLD",
+      "label": "legal-v2a target; existing EXL3 K2 drafter",
+      "config": {
+        "path": "offload/promote/k1/dsv41.env.524288.patch",
+        "sha256": "831e98b35550c218fe95d801d5453732eaa99f438eea7396da5e4752561d60af",
+        "source_commit": "f4bc392ad88da4b4ddf794a99b56c2a9a41ce694"
+      },
+      "rollback_section": "K1",
+      "identity": {
+        "worker_release": "fb68c52",
+        "worker_source_commit": "fb68c5291792ab90c0f468bd94010917967799f3",
+        "drafter_sha256": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+        "markov_sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "adapter": null,
+        "overlay_manifest": "K1"
+      },
+      "evidence": [
+        "offload/results/COMPARISON.md",
+        "documents/plans/2026-10-23-expert-continuation.md",
+        "/opt/dsv41/campaigns/DSV41-OFFLOAD/S18.report.md",
+        "/opt/dsv41/campaigns/DSV41-OFFLOAD/S22.report.md"
+      ],
+      "match": {
+        "env": {
+          "VLLM_DSPARK_REMOTE": "o1rdma://10.202.28.1:18620",
+          "VLLM_DSPARK_REMOTE_POLICY": "capacity",
+          "VLLM_DSPARK_REMOTE_IDENTITY": "be2c1436fa9f9e66b398e1b1da2e140e6fddc82a11939e2ac4240a0ca79543bd",
+          "VLLM_DSPARK_REMOTE_MARKOV_IDENTITY": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+          "VLLM_DSPARK_REMOTE_ASYNC": "1",
+          "VLLM_DSV41_KV_PAIR": "3",
+          "VLLM_ENGRAM_REMOTE": "rdma://10.202.28.1:18610@10.202.28.2,rdma://10.202.29.1:18610@10.202.29.2",
+          "VLLM_ENGRAM_REMOTE_REQUIRED": "0",
+          "VLLM_DSPARK_REMOTE_ASYNC_PROXY": "process",
+          "VLLM_DSPARK_REMOTE_ASYNC_SPIN_US": "50",
+          "VLLM_DSPARK_REMOTE_ASYNC_NAP_US": "20",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWNS": "3",
+          "VLLM_DSPARK_REMOTE_ASYNC_RESPAWN_RESET_S": "3600",
+          "VLLM_DSV41_DROP_MTP_BUFFER": "1",
+          "VLLM_EXL3_TF_PROMPT_TRANSIENT": "1",
+          "VLLM_EXL3_TF_PROMPT_ALIAS": "1",
+          "VLLM_INDEXER_PREFILL_BUFFER_FACTOR": "4"
+        },
+        "launch": {
+          "max_model_len": 524288,
+          "max_num_seqs": 4,
+          "max_num_batched_tokens": 4096,
+          "kv_cache_memory_bytes": 6442450944
+        },
+        "kv_tokens": 2820756,
+        "worker_tp": 2,
+        "mounts": [
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/remote_dspark",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-offload-prod/dspark/remote_dspark"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/spec_decode/__init__.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-offload-prod/dspark/spec_decode__init__.py"
+          },
+          {
+            "destination": "/serve.sh",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-deploy/run/dsv41-serve.sh"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/common/ops/fused_compress_quant_cache.py"
+          },
+          {
+            "destination": "/srv/dsv41/legal-v2a",
+            "rw": false,
+            "source": "/srv/dsv41/legal-v2a"
+          },
+          {
+            "destination": "/root/.cache",
+            "rw": true,
+            "source": "/home/rank0user/.cache/dsv41-serve"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/dspark.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/nvidia/dspark.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/kv_cache_interface.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/kv_cache_interface.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/model.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/nvidia/model.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/utils.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/worker/utils.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_experts.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm_exl3_moe/tf_experts.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/core/kv_cache_utils.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/core/kv_cache_utils.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/attention.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/attention.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/common/ops/nvfp4_fi_cache.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm_exl3_moe/tf_prompt.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm_exl3_moe/tf_prompt.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/model_runner.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/worker/gpu/model_runner.py"
+          },
+          {
+            "destination": "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/dsv41_memprobe.py",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-kvpack/559c5867ba42/vllm/v1/worker/gpu/dsv41_memprobe.py"
+          },
+          {
+            "destination": "/opt/dsv41-ofl",
+            "rw": false,
+            "source": "/home/rank0user/dsv41-offload-prod/dspark/ofl"
+          }
+        ]
+      },
+      "source_control": {
+        "allowed_heads": [
+          "ad2a4a07f5da5d81d46a838882f1c02bc932e14b"
+        ],
+        "dirty": [],
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "native-source-faithful",
+      "status": "CANDIDATE_NOT_PRODUCTION_QUALIFIED",
+      "label": "Unadapted official-source drafter backbone; declared target-shared EXL3 K6 head, not an all-official-BF16 drafter",
+      "config": {
+        "path": "offload/launch/configs/E4-native-kx2-async.env",
+        "sha256": "040c35ce78d2d80938875384de32fed2e9488550eb360c7b80ebc17ec32f8199",
+        "source_commit": "f4bc392ad88da4b4ddf794a99b56c2a9a41ce694"
+      },
+      "rollback_section": "native/adapted",
+      "identity": {
+        "worker_arm": "native-hybrid-kx2",
+        "worker_source_commit": "fb68c5291792ab90c0f468bd94010917967799f3",
+        "drafter_sha256": "5c3be5c7ee557b06fbef607030d857a038987b8d9f0d11257e1e376e37c5654e",
+        "markov_sha256": "0b6e71e638abd5abce2db433965bb5ff523cbbe92ed7ae54324a50ccaeffa19a",
+        "adapter": null,
+        "overlay_manifest": "native"
+      },
+      "alternate_arm": {
+        "arm": "native-packed",
+        "drafter_sha256": "44afbb19fa016f2267ff0ff03678b13fb70d5152ebf08938ebd5f9c7a7fc08ed"
+      },
+      "evidence": [
+        "/opt/dsv41/campaigns/DSV41-OFFLOAD/N4-NATIVE-FIDELITY.report.md",
+        "/opt/dsv41/campaigns/DSV41-OFFLOAD/N5.report.md",
+        "documents/plans/2026-10-23-expert-continuation.md"
+      ],
+      "match": null
+    },
+    {
+      "name": "adapted",
+      "status": "NOT_BUILT_NOT_QUALIFIED",
+      "label": "D2-trained draft; never label unchanged source-faithful",
+      "config": null,
+      "rollback_section": "native/adapted",
+      "identity": {
+        "worker_arm": null,
+        "worker_source_commit": null,
+        "drafter_sha256": null,
+        "markov_sha256": null,
+        "adapter": null,
+        "overlay_manifest": null
+      },
+      "required_before_registration": [
+        "adapter SHA256 and base/parent identities",
+        "training-data/family split manifest hashes (no data)",
+        "checkpoint and pilot/G2 receipts",
+        "precision/QDQ/sharding/cache policy",
+        "real TP2-worker serving and rollback receipt",
+        "candidate config and runtime overlay manifest SHA256"
+      ],
+      "evidence": [
+        "documents/plans/2026-10-23-d2-plan.md",
+        "documents/plans/2026-10-23-expert-continuation.md"
+      ],
+      "match": null
+    }
+  ],
+  "observed_production": {
+    "head": "ad2a4a07f5da5d81d46a838882f1c02bc932e14b",
+    "dirty": [
+      " M dsv41.env",
+      " M start.sh"
+    ],
+    "applied_diff_sha256": "e7ef68d68b64a378434df764825cdb4c0283aea93e295a832b3f1e09bbfaa793",
+    "observed_at": "2026-10-23T22:39:12.942900+00:00",
+    "profile": "K1-327680",
+    "worker_current": "fb68c52",
+    "note": "After coordinator commits/tags the applied files, update allowed HEAD, clean dirty state and empty-diff hash. This snapshot does not grant future revisions a match."
+  }
+}

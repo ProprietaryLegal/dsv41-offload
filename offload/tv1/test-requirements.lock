@@ -1,0 +1,7 @@
+# Installed ONLY in /opt/dsv41/x86host-data/tv1/test-deps on x86host.
+# Existing interpreter environment: torch 2.12.1+cu130, triton 3.7.1 (not installed by TV1).
+pytest==8.4.2
+Pygments==2.21.0
+iniconfig==2.3.1
+packaging==26.3
+pluggy==1.7.0

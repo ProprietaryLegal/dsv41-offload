@@ -1,0 +1,86 @@
+--- a/vllm/model_executor/layers/sparse_attn_indexer.py
++++ b/vllm/model_executor/layers/sparse_attn_indexer.py
+@@ -425,6 +425,7 @@
+     candidate_block_size: int = 0,
+     candidate_write: bool = False,
+     topk_backend: str = "auto",
++    tv1_layer: int = -1,
+ ) -> torch.Tensor:
+     # careful! this will be None in dummy run
+     forward_context = get_forward_context()
+@@ -821,6 +822,27 @@
+                 decode_metadata.schedule_metadata,
+                 max_model_len,
+             )
++        elif (
++            __import__("os").environ.get("VLLM_TV1_CANDIDATE", "0") == "1"
++            and candidate_blocks is not None and not candidate_write
++            and not needs_padded_path and decode_metadata.indices is None
++            and num_decode_tokens > 0
++        ):
++            if use_fp4_cache or dcp_world_size != 1 or use_pcp:
++                raise ValueError("TV1 candidate scorer requires replicated FP8 indexer")
++            from vllm_exl3_moe.tv1_candidate_metadata import score_decode, check_actual
++            logits = score_decode(
++                padded_q_quant_cast, kv_cache, weights[:num_padded_tokens],
++                seq_lens, decode_metadata.block_table, candidate_blocks,
++                max_model_len, candidate_block_size,
++            )
++            check_actual(
++                logits, padded_q_quant_cast, kv_cache, weights, seq_lens,
++                decode_metadata.block_table, candidate_blocks,
++                decode_metadata.schedule_metadata, max_model_len,
++                attn_metadata_narrowed.max_seq_len, tv1_layer,
++                decode_metadata.per_req_decode_lens.shape[0], topk_tokens, topk_backend,
++            )
+         else:
+             logits = fp8_fp4_paged_mqa_logits(
+                 (padded_q_quant_cast, padded_q_scale),
+@@ -927,6 +949,7 @@
+     candidate_block_size: int = 0,
+     candidate_write: bool = False,
+     topk_backend: str = "auto",
++    tv1_layer: int = -1,
+ ) -> torch.Tensor:
+     return topk_indices_buffer
+ 
+@@ -1106,6 +1129,12 @@
+             candidate_block_size=self.candidate_block_size,
+             candidate_write=self.candidate_write,
+             topk_backend=self.topk_backend,
++            tv1_layer=(
++                __import__("vllm_exl3_moe.tv1_candidate_metadata", fromlist=["consumer_layer"]).consumer_layer(self)
++                if __import__("os").environ.get("VLLM_TV1_CANDIDATE", "0") == "1"
++                and self.candidate_blocks is not None and not self.candidate_write
++                else -1
++            ),
+         )
+ 
+     def forward_xpu(
+--- a/vllm/v1/worker/gpu/model_runner.py
++++ b/vllm/v1/worker/gpu/model_runner.py
+@@ -19,5 +19,6 @@
+ import functools
+ import gc
++import os
+ import time
+ from contextlib import AbstractContextManager
+ from copy import deepcopy
+@@ -1847,6 +1848,17 @@
+             # cross-attention cache with dynamic encoder outputs.
+             skip_compiled = True
+ 
++        # Candidate qualification must see real eager metadata even when the
++        # production dispatcher would replay a FULL graph. Checked buckets
++        # immediately resume the unchanged graph dispatcher before timing.
++        if (not dummy_run and os.environ.get("VLLM_TV1_CANDIDATE", "0") == "1"
++                and batch_req_state is not None and not batch_req_state.has_prefill):
++            from vllm_exl3_moe.tv1_candidate_metadata import needs_eager_qualification
++            idx = batch_req_state.idx_mapping_np
++            tv1_max_seq_len = int((self.req_states.num_computed_tokens_np[idx]
++                                  + batch_req_state.num_scheduled_tokens).max())
++            skip_compiled = skip_compiled or needs_eager_qualification(num_reqs, tv1_max_seq_len)
++
+         if short_ctx.BOUNDS:
+             # Short-context twins (short_ctx.py): the batch's longest sequence after
+             # this step, plus a margin; unknown (no twin) with a prefill or a dummy.

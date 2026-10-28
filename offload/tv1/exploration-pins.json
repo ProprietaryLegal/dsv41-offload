@@ -1,0 +1,549 @@
+{
+  "sglang": {
+    "revision": "d4939cc267a5a2ee6bdabaed4e183d6c2c4f654d"
+  },
+  "spark-ds41f": {
+    "revision": "a49344804bc39fb090a809ada50e8c8d58a2d237"
+  },
+  "DeepGEMM": {
+    "revision": "5081f8513af57e61696de4f4f04b0e707ffb503e"
+  },
+  "coolbho3k": {
+    "revision": "1d8ac64af01c6fec87f39eb1dd526ff183615c73"
+  },
+  "42718": {
+    "head": "e238d2f6c1af43b428271cc9a33e3bf9400f3bf8",
+    "base": "4ef9765e76be4952d25f6b8ed160600aefc0757f",
+    "merge_commit_sha": "47588da4e1ce21ce706cf9b57521788d7d355fcd",
+    "merged": false,
+    "diff_sha256": "2fc358532d5f097d351fca976c5ead52c6f30e1b612381fe5a802087f5da3144"
+  },
+  "43401": {
+    "head": "103ad321d2f870c191dc71d470a375d0a51e9170",
+    "base": "5cbf949839b1fc73802d20670943ccbeb805d3f2",
+    "merge_commit_sha": null,
+    "merged": false,
+    "diff_sha256": "978a196fd58579764ef299c72a0ab4ea766f4d8abeecaeb2ed78fc3462cf1f09"
+  },
+  "41659": {
+    "head": "f604be05f20314684932fea40bf74e13367a736f",
+    "base": "0072e2cc08397c6b46c7ebfb1940459acdcb1f6b",
+    "merge_commit_sha": "520d6d0229aec75cb451683f0a880fd17b54f177",
+    "merged": true,
+    "diff_sha256": "8d1d3dfa9fd46c7bb15010256014827b3dd5ef3af2745efff3cc23b21dce1632"
+  },
+  "43733": {
+    "head": "e3b08f46cda232d21ceef2c13aa74751de5c12f7",
+    "base": "80914b7c9bb412720c0896862aede98faf5bc264",
+    "merge_commit_sha": "8111841103ca44bec779289c1da8d29cec55cc0a",
+    "merged": true,
+    "diff_sha256": "865936f2ae93ac9fa1b4efc4db3cc3688ed0120d944af0438a4ec63615cbd6ca"
+  },
+  "43736": {
+    "head": "a4310242ac9c1b56e58ffccdeb1c78b9ca58dc39",
+    "base": "6966c5d027163f1d2005e5fec8e0ed40cf95213e",
+    "merge_commit_sha": "2341e647d36f7e3b588b9711012faf5236bf228b",
+    "merged": true,
+    "diff_sha256": "9fcd5dfc918b09775e209918605ea737d61af0d64cff0d6452ed883616d4c296"
+  },
+  "42864": {
+    "head": "d57e9f784e782d98fc2bed7b8ddfc7ee9fe8b488",
+    "base": "f47d89564dc2479be8e2e866a2b17f149318758e",
+    "merge_commit_sha": null,
+    "merged": false,
+    "diff_sha256": "628a267a40f5adf6c50f2d980c9eeb41cb4133ebfc709709ab6b9e146f7c9b42"
+  },
+  "42867": {
+    "head": "fc727bbefde1bd8ccec747b2a9e2d982b5278dc8",
+    "base": "4ef9765e76be4952d25f6b8ed160600aefc0757f",
+    "merge_commit_sha": "2b338a744740a25131fd6f6391f978dd832e7032",
+    "merged": false,
+    "diff_sha256": "07324da69ab54e672afddf19a2f6ae3464b75aa7f09f5e9db253ce66fdc1931a"
+  },
+  "SP1": {
+    "source": "/opt/dsv41/campaigns/DSV41-OFFLOAD/SP1-W-20261026T191247Z/trace-budget-v3.json",
+    "sha256": "0d86ad5faf0719237db58e470351c125088ba957ab0112342dd52eb95bdcac56",
+    "captures": {
+      "prof-150k-b1:decode": {
+        "0": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 39.57782495117188,
+          "period_ms_max": 42.705219970703126,
+          "tokens_per_step_median": 3.0,
+          "ms": {
+            "routed_moe": 15.910495362684461,
+            "prefetch": 6.4069300604926225,
+            "dense_gemm": 8.261120275878907,
+            "attention": 2.108791810438368,
+            "collectives": 1.4604263075086805,
+            "engram": 0.02298564181857639,
+            "sampler": 0.022344986979166665,
+            "drafter": 2.76681162109375,
+            "host_gap": 0.06334915364583334,
+            "device_wait": 0.5705485677083334,
+            "unrecorded_wait": 0.006929231770833333,
+            "other": 1.148921499294705,
+            "unmatched": 0.8611763563368056
+          },
+          "share": {
+            "routed_moe": 0.4016703262961524,
+            "prefetch": 0.16174692423407333,
+            "dense_gemm": 0.2085571065603942,
+            "attention": 0.053237757548142015,
+            "collectives": 0.03686936818097424,
+            "engram": 0.0005802867879932751,
+            "sampler": 0.0005641130591103614,
+            "drafter": 0.06984987590337373,
+            "host_gap": 0.001599288685579538,
+            "device_wait": 0.014403852559908108,
+            "unrecorded_wait": 0.00017493275494740414,
+            "other": 0.029005236040149623,
+            "unmatched": 0.0217409313892018
+          },
+          "idle_share": 0.08602794990380877,
+          "coverage": 0.9762126955776015
+        },
+        "1": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 39.576677978515626,
+          "period_ms_max": 42.7114990234375,
+          "tokens_per_step_median": 3.0,
+          "ms": {
+            "routed_moe": 15.684515094943578,
+            "prefetch": 6.060662909884984,
+            "dense_gemm": 8.192826404079863,
+            "attention": 2.1103878133138023,
+            "collectives": 4.961410687934028,
+            "engram": 0.021771398925781248,
+            "sampler": 0.027485774739583337,
+            "drafter": 0.0,
+            "host_gap": 0.09063683268229167,
+            "device_wait": 0.408947998046875,
+            "unrecorded_wait": 0.0,
+            "other": 1.2135618234592016,
+            "unmatched": 0.838936784125434
+          },
+          "share": {
+            "routed_moe": 0.3959621889274363,
+            "prefetch": 0.1530039875394705,
+            "dense_gemm": 0.20683135288688562,
+            "attention": 0.053277629112991394,
+            "collectives": 0.12525290225871674,
+            "engram": 0.0005496281346590008,
+            "sampler": 0.0006938899586229767,
+            "drafter": 0.0,
+            "host_gap": 0.0022881650117382293,
+            "device_wait": 0.010324064434503073,
+            "unrecorded_wait": 0.0,
+            "other": 0.030636879311021194,
+            "unmatched": 0.021179312423955175
+          },
+          "idle_share": 0.012612229446241302,
+          "coverage": 0.9785501572375389
+        }
+      },
+      "prof-150k-b1:prefill-late": {
+        "0": {
+          "phase": "prefill",
+          "complete_steps": 3,
+          "period_ms_median": 1886.2381149902344,
+          "period_ms_max": 1903.0923371582032,
+          "tokens_per_step_median": 4092.0,
+          "ms": {
+            "routed_moe": 857.6670919596354,
+            "prefetch": 0.0,
+            "dense_gemm": 376.45604178873697,
+            "attention": 53.64449060058593,
+            "collectives": 121.708638671875,
+            "engram": 6.567904269748264,
+            "sampler": 0.012266927083333332,
+            "drafter": 2.080855712890625,
+            "host_gap": 1.8027975260416669,
+            "device_wait": 7.364116292317708,
+            "unrecorded_wait": 0.009354736328125,
+            "other": 431.1190647922092,
+            "unmatched": 31.883239434136286
+          },
+          "share": {
+            "routed_moe": 0.4537162856631502,
+            "prefetch": 0.0,
+            "dense_gemm": 0.19914980835463372,
+            "attention": 0.02837858564210263,
+            "collectives": 0.0643853448371789,
+            "engram": 0.003474500954738245,
+            "sampler": 6.489353089243443e-06,
+            "drafter": 0.0011007978898858277,
+            "host_gap": 0.0009537017392720917,
+            "device_wait": 0.003895706763923651,
+            "unrecorded_wait": 4.948768887071589e-06,
+            "other": 0.22806720998139682,
+            "unmatched": 0.016866620051741485
+          },
+          "idle_share": 0.005955155161968643,
+          "coverage": 0.9830323348696711
+        },
+        "1": {
+          "phase": "prefill",
+          "complete_steps": 3,
+          "period_ms_median": 1886.2260588378906,
+          "period_ms_max": 1902.8229709472657,
+          "tokens_per_step_median": 4092.0,
+          "ms": {
+            "routed_moe": 855.7273680013021,
+            "prefetch": 0.0,
+            "dense_gemm": 380.3504657389323,
+            "attention": 53.6091114095052,
+            "collectives": 122.07046638997394,
+            "engram": 6.362784423828125,
+            "sampler": 0.011445393880208333,
+            "drafter": 0.0,
+            "host_gap": 1.6108071289062502,
+            "device_wait": 7.2647276204427085,
+            "unrecorded_wait": 0.0,
+            "other": 431.5858678792318,
+            "unmatched": 31.606894002278647
+          },
+          "share": {
+            "routed_moe": 0.4527179113718749,
+            "prefetch": 0.0,
+            "dense_gemm": 0.20122234589835775,
+            "attention": 0.028361608913478636,
+            "collectives": 0.06458071653514717,
+            "engram": 0.003366196504376128,
+            "sampler": 6.055123402654186e-06,
+            "drafter": 0.0,
+            "host_gap": 0.0008521887534398156,
+            "device_wait": 0.003843364648596104,
+            "unrecorded_wait": 0.0,
+            "other": 0.22832815682904098,
+            "unmatched": 0.016721455422285914
+          },
+          "idle_share": 0.004695553402035919,
+          "coverage": 0.9831996576731458
+        }
+      },
+      "prof-32k-b1:decode": {
+        "0": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 38.2645,
+          "period_ms_max": 41.06538305664063,
+          "tokens_per_step_median": 4.0,
+          "ms": {
+            "routed_moe": 15.474844816080727,
+            "prefetch": 5.984448433430989,
+            "dense_gemm": 7.599046101888021,
+            "attention": 2.0764896158854165,
+            "collectives": 1.6922440782335069,
+            "engram": 0.023562803819444443,
+            "sampler": 0.02710530598958333,
+            "drafter": 2.8779601888020836,
+            "host_gap": 0.0,
+            "device_wait": 0.53753525390625,
+            "unrecorded_wait": 0.007083121744791667,
+            "other": 1.1718631700303819,
+            "unmatched": 0.7683662475585938
+          },
+          "share": {
+            "routed_moe": 0.40467109299322934,
+            "prefetch": 0.1564948351534735,
+            "dense_gemm": 0.19871697120745604,
+            "attention": 0.05430072691754862,
+            "collectives": 0.04425260924351622,
+            "engram": 0.0006161732598242994,
+            "sampler": 0.0007088105846025947,
+            "drafter": 0.07525938444198899,
+            "host_gap": 0.0,
+            "device_wait": 0.014056682396878935,
+            "unrecorded_wait": 0.00018522541921004557,
+            "other": 0.030644517311212004,
+            "unmatched": 0.020092971071059323
+          },
+          "idle_share": 0.08950129225807797,
+          "coverage": 0.9779319059980977
+        },
+        "1": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 38.26860400390625,
+          "period_ms_max": 41.0929609375,
+          "tokens_per_step_median": 4.0,
+          "ms": {
+            "routed_moe": 15.478671982150606,
+            "prefetch": 5.863426007758247,
+            "dense_gemm": 7.669502282714844,
+            "attention": 2.066689131673177,
+            "collectives": 4.601095784505208,
+            "engram": 0.02347125922309028,
+            "sampler": 0.027824967447916668,
+            "drafter": 0.0,
+            "host_gap": 0.0,
+            "device_wait": 0.5461498209635417,
+            "unrecorded_wait": 0.0,
+            "other": 1.1685626505533855,
+            "unmatched": 0.794267913140191
+          },
+          "share": {
+            "routed_moe": 0.40478056691646525,
+            "prefetch": 0.153333626181241,
+            "dense_gemm": 0.2005640720046517,
+            "attention": 0.05404569586612139,
+            "collectives": 0.12032260663167114,
+            "engram": 0.000613793588075362,
+            "sampler": 0.0007276467975410264,
+            "drafter": 0.0,
+            "host_gap": 0.0,
+            "device_wait": 0.014282286904579318,
+            "unrecorded_wait": 0.0,
+            "other": 0.030558916986797368,
+            "unmatched": 0.02077078812285642
+          },
+          "idle_share": 0.014282286904579318,
+          "coverage": 0.9789282592298859
+        }
+      },
+      "prof-32k-b1:prefill-early": {
+        "0": {
+          "phase": "prefill",
+          "complete_steps": 3,
+          "period_ms_median": 1854.5439030761718,
+          "period_ms_max": 1937.3139389648438,
+          "tokens_per_step_median": 4092.0,
+          "ms": {
+            "routed_moe": 855.3635327962239,
+            "prefetch": 0.0,
+            "dense_gemm": 346.5123065999349,
+            "attention": 52.6966047905816,
+            "collectives": 152.6702140299479,
+            "engram": 5.973633680555555,
+            "sampler": 0.011317382812499999,
+            "drafter": 2.308074300130208,
+            "host_gap": 9.108534993489583,
+            "device_wait": 6.998704996744792,
+            "unrecorded_wait": 0.008128336588541667,
+            "other": 413.4756388481988,
+            "unmatched": 30.003246907552082
+          },
+          "share": {
+            "routed_moe": 0.4561622720729341,
+            "prefetch": 0.0,
+            "dense_gemm": 0.18479375729654351,
+            "attention": 0.028102908354321745,
+            "collectives": 0.08141847184213932,
+            "engram": 0.003185717192484986,
+            "sampler": 6.03551923799289e-06,
+            "drafter": 0.0012308876594477969,
+            "host_gap": 0.004857548701314448,
+            "device_wait": 0.0037323840103946435,
+            "unrecorded_wait": 4.334812444343543e-06,
+            "other": 0.22050505969926115,
+            "unmatched": 0.01600062283947606
+          },
+          "idle_share": 0.009825155183601232,
+          "coverage": 0.9838406086326674
+        },
+        "1": {
+          "phase": "prefill",
+          "complete_steps": 3,
+          "period_ms_median": 1854.4637509765626,
+          "period_ms_max": 1936.1819829101562,
+          "tokens_per_step_median": 4092.0,
+          "ms": {
+            "routed_moe": 869.713172688802,
+            "prefetch": 0.0,
+            "dense_gemm": 354.72816585286455,
+            "attention": 52.23124209255642,
+            "collectives": 126.66403955078124,
+            "engram": 7.125351182725694,
+            "sampler": 0.010922770182291666,
+            "drafter": 0.0,
+            "host_gap": 12.405767578125,
+            "device_wait": 6.988350667317708,
+            "unrecorded_wait": 0.0,
+            "other": 414.61366689724395,
+            "unmatched": 30.222998372395836
+          },
+          "share": {
+            "routed_moe": 0.4639203427485807,
+            "prefetch": 0.0,
+            "dense_gemm": 0.1892182589074348,
+            "attention": 0.027861065572745067,
+            "collectives": 0.06756483227757693,
+            "engram": 0.003800787968606411,
+            "sampler": 5.826398226287289e-06,
+            "drafter": 0.0,
+            "host_gap": 0.006617455188254712,
+            "device_wait": 0.0037277094778342046,
+            "unrecorded_wait": 0.0,
+            "other": 0.2211622411795302,
+            "unmatched": 0.016121480281210646
+          },
+          "idle_share": 0.010345164666088915,
+          "coverage": 0.9837099969548765
+        }
+      },
+      "prof-32k-b4:decode": {
+        "0": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 75.37421313476563,
+          "period_ms_max": 82.26802978515624,
+          "tokens_per_step_median": 16.0,
+          "ms": {
+            "routed_moe": 45.07198715277777,
+            "prefetch": 4.260142848036025,
+            "dense_gemm": 12.761056785753038,
+            "attention": 3.728865747070313,
+            "collectives": 3.026464927842882,
+            "engram": 0.03394885525173611,
+            "sampler": 0.03787415364583333,
+            "drafter": 4.027928011067709,
+            "host_gap": 0.0,
+            "device_wait": 0.6268469889322916,
+            "unrecorded_wait": 0.007716389973958333,
+            "other": 1.2622539347330728,
+            "unmatched": 1.5491984008789064
+          },
+          "share": {
+            "routed_moe": 0.5899916155659097,
+            "prefetch": 0.05576520407087104,
+            "dense_gemm": 0.16704203619499713,
+            "attention": 0.04881079502630298,
+            "collectives": 0.039616379153177436,
+            "engram": 0.00044438999080941553,
+            "sampler": 0.0004957720861508445,
+            "drafter": 0.052725515442168816,
+            "host_gap": 0.0,
+            "device_wait": 0.008205417401704152,
+            "unrecorded_wait": 0.00010100742555771006,
+            "other": 0.016522884506584155,
+            "unmatched": 0.02027898313576661
+          },
+          "idle_share": 0.06103194026943068,
+          "coverage": 0.9784029042035939
+        },
+        "1": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 75.37163793945312,
+          "period_ms_max": 82.26521997070313,
+          "tokens_per_step_median": 16.0,
+          "ms": {
+            "routed_moe": 44.468602395290795,
+            "prefetch": 4.1799066012912345,
+            "dense_gemm": 12.873788225640192,
+            "attention": 3.7308403225368925,
+            "collectives": 7.813874473741319,
+            "engram": 0.03191617160373264,
+            "sampler": 0.044832063802083336,
+            "drafter": 0.0,
+            "host_gap": 0.0,
+            "device_wait": 0.3858797037760417,
+            "unrecorded_wait": 0.0,
+            "other": 1.284677482096354,
+            "unmatched": 1.5772781656901043
+          },
+          "share": {
+            "routed_moe": 0.582113805096478,
+            "prefetch": 0.05471683852342524,
+            "dense_gemm": 0.16852361995589185,
+            "attention": 0.048838360986791694,
+            "collectives": 0.10228709600591111,
+            "engram": 0.0004177968970378178,
+            "sampler": 0.0005868716767433757,
+            "drafter": 0.0,
+            "host_gap": 0.0,
+            "device_wait": 0.005051337136207392,
+            "unrecorded_wait": 0.0,
+            "other": 0.01681700024608972,
+            "unmatched": 0.02064727347542391
+          },
+          "idle_share": 0.005051337136207392,
+          "coverage": 0.9792479006745994
+        }
+      },
+      "prof-short-b1:decode": {
+        "0": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 38.4549140625,
+          "period_ms_max": 46.92769702148438,
+          "tokens_per_step_median": 3.0,
+          "ms": {
+            "routed_moe": 15.8288830078125,
+            "prefetch": 6.27320582953559,
+            "dense_gemm": 7.286247125922309,
+            "attention": 1.9968761162651911,
+            "collectives": 1.5465658230251735,
+            "engram": 0.022085750325520834,
+            "sampler": 0.028845458984375,
+            "drafter": 2.913210026041667,
+            "host_gap": 0.29031017252604163,
+            "device_wait": 0.5046847005208334,
+            "unrecorded_wait": 0.0067673990885416665,
+            "other": 1.1694661159939237,
+            "unmatched": 0.5465805338541667
+          },
+          "share": {
+            "routed_moe": 0.4120631817649053,
+            "prefetch": 0.1633063528682824,
+            "dense_gemm": 0.18967820864877719,
+            "attention": 0.051983398048520625,
+            "collectives": 0.04026075835736958,
+            "engram": 0.0005749442046104994,
+            "sampler": 0.0007509153743005182,
+            "drafter": 0.07583773232057307,
+            "host_gap": 0.007557458939506765,
+            "device_wait": 0.013138133839389759,
+            "unrecorded_wait": 0.00017617136972463947,
+            "other": 0.030443963006414197,
+            "unmatched": 0.014228781257625452
+          },
+          "idle_share": 0.09670949646919422,
+          "coverage": 0.9842478347751831
+        },
+        "1": {
+          "phase": "decode",
+          "complete_steps": 15,
+          "period_ms_median": 38.457462890625,
+          "period_ms_max": 42.312574951171875,
+          "tokens_per_step_median": 3.0,
+          "ms": {
+            "routed_moe": 15.805405379231768,
+            "prefetch": 6.032020090060765,
+            "dense_gemm": 7.25733097873264,
+            "attention": 2.038079013400608,
+            "collectives": 4.599063500976562,
+            "engram": 0.022162217881944446,
+            "sampler": 0.024567333984375,
+            "drafter": 0.0,
+            "host_gap": 0.2075138020833333,
+            "device_wait": 0.402068359375,
+            "unrecorded_wait": 0.0,
+            "other": 1.186483580186632,
+            "unmatched": 0.5307781399197048
+          },
+          "share": {
+            "routed_moe": 0.4147804602721582,
+            "prefetch": 0.15829800054441368,
+            "dense_gemm": 0.19045377271129693,
+            "attention": 0.05348520528047471,
+            "collectives": 0.1206929926810053,
+            "engram": 0.0005816019718041282,
+            "sampler": 0.0006447193129945643,
+            "drafter": 0.0,
+            "host_gap": 0.005445774295295813,
+            "device_wait": 0.010551459779802243,
+            "unrecorded_wait": 0.0,
+            "other": 0.031136829058609674,
+            "unmatched": 0.01392918409214481
+          },
+          "idle_share": 0.015997234075098055,
+          "coverage": 0.9858443648996735
+        }
+      }
+    }
+  }
+}
