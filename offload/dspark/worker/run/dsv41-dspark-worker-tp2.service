@@ -1,0 +1,32 @@
+# DSV41-OFFLOAD lane E: the TP = 2 DSpark drafter worker on x86host's NVLink pair (systemd --user unit). Installed (NOT
+# enabled) by start_tp2.sh into ~/.config/systemd/user/. Same contract, port and listener as the one-card unit
+# (dsv41-dspark-worker.service, which it conflicts with: both use GPU-c4e7a371 and 10.202.28.1:18620), so the Spark
+# proxy needs no change to switch. rank 0 = GPU-c4e7a371 (PHB to the ConnectX-5), rank 1 = GPU-7744b44b (NV4).
+# --max-model-len 1048576 as in the production one-card unit (1M context; shorter engine sessions are accepted).
+[Unit]
+Description=DSV41-OFFLOAD DSpark drafter worker TP=2 (RTX 3090 pair c4e7a371 + 7744b44b, ofl 10.202.28.1:18620)
+After=network-online.target
+Conflicts=dsv41-dspark-worker.service
+
+[Service]
+Type=simple
+Environment=CUDA_VISIBLE_DEVICES=GPU-c4e7a371-d8a8-ebf0-918c-da3e38c87a93,GPU-7744b44b-8a13-b06d-a67e-f958fd74b8fc
+Environment=DSPARK_WORKER_TP=2
+# O1 transport pinned into e/lib by run/pin_ofl.sh (OFL_PIN_DST); the p2p extension's build dir; lane E's own
+# exllamav3 tune cache (every TP = 2 GEMM runs a forced kernel, tp2_kernels.json, so nothing is autotuned)
+Environment=OFL_PY_DIR=%h/dsv41-offload/e/lib
+Environment=OFL_LIB=%h/dsv41-offload/e/lib/libofl.so
+Environment=DSPARK_P2P_BUILD=%h/dsv41-offload/e/build/p2p
+Environment=EXLLAMAV3_TUNE_CACHE=%h/dsv41-offload/e/run/exl3_tune_cache.bin
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=%h/dsv41-offload/e/repo/offload/dspark
+ExecStart=%h/dsv41-offload/e/venv/bin/python -m worker.server --tp 2 --root /opt/dsv41/x86host-data/dspark --ofl 10.202.28.1:18620 --max-model-len 1048576 --status-file %h/dsv41-offload/e/run/worker.status.json
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+MemoryMax=48G
+StandardOutput=append:%h/dsv41-offload/e/logs/worker.log
+StandardError=append:%h/dsv41-offload/e/logs/worker.log
+
+[Install]
+WantedBy=default.target

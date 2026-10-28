@@ -1,0 +1,24 @@
+# DSV41-OFFLOAD Engram table server, production unit on x86host (coordinator, 2026-10-22).
+# Install: copy to ~/.config/systemd/user/dsv41-engram.service; `systemctl --user daemon-reload && systemctl --user enable --now dsv41-engram`.
+# Binary and sources: ~/dsv41-offload/prod/ (git archive of dsv41-deploy at the commit in prod/SOURCE_COMMIT, built with
+# `make OUT=~/dsv41-offload/prod/bin`). Never rebuild into prod/bin while it runs: stop, replace, start.
+# Loads both Engram tables (~70 s, sha256-verified against the deployment manifest), 189 GiB resident, listens only on the
+# two direct links. The Sparks fall back to their local shards whenever it is down (VLLM_ENGRAM_REMOTE_REQUIRED=0).
+[Unit]
+Description=DSV41-OFFLOAD Engram table server (x86host RAM; engram-v1 over ofl RDMA/TCP on 10.202.28.1 + 10.202.29.1:18610)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStartPre=/bin/mkdir -p %h/dsv41-offload/prod/run
+ExecStart=%h/dsv41-offload/prod/bin/engram_server --data /opt/dsv41/x86host-data/engram --manifest %h/dsv41-offload/prod/src/manifest.json --wait-marker ENGRAM_COPY_DONE --listen 10.202.28.1 --listen 10.202.29.1 --port 18610 --threads 8 --budget-gib 215 --stats %h/dsv41-offload/prod/run/engram_server.stats.json
+Restart=on-failure
+RestartSec=15
+LimitMEMLOCK=infinity
+TimeoutStartSec=infinity
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=default.target

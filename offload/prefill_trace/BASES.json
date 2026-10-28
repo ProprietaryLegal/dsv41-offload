@@ -1,0 +1,7 @@
+{
+  "vllm/v1/worker/gpu/model_runner.py": "682eb895b8fb3d68b9580954b6cda255a49f882bddb4b06342d7d96258eb6e62",
+  "vllm/models/deepseek_v41/nvidia/flashinfer_sparse.py": "0b45a382234c4311c068d50a775bdff5314e13e9b25cad1bbb03ca21dbdcbb09",
+  "vllm/model_executor/layers/sparse_attn_indexer.py": "75d14da5e2b8c237f7fc0a807d2b72677660a945c70d23825da3517801d9ca10",
+  "vllm/v1/attention/backends/mla/indexer.py": "2da8f08a4ca34428b17b793f5e856c62bf868669840c580a21eef24d74f00260",
+  "vllm/distributed/parallel_state.py": "a33fc846e0f4e682a644ce712d862806ecfa12dca6e5f641806e2e7991cd0087"
+}

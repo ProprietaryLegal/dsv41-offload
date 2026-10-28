@@ -1,0 +1,59 @@
+diff --git a/offload/operations/profiles.v1.json b/offload/operations/profiles.v1.json
+index ef7487a..6c2bb2c 100644
+--- a/offload/operations/profiles.v1.json
++++ b/offload/operations/profiles.v1.json
+@@ -62,16 +62,21 @@
+     "prod-async-20261023": {
+       "tag_object": "67fd657ac0bf5bd9bc790e264e2f82d6f5ef6278",
+       "commit": "3c1dc6b902861603701ab150e213ba293fea14a9"
++    },
++    "prod-k1-327-20261023": {
++      "tag_object": "54db31f59de39cd11ec61a1d3dc89b68cb145a67",
++      "commit": "21bed313ac803d38327c4de1ff2e5235f329c716"
+     }
+   },
+   "pending_record": {
+     "tag": "prod-k1-327-20261023",
+-    "state": "PREPARED_NOT_RUN",
+-    "production_head": "ad2a4a07f5da5d81d46a838882f1c02bc932e14b",
++    "state": "RECORDED",
++    "production_head": "21bed313ac803d38327c4de1ff2e5235f329c716",
+     "files": [
+       "dsv41.env",
+       "start.sh"
+-    ]
++    ],
++    "note": "21bed31 commits exactly the applied diff observed 2026-10-23 (git diff ad2a4a0 21bed31 -- dsv41.env start.sh sha256 e7ef68d6...); checker now expects a clean tree"
+   },
+   "profiles": [
+     {
+@@ -433,13 +438,10 @@
+       },
+       "source_control": {
+         "allowed_heads": [
+-          "ad2a4a07f5da5d81d46a838882f1c02bc932e14b"
++          "21bed313ac803d38327c4de1ff2e5235f329c716"
+         ],
+-        "dirty": [
+-          " M dsv41.env",
+-          " M start.sh"
+-        ],
+-        "diff_sha256": "e7ef68d68b64a378434df764825cdb4c0283aea93e295a832b3f1e09bbfaa793"
++        "dirty": [],
++        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+       }
+     },
+     {
+diff --git a/offload/operations/test_live_profile.py b/offload/operations/test_live_profile.py
+index fd1b0e3..7571706 100644
+--- a/offload/operations/test_live_profile.py
++++ b/offload/operations/test_live_profile.py
+@@ -47,7 +47,7 @@ class ProfilesTest(unittest.TestCase):
+ 
+     def test_identity_image_head_diff_and_dirty_drift(self) -> None:
+         for key, value in (("image", "sha256:wrong"), ("worker_current", "unknown"),
+-                           ("sparkhead_head", "a" * 40), ("dirty", []),
++                           ("sparkhead_head", "a" * 40), ("dirty", [" M dsv41.env"]),
+                            ("applied_diff_sha256", "b" * 64), ("container_state", "exited")):
+             with self.subTest(key=key):
+                 data = observation(); data[key] = value
