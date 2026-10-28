@@ -1,0 +1,38 @@
+# DSV41-OFFLOAD: the TP = 2 DSpark drafter worker on x86host's NVLink pair, PRODUCTION paths (systemd --user; S10 P-1).
+# Same code tree, transport pin, venv, status file and log as the one-card production unit (dsv41-dspark-worker.service,
+# which it conflicts with: both use GPU-c4e7a371 and 10.202.28.1:18620), so monitoring and the Spark side do not change.
+#   code      ~/dsv41-offload/prod/dspark-worker/current -> <commit>   (run/prod_tp2.sh stage <commit>)
+#   transport ~/dsv41-offload/prod/dspark-worker/lib                   (libofl.so sha256 9f11b6e8..., the one-card pin)
+#   p2p       ~/dsv41-offload/prod/dspark-worker/p2p/<src16>/dspark_p2p.so + .sha256, built once for the p2p.cu of
+#             `current` (run/prod_tp2.sh build-p2p); DSPARK_P2P_PREBUILT makes the worker refuse to start without it
+#             (no compiler at start, worker/p2p/prebuilt.py)
+#   tune      ~/dsv41-offload/prod/run/exl3_tune_cache_tp2.bin (TP = 2 GEMMs run forced kernels, tp2_kernels.json)
+# Installed by run/prod_tp2.sh install-unit as dsv41-dspark-worker-tp2-prod.service (lane E's experimental unit keeps
+# the name dsv41-dspark-worker-tp2.service), NOT enabled. Promotion (coordinator, on the decision only):
+#   systemctl --user disable --now dsv41-dspark-worker && systemctl --user enable --now dsv41-dspark-worker-tp2-prod
+# Rollback: systemctl --user disable --now dsv41-dspark-worker-tp2-prod && systemctl --user enable --now dsv41-dspark-worker
+[Unit]
+Description=DSV41-OFFLOAD DSpark drafter worker TP=2, production (RTX 3090 pair c4e7a371 + 7744b44b, ofl 10.202.28.1:18620)
+After=network-online.target
+Conflicts=dsv41-dspark-worker.service dsv41-dspark-worker-tp2.service
+
+[Service]
+Type=simple
+Environment=CUDA_VISIBLE_DEVICES=GPU-c4e7a371-d8a8-ebf0-918c-da3e38c87a93,GPU-7744b44b-8a13-b06d-a67e-f958fd74b8fc
+Environment=DSPARK_WORKER_TP=2
+Environment=OFL_PY_DIR=%h/dsv41-offload/prod/dspark-worker/lib
+Environment=OFL_LIB=%h/dsv41-offload/prod/dspark-worker/lib/libofl.so
+Environment=DSPARK_P2P_PREBUILT=%h/dsv41-offload/prod/dspark-worker/p2p
+Environment=EXLLAMAV3_TUNE_CACHE=%h/dsv41-offload/prod/run/exl3_tune_cache_tp2.bin
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=%h/dsv41-offload/prod/dspark-worker/current/offload/dspark
+ExecStart=%h/dsv41-offload/o2/venv/bin/python -m worker.server --tp 2 --root /opt/dsv41/x86host-data/dspark --ofl 10.202.28.1:18620 --max-model-len 1048576 --status-file %h/dsv41-offload/prod/run/dspark-worker.status.json
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+MemoryMax=48G
+StandardOutput=append:%h/dsv41-offload/prod/logs/dspark-worker.log
+StandardError=append:%h/dsv41-offload/prod/logs/dspark-worker.log
+
+[Install]
+WantedBy=default.target

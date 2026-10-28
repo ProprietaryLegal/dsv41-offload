@@ -1,0 +1,446 @@
+--- a/offload/engram/spark/engram.py
++++ b/offload/engram/spark/engram.py
+@@ -75,6 +75,8 @@
+ from vllm.triton_utils import tl, triton
+ from vllm.utils.platform_utils import is_uva_available
+ from vllm.utils.torch_utils import get_accelerator_view_from_cpu_tensor
++
++from vllm.v1.worker.gpu import x1_engram_lookahead as _x1_la
+ 
+ logger = init_logger(__name__)
+ 
+@@ -464,6 +466,8 @@
+         self.register_buffer("primes", torch.tensor(layout.primes), persistent=False)
+         self.register_buffer("offsets", layout.offsets, persistent=False)
+         self.register_buffer("multipliers", multipliers, persistent=False)
++        if _x1_la.TOKENS:
++            self._x1_host = _x1_la.HashTables.build(token_map, layout, multipliers, self.pad_id)
+         logger.info(
+             "Built engram token map (%d -> %d ids) for layers %s",
+             len(token_map),
+@@ -687,6 +691,7 @@
+             os.path.join(root, "transport", "ofl.cpp"),
+         ]
+         hashed = sources + [
++            os.path.join(root, "engram", "spark", "row_lookahead.h"),
+             os.path.join(here, "engram_disk.cpp"),
+             os.path.join(root, "engram", "engram_client.h"),
+             os.path.join(root, "engram", "engram_proto.h"),
+--- a/vllm/v1/worker/gpu/model_runner.py
++++ b/vllm/v1/worker/gpu/model_runner.py
+@@ -188,6 +188,8 @@
+ )
+ from vllm.v1.worker.workspace import lock_workspace, use_workspace_lane
+ 
++from vllm.v1.worker.gpu import x1_engram_lookahead as _x1_la
++
+ logger = init_logger(__name__)
+ 
+ 
+@@ -2147,6 +2149,9 @@
+             aux_hidden_states = None
+             output_intermediate_tensors = model_output
+ 
++        if _x1_la.TOKENS and not dummy_run:
++            _x1_la.after_forward(self.model, input_batch, self.req_states)
++
+         finished_req_ids = scheduler_output.finished_req_ids
+         self.execute_model_state = ExecuteModelState(
+             input_batch=input_batch,
+--- /dev/null
++++ b/vllm/v1/worker/gpu/x1_engram_lookahead.py
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: Apache-2.0
++"""0078 remote adapter draft. Hash arithmetic ported from HeNryous afe4d5e; no reader/thread created."""
++from __future__ import annotations
++import os
++import numpy as np
++from numpy.typing import ArrayLike, NDArray
++from typing import TYPE_CHECKING, Sequence
++if TYPE_CHECKING:
++    import torch
++    from vllm.models.deepseek_v41.common.engram import EngramLayout
++    from vllm.v1.worker.gpu.input_batch import InputBatch
++    from vllm.v1.worker.gpu.states import RequestState
++IMAGE_SENTINEL_ID = 129264
++TOKENS = int(os.environ.get("VLLM_X1_ENGRAM_LOOKAHEAD", "0"))
++if not 0 <= TOKENS <= 512:
++    raise ValueError("VLLM_X1_ENGRAM_LOOKAHEAD must be 0..512")
++
++class HashTables:
++    """Host copies of NgramHashState's hash parameters (built once at model init when the lookahead is on)."""
++
++    def __init__(self, token_map: ArrayLike, multipliers: ArrayLike, primes: ArrayLike, offsets: ArrayLike, pad_id: int, dead_token_id: int = IMAGE_SENTINEL_ID) -> None:
++        # own copies: never a view on the model's buffers
++        self.token_map = np.array(token_map, dtype=np.int64)  # [vocab]
++        self.multipliers = np.array(multipliers, dtype=np.int64)  # [layers, max_ngram]
++        self.primes = np.array(primes, dtype=np.int64)  # [layers, max_ngram - 1, heads]
++        self.offsets = np.array(offsets, dtype=np.int64)  # [layers, (max_ngram - 1) * heads]
++        self.pad_id = int(pad_id)
++        self.dead_token_id = int(dead_token_id)
++        self.num_layers, self.max_ngram = self.multipliers.shape
++        self.num_heads = self.primes.shape[-1]
++
++    @classmethod
++    def build(cls, token_map: Sequence[int], layout: EngramLayout, multipliers: torch.Tensor, pad_id: int) -> "HashTables":
++        """From NgramHashState's inputs: the token map (list), the EngramLayout and the multiplier tensor."""
++        primes = np.asarray(layout.primes, dtype=np.int64)
++        flat = primes.reshape(primes.shape[0], -1)
++        # EngramLayout.offsets: per layer np.cumsum([0, *sizes[:-1]]) over the flattened (n-gram, head) primes
++        offsets = np.concatenate(
++            [np.zeros((flat.shape[0], 1), np.int64), np.cumsum(flat, axis=1)[:, :-1]], axis=1
++        )
++        mult = multipliers.detach().to("cpu").numpy() if hasattr(multipliers, "detach") else multipliers
++        return cls(token_map, mult, primes, offsets, pad_id)
++
++
++def segment_start(tables: HashTables, start: int) -> int:
++    """First history position the hashes of positions >= start read."""
++    return max(0, start - (tables.max_ngram - 1))
++
++
++def host_hashes(tables: HashTables, seg: NDArray[np.int64], start: int, end: int) -> NDArray[np.int64]:
++    """Hash ids [end - start, layers, (max_ngram - 1) * heads] (int64) of positions start..end-1 of one request.
++
++    `seg` holds the request's token ids of positions segment_start(start) .. end-1. Same arithmetic as engram.py's
++    _hash_ids_kernel with the V2 runner's inputs (no slot cache; the chunk and the lookback window both come from the
++    token history): position p hashes ids p, p-1, .., p-max_ngram+1; a negative position or an image-span token blocks
++    that n-gram and every longer one (pad id); n-gram n of head h is
++    (xor over s < n of compressed_id(p - s) * multiplier[layer, s]) mod prime[layer, n-2, h] + offset[layer, n-2, h].
++    """
++    t = tables
++    m, heads = t.max_ngram, t.num_heads
++    n = end - start
++    lo = segment_start(t, start)
++    seg = np.asarray(seg, dtype=np.int64)
++    assert seg.shape == (end - lo,), "token segment does not cover the hashed positions"
++    comp = t.token_map[seg]
++    dead = seg == t.dead_token_id
++    pos = np.arange(start, end, dtype=np.int64)
++    out = np.empty((n, t.num_layers, (m - 1) * heads), dtype=np.int64)
++    for layer in range(t.num_layers):
++        rolling = np.zeros(n, dtype=np.int64)
++        blocked = np.zeros(n, dtype=bool)
++        for shift in range(m):
++            q = pos - shift
++            inside = q >= 0
++            idx = np.where(inside, q - lo, 0)
++            blocked |= ~inside | dead[idx]
++            value = np.where(blocked, t.pad_id, comp[idx])
++            rolling ^= value * t.multipliers[layer, shift]
++            if shift > 0:
++                cols = slice((shift - 1) * heads, shift * heads)
++                out[:, layer, cols] = rolling[:, None] % t.primes[layer, shift - 1][None, :] + t.offsets[layer, cols][None, :]
++    return out
++
++
++
++def after_forward(model: torch.nn.Module, input_batch: InputBatch, req_states: RequestState) -> None:
++    # Called on every non-dummy step, including decode-only/finish, so empty snapshots cancel hints.
++    if not TOKENS:
++        return
++    ht = next((getattr(mod, "_x1_host") for mod in model.modules() if hasattr(mod, "_x1_host")), None)
++    if ht is None:
++        raise RuntimeError("X1 lookahead enabled without host hash tables")
++    buf = getattr(getattr(req_states, "all_token_ids", None), "_uva_buf", None)
++    if buf is None:
++        raise RuntimeError("X1 lookahead requires host-visible prompt token history")
++    # Copy prompt-only segments NOW, while this engine step owns request slots. No deferred UVA view.
++    work = []
++    for i in range(input_batch.num_reqs):
++        if not input_batch.is_prefilling_np[i]:
++            continue
++        slot = int(input_batch.idx_mapping_np[i])
++        start = int(input_batch.num_computed_prefill_tokens_np[i]) + int(input_batch.num_scheduled_tokens[i])
++        end = min(int(input_batch.prefill_len_np[i]), start + TOKENS)
++        if end <= start:
++            continue
++        seg = np.array(buf.np[slot, segment_start(ht, start):end], dtype=np.int64, copy=True)
++        if (seg < 0).any() or (seg >= len(ht.token_map)).any():
++            raise ValueError("X1 lookahead token outside vocabulary")
++        work.append(host_hashes(ht, seg, start, end))
++    for mod in model.modules():
++        emb = getattr(mod, "embed_tokens", None)
++        if not hasattr(mod, "layer_hash_index") or getattr(emb, "_remote_endpoint", None) is None:
++            continue
++        if emb.dp_size != 1:
++            raise RuntimeError("X1 lookahead is TP2-only; DP table sharing unsupported")
++        layer = int(mod.layer_hash_index)
++        arrays = [h[:, layer, emb.head_start:min(emb.head_start+emb.part_n_hash_cols,emb.n_hash_cols)].reshape(-1)
++                  - emb.vocab_start_idx for h in work]
++        rows = np.concatenate(arrays) if arrays else np.empty(0,dtype=np.int64)
++        # Bound before queue publication. Dead/padded heads are left to the exact foreground lookup.
++        rows = rows[(rows >= 0) & (rows < emb.part_num_embeddings)]
++        rows = np.unique(rows)[:8192]
++        emb._disk.replace_lookahead(rows.tolist(), layer)
+--- a/offload/engram/spark/engram_remote.cpp
++++ b/offload/engram/spark/engram_remote.cpp
+@@ -37,6 +37,7 @@
+ #include <stdio.h>
+ 
+ #include "engram_client.h"
++#include "row_lookahead.h"
+ 
+ namespace {
+ 
+@@ -145,6 +146,7 @@
+   }
+ 
+   ~EngramRemoteTable() {
++    if (spin_) RemoteProxy::get().remove(this);
+     stop_.store(true);
+     if (reconnector_.joinable()) reconnector_.join();
+     {
+@@ -156,7 +158,6 @@
+       std::free(dst_s_);
+     }
+     if (spin_) {
+-      RemoteProxy::get().remove(this);
+       if (cudaHostUnregister(ctl_) != cudaSuccess) cudaGetLastError();
+       std::free(ctl_);
+     }
+@@ -176,6 +177,9 @@
+     // GPU-read staging ever shows a coherence problem on a platform)
+     const char* b = getenv("VLLM_ENGRAM_REMOTE_BOUNCE");
+     bounce_ = b && std::string(b) == "1";
++    const char* la = getenv("VLLM_X1_ENGRAM_LOOKAHEAD");
++    la_on_ = la && std::string(la) != "0";
++    bounce_ = bounce_ || la_on_; // hints MUST NEVER overwrite GPU-read staging
+     dst_w_ = st_w_;
+     dst_s_ = st_s_;
+     if (bounce_) {
+@@ -293,7 +297,39 @@
+     return true;
+   }
+ 
+-  std::vector<int64_t> stats() const { return {0, rows_.load() + fb_rows_.load()}; }  // (hits, misses) like the image
++  void replace_lookahead(const std::vector<int64_t>& ids, int priority) {
++    if (!la_on_ || !spin_) throw std::runtime_error("X1 lookahead requires remote spin + private bounce staging");
++    std::lock_guard<std::mutex> g(la_mu_);
++    la_.replace(ids, num_rows_); la_priority_.store(priority);
++  }
++  int lookahead_priority() const { return la_priority_.load(); }
++  bool poll_lookahead() {
++    if (!la_on_ || down_.load()) return false;
++    // Never compete with another reader or steal a foreground request's registered destination.
++    std::unique_lock<std::mutex> use(serve_mu_, std::try_to_lock);
++    if (!use.owns_lock()) return false;
++    std::unique_lock<std::mutex> client(client_mu_, std::try_to_lock);
++    if (!client.owns_lock() || !client_.usable()) return false;
++    std::vector<int64_t> ids; uint64_t version;
++    {
++      std::lock_guard<std::mutex> g(la_mu_);
++      if (!la_.pending()) return false;
++      version=la_.version(); ids=la_.take();
++    }
++    ofl_result result{}; std::string msg;
++    // Bound a non-preemptible hint burst; no disk fallback on a hint miss/failure.
++    int rc=client_.lookup(ids.data(), ids.size(), std::min<int64_t>(timeout_ns_, 2000000LL), &result, msg);
++    std::lock_guard<std::mutex> g(la_mu_);
++    if (rc == OFL_OK) {
++      if (la_.publish(version,ids,dst_w_,dst_s_)) la_rows_.fetch_add(ids.size());
++    } else {
++      la_.clear(); client_.close(); down_.store(true);
++      rlog("X1 lookahead failed rc=%d (%s); hints dropped, foreground exact fallback retained",rc,msg.c_str());
++    }
++    return true;
++  }
++
++  std::vector<int64_t> stats() const { return {la_hits_.load(), rows_.load() + fb_rows_.load()}; }  // (hits, misses) like the image
+   std::vector<int64_t> spin_stats() const { return {served_.load(), serve_ns_.load(), serve_max_ns_.load(), errors_.load()}; }
+ 
+   std::map<std::string, int64_t> remote_stats() const {
+@@ -309,6 +345,7 @@
+                                      {"refusals", refusals_.load()},
+                                      {"reconnects", reconnects_.load()},
+                                      {"down", down_.load() ? 1 : 0}};
++    m["lookahead_rows"]=la_rows_.load(); m["lookahead_hit_rows"]=la_hits_.load();
+     for (int k = 0; k < 32; k++) m["hist_log2ns_" + std::to_string(k)] = hist_[k].load();
+     return m;
+   }
+@@ -354,23 +391,40 @@
+   // n rows of ids into (w, s): remote when possible, else (or on any failure) the image's exact local reader.
+   void serve(const int64_t* ids, uint8_t* w, uint8_t* s, int64_t n) {
+     if (n <= 0) return;
++    std::lock_guard<std::mutex> use(serve_mu_);
++    std::vector<int64_t> missing; std::vector<size_t> indices;
++    if (la_on_) {
++      std::lock_guard<std::mutex> g(la_mu_);
++      la_.split(ids,w,s,(size_t)n,missing,indices);
++      if (missing.empty()) { la_hits_.fetch_add(n); return; }
++    }
+     if (w == st_w_ && s == st_s_ && n <= max_rows_ && !down_.load(std::memory_order_acquire)) {
+       std::unique_lock<std::mutex> l(client_mu_, std::try_to_lock);  // held only while reconnecting
+       if (l.owns_lock() && client_.usable()) {
+         ofl_result res{};
+         std::string msg;
+         const int64_t t0 = now_ns();
+-        const int rc = client_.lookup(ids, n, timeout_ns_, &res, msg);
++        const int64_t remote_n = la_on_ ? (int64_t)missing.size() : n;
++        const int64_t* remote_ids = la_on_ ? missing.data() : ids;
++        const int rc = client_.lookup(remote_ids, remote_n, timeout_ns_, &res, msg);
+         if (rc == OFL_OK && bounce_) {
+-          std::memcpy(w, dst_w_, (size_t)n * engram::kRowBytes);
+-          std::memcpy(s, dst_s_, (size_t)n * engram::kScaleBytes);
++          if (la_on_) {
++            for (size_t i=0;i<indices.size();++i) {
++              std::memcpy(w+indices[i]*engram::kRowBytes,dst_w_+i*engram::kRowBytes,engram::kRowBytes);
++              std::memcpy(s+indices[i]*engram::kScaleBytes,dst_s_+i*engram::kScaleBytes,engram::kScaleBytes);
++            }
++            la_hits_.fetch_add(n-remote_n);
++          } else {
++            std::memcpy(w, dst_w_, (size_t)n * engram::kRowBytes);
++            std::memcpy(s, dst_s_, (size_t)n * engram::kScaleBytes);
++          }
+         }
+         const int64_t dt = now_ns() - t0;
+         if (rc == OFL_OK) {
+           maybe_log(t0);
+           reqs_.fetch_add(1, std::memory_order_relaxed);
+-          rows_.fetch_add(n, std::memory_order_relaxed);
+-          bytes_.fetch_add(n * (int64_t)(engram::kRowBytes + engram::kScaleBytes), std::memory_order_relaxed);
++          rows_.fetch_add(remote_n, std::memory_order_relaxed);
++          bytes_.fetch_add(remote_n * (int64_t)(engram::kRowBytes + engram::kScaleBytes), std::memory_order_relaxed);
+           remote_ns_.fetch_add(dt, std::memory_order_relaxed);
+           if (dt > remote_max_ns_.load(std::memory_order_relaxed)) remote_max_ns_.store(dt, std::memory_order_relaxed);
+           int k = 0;
+@@ -442,6 +496,7 @@
+                                       (size_t)max_rows_ * engram::kScaleBytes, msg);
+       }
+       if (ok) {
++        { std::lock_guard<std::mutex> g(la_mu_); la_.clear(); }
+         reconnects_.fetch_add(1);
+         down_.store(false, std::memory_order_release);
+         rlog("%s: remote rows again from %s (%s)", name_.c_str(), endpoint_.c_str(), client_.describe().c_str());
+@@ -455,6 +510,11 @@
+     }
+   }
+ 
++  bool la_on_=false;
++  std::mutex la_mu_, serve_mu_;
++  x1::RowLookahead la_;
++  std::atomic<int> la_priority_{1};
++  std::atomic<int64_t> la_rows_{0}, la_hits_{0};
+   EngramDiskTable local_;  // the image's reader: the exact fallback
+   int64_t row_start_, num_rows_;
+   std::string name_, endpoint_, identity_hex_;
+@@ -508,6 +568,14 @@
+     }
+     bool busy = false;
+     for (EngramRemoteTable* t : local) busy |= t->poll();
++    if (!busy) {
++      // Current layer 1/14 lookups ALWAYS beat next-chunk lookahead; layer 1's earlier deadline wins hints.
++      auto ordered=local;
++      std::stable_sort(ordered.begin(),ordered.end(),[](auto* a,auto* b) {
++        return a->lookahead_priority()<b->lookahead_priority();
++      });
++      for (auto* t : ordered) if (t->poll_lookahead()) { busy=true; break; }
++    }
+     const int64_t now = now_ns();
+     if (busy) {
+       last = now;
+@@ -531,6 +599,7 @@
+            pybind11::arg("timeout_ms") = 100, pybind11::arg("retry_ms") = 5000, pybind11::arg("name") = "",
+            pybind11::arg("required") = true)
+       .def("register_staging", &EngramRemoteTable::register_staging, pybind11::call_guard<pybind11::gil_scoped_release>())
++      .def("replace_lookahead", &EngramRemoteTable::replace_lookahead)
+       .def("read_rows", &EngramRemoteTable::read_rows, pybind11::call_guard<pybind11::gil_scoped_release>())
+       .def("enqueue_read", &EngramRemoteTable::enqueue_read)
+       .def("enable_spin", &EngramRemoteTable::enable_spin, pybind11::arg("spin_ms") = 1000,
+--- a/offload/engram/spark/stage_overlay.sh
++++ b/offload/engram/spark/stage_overlay.sh
+@@ -10,7 +10,7 @@
+ FILES=(manifest.json
+        offload/transport/ofl.h offload/transport/ofl.cpp
+        offload/engram/engram_proto.h offload/engram/engram_proto.cpp offload/engram/engram_client.h
+-       offload/engram/spark/engram_remote.cpp offload/engram/spark/engram.py offload/engram/spark/py/sitecustomize.py)
++       offload/engram/spark/engram_remote.cpp offload/engram/spark/row_lookahead.h offload/engram/spark/engram.py offload/engram/spark/py/sitecustomize.py)
+ IMAGE_ENGRAM_PY=bf95ad9a61b0f5f211f00c21e4dc1fd46d2404fcfae54ab53690ec2e951b05e5
+ IMAGE_ENGRAM_DISK=3ec20a0111b15c05d7c41d33b45acce4392a46743057f9535e1919e21b45ef48
+ IMG_DIR=/usr/local/lib/python3.12/dist-packages/vllm/models/deepseek_v41/common
+--- /dev/null
++++ b/offload/engram/spark/row_lookahead.h
+@@ -0,0 +1,83 @@
++// SPDX-License-Identifier: Apache-2.0
++// X1 remote adaptation of HeNryous 0078 (afe4d5e). No transport or threading here.
++#pragma once
++#include <algorithm>
++#include <array>
++#include <cstdint>
++#include <cstring>
++#include <deque>
++#include <list>
++#include <stdexcept>
++#include <unordered_map>
++#include <unordered_set>
++#include <vector>
++
++namespace x1 {
++class RowLookahead {
++ public:
++  static constexpr size_t kBytes = 264;
++  static constexpr size_t kMaxRows = 8192;
++  static constexpr size_t kBurst = 512;
++  using Row = std::array<uint8_t, kBytes>;
++  // All methods called with the owning table's la_mu_; one pending, replaceable snapshot.
++  void replace(const std::vector<int64_t>& ids, int64_t bound) {
++    if (ids.size() > kMaxRows) throw std::invalid_argument("lookahead rows exceed 8192");
++    for (auto id : ids) if (id < 0 || id >= bound) throw std::invalid_argument("lookahead row out of range");
++    ++version_;
++    pending_.clear();
++    std::unordered_set<int64_t> seen;
++    for (auto id : ids) if (!rows_.count(id) && seen.insert(id).second) pending_.push_back(id);
++  }
++  uint64_t version() const { return version_; }
++  bool pending() const { return !pending_.empty(); }
++  std::vector<int64_t> take() {
++    std::vector<int64_t> out;
++    while (!pending_.empty() && out.size() < kBurst) {
++      out.push_back(pending_.front()); pending_.pop_front();
++    }
++    return out;
++  }
++  void clear() { ++version_; pending_.clear(); rows_.clear(); order_.clear(); }
++  bool copy(const int64_t* ids, uint8_t* w, uint8_t* s, size_t n) {
++    for (size_t i=0; i<n; ++i) if (!rows_.count(ids[i])) return false; // no partial publication
++    for (size_t i=0; i<n; ++i) {
++      auto& item = rows_.at(ids[i]);
++      std::memcpy(w+i*256, item.row.data(), 256);
++      std::memcpy(s+i*8, item.row.data()+256, 8);
++      order_.splice(order_.end(), order_, item.order);
++    }
++    return true;
++  }
++  // Foreground partial hits are useful even when a 4096-token chunk exceeds the cache.
++  // Missing rows are fetched compactly into the PRIVATE bounce destination, then scattered by index.
++  void split(const int64_t* ids, uint8_t* w, uint8_t* s, size_t n,
++             std::vector<int64_t>& misses, std::vector<size_t>& indices) {
++    misses.clear(); indices.clear();
++    for (size_t i=0; i<n; ++i) {
++      if (!copy(ids+i,w+i*256,s+i*8,1)) { misses.push_back(ids[i]); indices.push_back(i); }
++    }
++  }
++  bool publish(uint64_t version, const std::vector<int64_t>& ids, const uint8_t* w, const uint8_t* s) {
++    if (version != version_) return false; // cancel/restart/reconnect while RPC was in flight
++    for (size_t i=0; i<ids.size(); ++i) {
++      auto hit = rows_.find(ids[i]);
++      if (hit == rows_.end()) {
++        if (rows_.size() == kMaxRows) { rows_.erase(order_.front()); order_.pop_front(); }
++        order_.push_back(ids[i]);
++        Item item{}; item.order=std::prev(order_.end());
++        hit=rows_.emplace(ids[i], item).first;
++      }
++      std::memcpy(hit->second.row.data(), w+i*256, 256);
++      std::memcpy(hit->second.row.data()+256, s+i*8, 8);
++    }
++    return true;
++  }
++  size_t size() const { return rows_.size(); }
++ private:
++  struct Item { Row row; std::list<int64_t>::iterator order; };
++  uint64_t version_=0;
++  std::deque<int64_t> pending_;
++  std::list<int64_t> order_;
++  std::unordered_map<int64_t, Item> rows_;
++};
++} // namespace x1
